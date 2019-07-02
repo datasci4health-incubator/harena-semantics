@@ -1,18 +1,20 @@
-# Using lightweight alpine image
-FROM python:3.6-alpine
+# Using alpine image
+FROM alpine:latest
 
 # Installing packages
 RUN apk update
-RUN pip install --no-cache-dir pipenv
+RUN apk add --no-cache python3-dev \
+    && pip3 install --upgrade pip \
+    && pip install --no-cache-dir pipenv
 
 # Defining working directory and adding source code
-WORKDIR ./app
+WORKDIR /app
 COPY Pipfile Pipfile.lock bootstrap.sh ./
-COPY src .
+COPY src ./src
 
 # Install API dependencies
 RUN pipenv install
 
 # Start app
 EXPOSE 5000
-ENTRYPOINT ["./app/bootstrap.sh"]
+ENTRYPOINT ["./bootstrap.sh"]
