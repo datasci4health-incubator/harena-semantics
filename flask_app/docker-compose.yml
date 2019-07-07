@@ -10,6 +10,8 @@ services:
       - ./:/app
     depends_on:
       - solr
+    container_name: harena_asm
+
 
   solr:
     image: solr
@@ -21,6 +23,7 @@ services:
       - docker-entrypoint.sh
       - solr-precreate
       - pmc
+    container_name: solr
 
 volumes:
   data:
