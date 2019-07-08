@@ -15,7 +15,7 @@ RUN pipenv install pysolr
 
 ## Start app
 EXPOSE 5000
-ENTRYPOINT ["./bootstrap.sh"]
+ENTRYPOINT ["./bootstrap.sh", "initialseeder.py"]
 
 
 
