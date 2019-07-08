@@ -16,4 +16,3 @@
 A docker container project is available
 
 [Unreleased]: https://github.com/datasci4health/harena-asm/compare/v0.0.1...HEAD
-
