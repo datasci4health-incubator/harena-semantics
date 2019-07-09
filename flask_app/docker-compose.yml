@@ -1,0 +1,27 @@
+version: '3'
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - SOLR_HOST=solr
+    volumes:
+      - ../:/app
+    depends_on:
+      - solr
+
+  solr:
+    image: solr
+    ports:
+      - "8983:8983"
+    volumes:
+      - data:/opt/solr/server/solr/mycores
+    entrypoint:
+      - docker-entrypoint.sh
+      - solr-precreate
+      - pmc
+
+volumes:
+  data:
+
