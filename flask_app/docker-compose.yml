@@ -7,7 +7,7 @@ services:
     environment:
       - SOLR_HOST=solr
     volumes:
-      - ./:/app
+      - ../:/app
     depends_on:
       - solr
 
