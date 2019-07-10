@@ -6,7 +6,7 @@ RUN apk update
 RUN pip install --no-cache-dir pipenv
 
 # Defining working directory and adding source code
-WORKDIR /app
+WORKDIR /app/flask_app
 COPY Pipfile Pipfile.lock bootstrap.sh ./
 COPY src ./src
 
@@ -15,7 +15,7 @@ RUN pipenv install pysolr
 
 ## Start app
 EXPOSE 5000
-ENTRYPOINT ["./bootstrap.sh"]
+ENTRYPOINT ["./bootstrap.sh", "initialseeder.py"]
 
 
 
