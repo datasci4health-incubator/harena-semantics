@@ -6,20 +6,12 @@ URL = 'http://' + os.environ['SOLR_HOST'] + ':8983/solr/pmc'
 
 solr = pysolr.Solr(URL, results_cls=dict)
 
-# solr.add([
-#     {
-#         "id": "doc_1",
-#         "title": "A test document invocado",
-#     },
-#     {
-#         "id": "doc_2",
-#         "title": "The avocado: Tasty or Dangerous?",
-#         "_doc": [
-#             {"id": "child_doc_1", "title": "peel"},
-#             {"id": "child_doc_2", "title": "seed"},
-#         ]
-#     },
-# ])
+
+def getValue(element):
+    if element.text is not None:
+        return "".join(element.text + "".join([et.tostring(e, encoding='unicode') for e in list(element)]))
+
+
 with os.scandir('../../documents/pmc') as entries1:
     # Two chained for loops iterate over the original folder structure of the CDS Track
     for entry1 in entries1:
@@ -57,14 +49,14 @@ with os.scandir('../../documents/pmc') as entries1:
 
                                 if title_group_et.find('article-title') is not None:
                                     article_title_et = title_group_et.find('article-title')
-                                    article_title = "".join(str([article_title_et.text] + [str(et.tostring(e)) for e in list(article_title_et)]))
+                                    article_title = getValue(article_title_et)
                                     title_group.update({'article-title': article_title})
 
                                 article.update({'title-group': title_group})
 
                                 subtitles = []
                                 for subtitle_et in title_group_et.findall('subtitle'):
-                                    subtitles.append(et.tostring(subtitle_et))
+                                    subtitles.append(getValue(subtitle_et))
                                     title_group.update({'subtitle': subtitles})
 
                             abstracts = []
@@ -72,8 +64,8 @@ with os.scandir('../../documents/pmc') as entries1:
                                 abstract = dict()
 
                                 ps = []
-                                for p in abstract_et.findall('p'):
-                                    ps.append(et.tostring(p))
+                                for p_et in abstract_et.findall('p'):
+                                    ps.append(getValue(p_et))
                                     abstract.update({'p': ps})
 
                                 secs = []
@@ -82,12 +74,12 @@ with os.scandir('../../documents/pmc') as entries1:
 
                                     if sec_et.find('title') is not None:
                                         sec_title_et = sec_et.find('title')
-                                        sec_title = "".join(str([sec_title_et.text] + [et.tostring(e) for e in sec_title_et.getchildren()]))
+                                        sec_title = getValue(sec_title_et)
                                         sec.update({'title': sec_title})
 
                                     if sec_et.find('p') is not None:
                                         p_et = sec_et.find('p')
-                                        p = "".join(str([p_et.text] + [et.tostring(e) for e in p_et.getchildren()]))
+                                        p = getValue(p_et)
                                         sec.update({'p': p})
 
                                     secs.append(sec)
@@ -102,7 +94,6 @@ with os.scandir('../../documents/pmc') as entries1:
 
                                 kwds = []
                                 for kwd_et in kwd_group_et.findall("kwd"):
-                                    print(kwd_et.text)
                                     kwds.append(kwd_et.text)
 
                                 kwd_group.update({'kwd': kwds})
@@ -115,7 +106,7 @@ with os.scandir('../../documents/pmc') as entries1:
 
                                 ps = []
                                 for p_et in body_et.findall('p'):
-                                    p = "".join(str([p_et.text] + [str(et.tostring(e)) for e in p_et.getchildren()]))
+                                    p = getValue(p_et)
                                     ps.append(p)
                                     body.update({'p': ps})
 
@@ -125,22 +116,20 @@ with os.scandir('../../documents/pmc') as entries1:
 
                                     if sec_et.find('title') is not None:
                                         sec_title_et = sec_et.find('title')
-                                        sec_title = "".join(str([sec_title_et.text] + [et.tostring(e) for e in sec_title_et.getchildren()]))
+                                        sec_title = getValue(sec_title_et)
                                         sec.update({'title': sec_title})
 
                                     if sec_et.find('p') is not None:
                                         p_et = sec_et.find('p')
-                                        p = "".join(str([p_et.text] + [et.tostring(e) for e in p_et.getchildren()]))
+                                        p = getValue(p_et)
                                         sec.update({'p': p})
 
-                                        p = sec_et.find('p')
-                                        sec.update({'p': et.tostring(p)})
                                     secs.append(sec)
                                     body.update({'sec': secs})
                                 bodies.append(body)
                                 article.update({'body': bodies})
 
-                            print(article)
+                            # print(article)
                             # with open('data.json', 'w') as fp:
                             #     json.dump(article, fp)
 
@@ -155,4 +144,3 @@ with os.scandir('../../documents/pmc') as entries1:
 
 print('Documents processed:')
 print(i)
-
