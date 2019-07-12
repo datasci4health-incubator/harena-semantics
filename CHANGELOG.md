@@ -1,7 +1,3 @@
-<a name="unreleased"></a>
-## [Unreleased]
-
-
 <a name="v0.1.0"></a>
 ## [v0.1.0] - 2019-07-12
 ### Build
