@@ -6,7 +6,7 @@
 * [Table of Contents](#table-of-contents)
 * [Getting Started](#getting-started)
   * [Running as Docker containers](#running-as-docker-containers)
-* [System Requirements](#system-requirements)
+<!-- * [System Requirements](#system-requirements)
   * [For running as Docker containers](#for-running-as-linuxwindows-docker-containers)
   * [For running locally](#for-running-locally)
 * [Configuration](#configuration)
@@ -14,7 +14,7 @@
   * [Virtualenvs: Database](#virtualenvs-database)
 * [Contributing](#contributing)
   * [Project organization](#project-organization)
-  * [Branch organization (future CI/CD)](#branch-organization-future-cicd)
+  * [Branch organization (future CI/CD)](#branch-organization-future-cicd)-->
 
    
 
@@ -27,4 +27,5 @@ At the ```flask_app/``` folder run the command to build the docker image:
 ```docker build -t asm:latest .```
 
 Then, run the command to start the docker container:
-```bash docker-compose up```
+
+```docker-compose up```
