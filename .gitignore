@@ -98,6 +98,9 @@ venv.bak/
 .ropeproject
 
 # mkdocs documentation
+
+# Pycharm
+.idea
 /site
 
 # Pycharm
@@ -106,5 +109,5 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-# Documents to index
+# Index document sources
 ../../documents/
