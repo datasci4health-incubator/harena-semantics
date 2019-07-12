@@ -103,5 +103,11 @@ venv.bak/
 .idea
 /site
 
+# Pycharm
+.idea
+
 # mypy
 .mypy_cache/
+
+# Index document sources
+../../documents/

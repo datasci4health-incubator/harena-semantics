@@ -24,7 +24,7 @@ services:
       - docker-entrypoint.sh
       - solr-precreate
       - pmc
-    container_name: solr
+    container_name: harena_solr
 
 volumes:
   data:
