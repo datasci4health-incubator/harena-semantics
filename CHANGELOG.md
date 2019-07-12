@@ -9,7 +9,7 @@ A solr service to index pmc documents is available
 
 
 <a name="v0.0.1"></a>
-## v0.0.1 - 2019-07-07
+## [v0.0.1] - 2019-07-07
 ### Docs
 - **changelog:** Add a changelog
 
@@ -21,6 +21,7 @@ A solr service to index pmc documents is available
 
 A docker container project is available
 
-[Unreleased]: https://github.com/datasci4health/harena-asm/compare/v0.1.0...HEAD
-[v0.1.0]: https://github.com/datasci4health/harena-asm/compare/v0.0.1...v0.1.0
+
+[Unreleased]: https://github.com/datasci4health-incubator/harena-asm/compare/v0.1.0...HEAD
+[v0.1.0]: https://github.com/datasci4health-incubator/harena-asm/compare/v0.0.1...v0.1.0
 
