@@ -1,7 +1,6 @@
 from flask import Flask, jsonify, request
-import pysolr
-
-import logging, sys, os, requests
+import pysolr, os
+import logging, sys
 app = Flask(__name__)
 
 incomes = [
@@ -9,40 +8,31 @@ incomes = [
 ]
 
 
-@app.route('/search')
-def get_search():
-  URL = 'http://'+ os.environ['SOLR_HOST']+':8983/solr/pmc'
-  solr = pysolr.Solr(URL, results_cls=dict)
-  r = solr.search('title:banana', **{'fl':'title'})
-  # logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
-  # logging.debug('aquiiiiiiiiiiiiiiiiiiii')
-
-  return r
-
-@app.route('/add')
-def add():
-  URL = 'http://'+ os.environ['SOLR_HOST']+':8983/solr/pmc'
-  solr = pysolr.Solr(URL, results_cls=dict)
-
-  solr.add([
-    {
-      "id": "doc_1",
-      "title": "A test document invocado",
-    },
-    {
-      "id": "doc_2",
-      "title": "The avocado: Tasty or Dangerous?",
-      "_doc": [
-        {"id": "child_doc_1", "title": "peel"},
-        {"id": "child_doc_2", "title": "seed"},
-      ]
-    },
-  ])
-  return jsonify(incomes)
-
 @app.route('/incomes')
 def get_incomes():
-  jsonify(incomes)
+  solr = pysolr.Solr('http://' + os.environ['SOLR_HOST']+':8983/solr/pmc')
+  # solr.add([
+  #   {
+  #     "id": "doc_4",
+  #     "title": "A test document",
+  #   },
+  #   {
+  #     "id": "doc_5",
+  #     "title": "The Banana: Tasty or Dangerous?",
+  #     "_doc": [
+  #       {"id": "child_doc_1", "title": "peel"},
+  #       {"id": "child_doc_2", "title": "seed"},
+  #     ]
+  #   },
+  # ])
+  r = solr.search('seed')
+  logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
+  logging.debug("Saw {0} result(s).".format(len(r)))
+  for r1 in r:
+    logging.debug("The title is '{0}'.".format(r1['title']))
+  print(r)
+  return jsonify(incomes)
+
 
 @app.route('/incomes', methods=['POST'])
 def add_income():
