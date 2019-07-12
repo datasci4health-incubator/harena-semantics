@@ -1,5 +1,11 @@
-<a name="unreleased"></a>
-## [Unreleased]
+<a name="v0.1.0"></a>
+## [v0.1.0] - 2019-07-12
+### Build
+- **docker:** Solr container is indexing PMC documents
+
+### BREAKING CHANGE
+
+A solr service to index pmc documents is available
 
 
 <a name="v0.0.1"></a>
@@ -15,4 +21,6 @@
 
 A docker container project is available
 
-[Unreleased]: https://github.com/datasci4health/harena-asm/compare/v0.0.1...HEAD
+[Unreleased]: https://github.com/datasci4health/harena-asm/compare/v0.1.0...HEAD
+[v0.1.0]: https://github.com/datasci4health/harena-asm/compare/v0.0.1...v0.1.0
+

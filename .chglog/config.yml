@@ -2,7 +2,7 @@ style: github
 template: CHANGELOG.tpl.md
 info:
   title: CHANGELOG
-  repository_url: https://github.com/datasci4health/harena-asm
+  repository_url: https://github.com/datasci4health-incubator/harena-asm
 options:
   commits:
     # filters:
