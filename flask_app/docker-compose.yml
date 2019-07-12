@@ -2,6 +2,7 @@ version: '3'
 services:
   web:
     build: .
+    image: asm:v0.1.0
     ports:
       - "5000:5000"
     environment:
@@ -10,6 +11,7 @@ services:
       - ../:/app
     depends_on:
       - solr
+    container_name: harena_asm
 
   solr:
     image: solr
@@ -21,6 +23,7 @@ services:
       - docker-entrypoint.sh
       - solr-precreate
       - pmc
+    container_name: harena_solr
 
 volumes:
   data:
