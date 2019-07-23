@@ -7,8 +7,7 @@ verify_ssl = true
 
 [packages]
 flask = "*"
-spacy = "*"
 pysolr = "*"
 
 [requires]
-python_version = "3.7"
+python_version = "3.6"
