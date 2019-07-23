@@ -112,4 +112,4 @@ venv.bak/
 # Index document sources
 documents/
 
-.chglog
+.chglog/
