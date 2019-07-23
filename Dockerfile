@@ -9,6 +9,8 @@ RUN pip install --upgrade setuptools
 # Defining working directory and adding source code
 WORKDIR /app/flask_app
 
+COPY ./src/flask_app .
+
 # Install API dependencies
 RUN pipenv install pysolr spacy
 
