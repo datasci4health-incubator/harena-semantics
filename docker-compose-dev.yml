@@ -5,5 +5,5 @@ services:
 
   web:
     volumes:
-      - ./src/flask_app:/app
-    command: "bash -c \" npm install ; ./bootstrap.sh \" "
+      - ./:/app
+#    command: "bash -c \" npm install ; ./bootstrap.sh \" "
