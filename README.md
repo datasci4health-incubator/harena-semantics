@@ -22,10 +22,24 @@
 
 ### Running as Docker containers
 
-At the ```flask_app/``` folder run the command to build the docker image:
+At the ```harena-asm``` root folder run the command to start the docker container:
 
-```docker build -t asm:latest .```
+```docker-compose -f docker-compose.yml -f docker-compose-dev.yml up```
 
-Then, run the command to start the docker container:
+When start process is done, you can get access to the container through the sh:
 
-```docker-compose up```
+```bash
+docker exec -it harena-asm sh
+```
+
+Inside the harena-asm container, run the following commands in order to index the pmc documents on the solr server:
+
+```bash
+cd src/
+pipenv run python pmc_indexer.py
+```
+
+You can access the solr admin at (http://localhost:8983)
+
+
+

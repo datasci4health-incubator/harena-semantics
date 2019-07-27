@@ -7,3 +7,7 @@ services:
     volumes:
       - ./:/app
 #    command: "bash -c \" npm install ; ./bootstrap.sh \" "
+  
+  solr:
+    volumes:
+      - ./solr:/opt/solr/server/solr/mycores
