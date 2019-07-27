@@ -1,7 +1,7 @@
 version: '3'
 services:
   web:
-    image: harena-asm:latest
+    image: faguim/harena-asm:latest
     ports:
       - "5000:5000"
     environment:
