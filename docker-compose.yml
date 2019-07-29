@@ -4,6 +4,8 @@ services:
     image: faguim/harena-asm:latest
     ports:
       - "5000:5000"
+    volumes:
+      - ./:/app
     environment:
       - SOLR_HOST=solr
     depends_on:
@@ -11,17 +13,18 @@ services:
     container_name: harena-asm
 
 
+
   solr:
     image: solr
     ports:
       - "8983:8983"
     volumes:
-      - data:/opt/solr/server/solr/mycores
+      - ./solr:/opt/solr/server/solr/mycores
     entrypoint:
       - docker-entrypoint.sh
       - solr-precreate
       - pmc
-    container_name: harena_solr
+    container_name: harena-solr
 
 volumes:
   data:
