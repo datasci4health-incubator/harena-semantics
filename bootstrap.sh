@@ -1,10 +1,7 @@
-#!/bin/sh
+#!/bin/bash
 export FLASK_APP=./src/index.py
 export FLASK_ENV=development
 source $(pipenv --venv)/bin/activate
-
-#pip install spacy
-#python -m spacy download en_core_web_sm
 
 if [[ ! -d ./documents ]]; then
     mkdir ./documents/
@@ -33,5 +30,7 @@ if [[ ! -d ./documents/pmc/pmc-text-03 ]]; then
         rm pmc-text-03.tar.gz
     fi
 fi
+
+python -m spacy download en_core_web_sm
 
 flask run -h 0.0.0.0

@@ -1,7 +1,7 @@
 version: '3'
 services:
   web:
-    image: faguim/harena-asm:latest
+    image: faguim/harena-asm:v0.1.0
     ports:
       - "5000:5000"
     volumes:
