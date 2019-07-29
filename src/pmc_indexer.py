@@ -12,7 +12,7 @@ def getValue(element):
         return "".join(element.text + "".join([et.tostring(e, encoding='unicode') for e in list(element)]))
 
 
-with os.scandir('../../documents/pmc') as entries1:
+with os.scandir('../documents/pmc') as entries1:
     # Two chained for loops iterate over the original folder structure of the CDS Track
     for entry1 in entries1:
         print(entry1.name)
