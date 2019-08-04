@@ -9,6 +9,7 @@ verify_ssl = true
 flask = "*"
 pysolr = "*"
 spacy = "*"
+marshmallow = "*"
 
 [requires]
 python_version = "3.6"
