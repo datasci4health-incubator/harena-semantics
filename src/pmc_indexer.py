@@ -2,7 +2,7 @@ import os, json
 import pysolr
 import xml.etree.ElementTree as et
 
-URL = 'http://' + os.environ['SOLR_HOST'] + ':8983/solr/pmc'
+URL = 'http://' + os.environ['SOLR_HOST'] + ':8983/solr/pmc2'
 
 solr = pysolr.Solr(URL, results_cls=dict)
 
@@ -34,30 +34,22 @@ with os.scandir('../documents/pmc') as entries1:
                             article = dict()
                             article.update({'article-type': article_et.attrib.get('article-type')})
 
-                            articles_id = []
                             for article_id_et in article_et.findall("./front/article-meta/article-id"):
-                                article_id = dict()
-                                article_id.update({'pub-id-type': article_id_et.attrib.get('pub-id-type')})
-                                article_id.update({'value': article_id_et.text})
-                                articles_id.append(article_id)
-                                article.update({'article-id': articles_id})
+                                if article_id_et.attrib.get('pub-id-type') == 'pmc':
+                                    article.update({'pmc': article_id_et.text})
 
                             title_group_et = article_et.find("./front/article-meta/title-group")
 
                             if title_group_et is not None:
-                                title_group = dict()
-
                                 if title_group_et.find('article-title') is not None:
                                     article_title_et = title_group_et.find('article-title')
                                     article_title = getValue(article_title_et)
-                                    title_group.update({'article-title': article_title})
-
-                                article.update({'title-group': title_group})
+                                    article.update({'title': article_title})
 
                                 subtitles = []
                                 for subtitle_et in title_group_et.findall('subtitle'):
                                     subtitles.append(getValue(subtitle_et))
-                                    title_group.update({'subtitle': subtitles})
+                                    article.update({'subtitle': subtitles})
 
                             abstracts = []
                             for abstract_et in article_et.findall("./front/article-meta/abstract"):
@@ -88,17 +80,14 @@ with os.scandir('../documents/pmc') as entries1:
                                 abstracts.append(abstract)
                                 article.update({'abstract': abstracts})
 
-                            kwd_groups = []
+                            kwds = []
                             for kwd_group_et in article_et.findall("./front/article-meta/kwd-group"):
                                 kwd_group = dict()
 
-                                kwds = []
                                 for kwd_et in kwd_group_et.findall("kwd"):
                                     kwds.append(kwd_et.text)
 
-                                kwd_group.update({'kwd': kwds})
-                                kwd_groups.append(kwd_group)
-                                article_id.update({'kwd-groups': kwd_groups})
+                                article.update({'kwd': kwds})
 
                             bodies = []
                             for body_et in article_et.findall('./body'):

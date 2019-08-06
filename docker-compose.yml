@@ -19,10 +19,10 @@ services:
     ports:
       - "8983:8983"
     volumes:
-      - ./solr/:/opt/solr/server/solr/mycores
+      - ./solr/:/var/solr/
     entrypoint:
       - docker-entrypoint.sh
       - solr-precreate
-      - pmc
+      - pmc2
     container_name: harena-solr
 
