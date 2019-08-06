@@ -1,10 +1,16 @@
 import xml.etree.ElementTree as et
-import json
+import pysolr, json, os
+
 from model.topic import Topic
 
 TOPICS_FILE_LOCATION = '../resources/topics2014.xml'
+SOLR_URL = 'http://' + os.environ['SOLR_HOST'] + ':8983/solr/'
 
-filter = 'randomized controlled trial[Publication Type] OR randomized[Title/Abstract] OR placebo[Title/Abstract]'
+PMC_URL = SOLR_URL + 'pmc/'
+
+filter = '\'randomized controlled trial\'[Publication Type]OR ' \
+         'title:randomized OR abstract:randomized OR ' \
+         'title:placebo OR abstract:placebo'
 
 print(filter)
 
@@ -22,24 +28,28 @@ def get_topics():
 
         topic = Topic(description, summary, number, type)
 
-        # print(topic)
-        topic = json.dumps(topic.__dict__)
+        # topic1 = json.dumps(topic.__dict__)
+        # print(topic1.description)
+
         topics.append(topic)
     return topics
 
-def filterPapers():
+# def filterPapers():
 
 
 def searchByCategory(topicDescription, topicNumber):
-
-
-def experiment(topics):
-    for topic in topics:
-        searchByCategory(topic.description, topic.number)
-
-
-
+    solr = pysolr.Solr(PMC_URL)
+    results = solr.search('title-group:pub-id-type')
+    # print(results)
+    # solr.ping()
+    for result in results:
+        print("The title is '{0}'.".format(result['title-group']))
 
 topics = get_topics()
-#
+
 # print(topics)
+
+for topic in topics:
+    searchByCategory(topic.description, topic.number)
+
+#
