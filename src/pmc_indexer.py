@@ -2,7 +2,7 @@ import os, json
 import pysolr
 import xml.etree.ElementTree as et
 
-URL = 'http://' + os.environ['SOLR_HOST'] + ':8983/solr/pmc2'
+URL = 'http://' + os.environ['SOLR_HOST'] + ':8983/solr/pmc'
 
 solr = pysolr.Solr(URL, results_cls=dict)
 
@@ -12,21 +12,23 @@ def getValue(element):
         return "".join(element.text + "".join([et.tostring(e, encoding='unicode') for e in list(element)]))
 
 
+i = 0
 with os.scandir('../documents/pmc') as entries1:
     # Two chained for loops iterate over the original folder structure of the CDS Track
+    # Here is pmc-text-xx/
     for entry1 in entries1:
         print(entry1.name)
+
+        # Here is pmc-text-xx/xx/
         with os.scandir(entry1.path) as entries2:
             for entry2 in entries2:
                 print(entry2.name)
                 articles = []
                 with os.scandir(entry2.path) as documents:
-                    i = 0
 
                     # Here we have each document in fact
                     for document in documents:
                         try:
-                            i = i + 1
                             print(document.path)
                             tree = et.parse(document.path)
                             article_et = tree.getroot()
@@ -53,76 +55,59 @@ with os.scandir('../documents/pmc') as entries1:
 
                             abstracts = []
                             for abstract_et in article_et.findall("./front/article-meta/abstract"):
-                                abstract = dict()
+                                for p_et in abstract_et.findall('./p'):
+                                    abstracts.append(getValue(p_et))
 
-                                ps = []
-                                for p_et in abstract_et.findall('p'):
-                                    ps.append(getValue(p_et))
-                                    abstract.update({'p': ps})
+                                for sec_et in abstract_et.findall('./sec'):
+                                    if sec_et.find('title') is not None and sec_et.find('p') is not None:
+                                        sec_title_et = sec_et.find('title')
+                                        sec_title = getValue(sec_title_et)
 
-                                secs = []
-                                for sec_et in abstract_et.findall('sec'):
-                                    sec = dict()
+                                        p_et = sec_et.find('p')
+                                        p = getValue(p_et)
 
+                                        sec = ''
+                                        if sec_title is not None:
+                                            sec = sec_title + ': '
+                                        if p is not None:
+                                            sec = sec + p
+                                        abstracts.append(sec)
+
+                                article.update({'abstract': abstracts})
+
+                            bodies = []
+                            for body_et in article_et.findall('./body'):
+                                for p_et in body_et.findall('p'):
+                                    p = getValue(p_et)
+                                    bodies.append(p)
+
+                                for sec_et in body_et.findall('sec'):
                                     if sec_et.find('title') is not None:
                                         sec_title_et = sec_et.find('title')
                                         sec_title = getValue(sec_title_et)
-                                        sec.update({'title': sec_title})
 
                                     if sec_et.find('p') is not None:
                                         p_et = sec_et.find('p')
                                         p = getValue(p_et)
-                                        sec.update({'p': p})
 
-                                    secs.append(sec)
-                                    abstract.update({'sec': secs})
-
-                                abstracts.append(abstract)
-                                article.update({'abstract': abstracts})
+                                    sec = ''
+                                    if sec_title is not None:
+                                        sec = sec_title + ': '
+                                    if p is not None:
+                                        sec = sec + p
+                                    bodies.append(sec)
+                                article.update({'body': bodies})
 
                             kwds = []
                             for kwd_group_et in article_et.findall("./front/article-meta/kwd-group"):
-                                kwd_group = dict()
-
                                 for kwd_et in kwd_group_et.findall("kwd"):
                                     kwds.append(kwd_et.text)
 
                                 article.update({'kwd': kwds})
 
-                            bodies = []
-                            for body_et in article_et.findall('./body'):
-                                body = dict()
-
-                                ps = []
-                                for p_et in body_et.findall('p'):
-                                    p = getValue(p_et)
-                                    ps.append(p)
-                                    body.update({'p': ps})
-
-                                secs = []
-                                for sec_et in body_et.findall('sec'):
-                                    sec = dict()
-
-                                    if sec_et.find('title') is not None:
-                                        sec_title_et = sec_et.find('title')
-                                        sec_title = getValue(sec_title_et)
-                                        sec.update({'title': sec_title})
-
-                                    if sec_et.find('p') is not None:
-                                        p_et = sec_et.find('p')
-                                        p = getValue(p_et)
-                                        sec.update({'p': p})
-
-                                    secs.append(sec)
-                                    body.update({'sec': secs})
-                                bodies.append(body)
-                                article.update({'body': bodies})
-
-                            # print(article)
-                            # with open('data.json', 'w') as fp:
-                            #     json.dump(article, fp)
-
                             articles.append(article)
+                            i = i + 1
+
                         except et.ParseError:
                             print('error')
 
