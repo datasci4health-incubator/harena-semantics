@@ -18,11 +18,11 @@ services:
     image: solr
     ports:
       - "8983:8983"
-    volumes:
-      - ./solr/:/var/solr/
+    # volumes:
+    #  - ./solr/:/var/solr/
     entrypoint:
       - docker-entrypoint.sh
       - solr-precreate
-      - pmc2
+      - pmc
     container_name: harena-solr
 

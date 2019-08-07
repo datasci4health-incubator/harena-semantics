@@ -39,11 +39,11 @@ def get_topics():
 
 def searchByCategory(topicDescription, topicNumber):
     solr = pysolr.Solr(PMC_URL)
-    results = solr.search('title-group:pub-id-type')
+    results = solr.search('abstract:smoking')
     # print(results)
     # solr.ping()
     for result in results:
-        print("The title is '{0}'.".format(result['title-group']))
+        print(result['title'])
 
 topics = get_topics()
 
