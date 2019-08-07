@@ -2,7 +2,7 @@ import os, json
 import pysolr
 import xml.etree.ElementTree as et
 
-URL = 'http://' + os.environ['SOLR_HOST'] + ':8983/solr/pmc'
+URL = 'http://' + os.environ['SOLR_HOST'] + ':8983/solr/pmc3'
 
 solr = pysolr.Solr(URL, results_cls=dict)
 

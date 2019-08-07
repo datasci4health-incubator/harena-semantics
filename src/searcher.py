@@ -6,11 +6,18 @@ from model.topic import Topic
 TOPICS_FILE_LOCATION = '../resources/topics2014.xml'
 SOLR_URL = 'http://' + os.environ['SOLR_HOST'] + ':8983/solr/'
 
-PMC_URL = SOLR_URL + 'pmc/'
+PMC_URL = SOLR_URL + 'pmc3/'
 
-filter = '\'randomized controlled trial\'[Publication Type]OR ' \
-         'title:randomized OR abstract:randomized OR ' \
-         'title:placebo OR abstract:placebo'
+treatmentFilter = "article-type:\'randomized controlled trial\' " \
+         "title:randomized abstract:randomized " \
+         "title:placebo abstract:placebo"
+
+
+diagnosisFilter = "title:sensitiv* abstract:sensitiv* " \
+"kwd:\'sensitivity and specificity\' " \
+"+(title:predictive abstract:predictive) +(title:value* abstract:value*) " \
+"kwd:'predictive value of tests\' " \
+"title:accuracy* abstract:accuracy*"
 
 print(filter)
 
@@ -39,11 +46,11 @@ def get_topics():
 
 def searchByCategory(topicDescription, topicNumber):
     solr = pysolr.Solr(PMC_URL)
-    results = solr.search('abstract:smoking')
+    results = solr.search(diagnosisFilter)
     # print(results)
     # solr.ping()
     for result in results:
-        print(result['title'])
+        print(result['pmc'] + result['title'])
 
 topics = get_topics()
 
