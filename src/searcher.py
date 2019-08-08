@@ -19,6 +19,24 @@ diagnosisFilter = "title:sensitiv* abstract:sensitiv* " \
 "kwd:'predictive value of tests\' " \
 "title:accuracy* abstract:accuracy*"
 
+prognosisFilter = "kwd:prognosis " \
+                  "title:diagnosed abstract:diagnosed " \
+                  "title:cohort* abstract:cohort* " \
+                  "kwd:'cohort effect' " \
+                  "kwd:'cohort studies' " \
+                  "title:predictor* abstract:predictor* " \
+                  "title:death abstract:death " \
+                  "kwd:'models, statistical'"
+etiologyFilter = "title:risk abstract:risk " \
+                 "kwd:risk " \
+                 "title:mortality abstract:mortality " \
+                 "kwd:mortality " \
+                 "title:cohort abstract:cohort"
+reviewFilter = "article-type:'meta analysis' article-type:review " \
+               "title:'meta analysis' abstract:'meta analysis' " \
+               "kwd:'meta analysis' " \
+               "title:search* abstract:search*"
+
 print(filter)
 
 def get_topics():
@@ -39,24 +57,22 @@ def get_topics():
         # print(topic1.description)
 
         topics.append(topic)
+        break
     return topics
 
 # def filterPapers():
 
-
-def searchByCategory(topicDescription, topicNumber):
+def search_by_category(topic_description, filter):
     solr = pysolr.Solr(PMC_URL)
-    results = solr.search(diagnosisFilter)
+    filter_queries = ['title:meta analysis']
+    print(topic_description)
+    results = solr.search('body:'+topic_description, fq=filter)
     # print(results)
     # solr.ping()
     for result in results:
-        print(result['pmc'] + result['title'])
+        print(result['title'])
 
 topics = get_topics()
 
-# print(topics)
-
 for topic in topics:
-    searchByCategory(topic.description, topic.number)
-
-#
+    search_by_category(topic.description, diagnosisFilter)
