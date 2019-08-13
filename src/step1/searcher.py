@@ -5,6 +5,9 @@ from model.topic import Topic
 
 TOPICS_FILE_LOCATION = '../resources/topics2014.xml'
 
+if not os.path.exists('../result'):
+    os.makedirs('../result')
+
 SOLR_URL = 'http://' + os.environ['SOLR_HOST'] + ':8983/solr/pmc3'
 
 
@@ -38,27 +41,18 @@ def search_by_category(topic_description, filter):
     return pmcs
 
 
-topics = get_topics()
-
-results = []
-
-with open('filters.json') as f:
+with open('step1/filters.json') as f:
     filters = json.load(f)
 
-print(filters)
+results = []
+topics = get_topics()
 
 for topic in topics:
-    result = dict()
-
     filter = filters.get(topic.type)
     if filter is not None:
         pmcs = search_by_category(topic.description, filter)
-        result.update({ 'topic':topic.number, 'pmc':pmcs })
+        result = {'topic':topic.number, 'pmc':pmcs}
         results.append(result)
-print(results)
-
-if not os.path.exists('../result'):
-    os.makedirs('../result')
 
 with open('../result/step1.json', 'w') as outfile:
     json.dump(results, outfile)
