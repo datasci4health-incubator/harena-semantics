@@ -26,7 +26,7 @@ At the ```harena-asm/``` root folder run the command to start the docker contain
 
 ```docker-compose up```
 
-Solr admin: ```http://localhost:8983/solr```
+Solr admin: http://localhost:8983/solr
 
 To index PMC papers: 
 
