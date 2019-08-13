@@ -22,10 +22,15 @@
 
 ### Running as Docker containers
 
-At the ```flask_app/``` folder run the command to build the docker image:
-
-```docker build -t asm:latest .```
-
-Then, run the command to start the docker container:
+At the ```harena-asm/``` root folder run the command to start the docker container:
 
 ```docker-compose up```
+
+Solr admin: ```http://localhost:8983/solr```
+
+To index PMC papers: 
+
+```
+cd src/
+pipenv run python src/step1/indexer.py
+```
