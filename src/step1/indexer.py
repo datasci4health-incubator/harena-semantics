@@ -1,8 +1,8 @@
-import os, json
-import pysolr
+import pysolr, json, os
 import xml.etree.ElementTree as et
+from pubmed.entrez_utilities import get_pubtype_and_mesh
 
-URL = 'http://' + os.environ['SOLR_HOST'] + ':8983/solr/pmc3'
+URL = 'http://' + os.environ['SOLR_HOST'] + ':8983/solr/pmc4'
 
 solr = pysolr.Solr(URL, results_cls=dict)
 
@@ -34,11 +34,23 @@ with os.scandir('../documents/pmc') as entries1:
                             article_et = tree.getroot()
 
                             article = dict()
-                            article.update({'article-type': article_et.attrib.get('article-type')})
+                            publication_types = [article_et.attrib.get('article-type')]
 
                             for article_id_et in article_et.findall("./front/article-meta/article-id"):
                                 if article_id_et.attrib.get('pub-id-type') == 'pmc':
                                     article.update({'pmc': article_id_et.text})
+                                if article_id_et.attrib.get('pub-id-type') == 'pmid':
+                                    print('pmid: '+article_id_et.text)
+                                    article.update({'pmid': article_id_et.text})
+                                    result = get_pubtype_and_mesh(article_id_et.text)
+                                    pubtypes = result.get('types')
+                                    mesh_terms = result.get('mesh_terms')
+
+                                    for type in pubtypes:
+                                        publication_types.append(type)
+
+                            article.update({'type': publication_types})
+                            article.update({'mesh_terms': mesh_terms})
 
                             title_group_et = article_et.find("./front/article-meta/title-group")
 
@@ -47,11 +59,7 @@ with os.scandir('../documents/pmc') as entries1:
                                     article_title_et = title_group_et.find('article-title')
                                     article_title = getValue(article_title_et)
                                     article.update({'title': article_title})
-
-                                subtitles = []
-                                for subtitle_et in title_group_et.findall('subtitle'):
-                                    subtitles.append(getValue(subtitle_et))
-                                    article.update({'subtitle': subtitles})
+                                    print(article_title)
 
                             abstracts = []
                             for abstract_et in article_et.findall("./front/article-meta/abstract"):
@@ -97,13 +105,6 @@ with os.scandir('../documents/pmc') as entries1:
                                         sec = sec + p
                                     bodies.append(sec)
                                 article.update({'body': bodies})
-
-                            kwds = []
-                            for kwd_group_et in article_et.findall("./front/article-meta/kwd-group"):
-                                for kwd_et in kwd_group_et.findall("kwd"):
-                                    kwds.append(kwd_et.text)
-
-                                article.update({'kwd': kwds})
 
                             articles.append(article)
                             i = i + 1
