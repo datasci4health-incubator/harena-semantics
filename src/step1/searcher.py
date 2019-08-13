@@ -3,10 +3,10 @@ import pysolr, json, os
 
 from model.topic import Topic
 
-TOPICS_FILE_LOCATION = '../resources/topics2014.xml'
+TOPICS_FILE_LOCATION = 'topics2014.xml'
 
-if not os.path.exists('../result'):
-    os.makedirs('../result')
+if not os.path.exists('results'):
+    os.makedirs('results')
 
 SOLR_URL = 'http://' + os.environ['SOLR_HOST'] + ':8983/solr/pmc3'
 
@@ -34,14 +34,14 @@ def get_topics():
 def search_by_category(topic_description, filter):
     solr = pysolr.Solr(SOLR_URL)
 
-    retrievedDocs = solr.search('body:'+topic_description, fq=filter)
+    retrievedDocs = solr.search(filter)
     pmcs = []
     for doc in retrievedDocs:
         pmcs.append(doc['pmc'])
     return pmcs
 
 
-with open('step1/filters.json') as f:
+with open('filters.json') as f:
     filters = json.load(f)
 
 results = []
@@ -54,5 +54,5 @@ for topic in topics:
         result = {'topic':topic.number, 'pmc':pmcs}
         results.append(result)
 
-with open('../result/step1.json', 'w') as outfile:
+with open('results/step1-no-description.json', 'w') as outfile:
     json.dump(results, outfile)

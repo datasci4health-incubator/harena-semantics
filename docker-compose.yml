@@ -23,6 +23,6 @@ services:
     entrypoint:
       - docker-entrypoint.sh
       - solr-precreate
-      - pmc3
+      - pmc4
     container_name: harena-solr
 
