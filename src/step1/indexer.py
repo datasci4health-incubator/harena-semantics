@@ -24,6 +24,8 @@ with os.scandir('../documents/pmc') as entries1:
             for entry2 in entries2:
                 print(entry2.name)
                 articles = []
+                pmids = []
+
                 with os.scandir(entry2.path) as documents:
 
                     # Here we have each document in fact
@@ -40,17 +42,17 @@ with os.scandir('../documents/pmc') as entries1:
                                 if article_id_et.attrib.get('pub-id-type') == 'pmc':
                                     article.update({'pmc': article_id_et.text})
                                 if article_id_et.attrib.get('pub-id-type') == 'pmid':
-                                    print('pmid: '+article_id_et.text)
                                     article.update({'pmid': article_id_et.text})
-                                    result = get_pubtype_and_mesh(article_id_et.text)
-                                    pubtypes = result.get('types')
-                                    mesh_terms = result.get('mesh_terms')
+                                    pmids.append(article_id_et.text)
+                                    # result = get_pubtype_and_mesh(article_id_et.text)
+                                    # pubtypes = result.get('types')
+                                    # mesh_terms = result.get('mesh_terms')
 
-                                    for type in pubtypes:
-                                        publication_types.append(type)
-
-                            article.update({'type': publication_types})
-                            article.update({'mesh_terms': mesh_terms})
+                            #         for type in pubtypes:
+                            #             publication_types.append(type)
+                            #
+                            # article.update({'type': publication_types})
+                            # article.update({'mesh_terms': mesh_terms})
 
                             title_group_et = article_et.find("./front/article-meta/title-group")
 
@@ -59,7 +61,7 @@ with os.scandir('../documents/pmc') as entries1:
                                     article_title_et = title_group_et.find('article-title')
                                     article_title = getValue(article_title_et)
                                     article.update({'title': article_title})
-                                    print(article_title)
+                                    # print(article_title)
 
                             abstracts = []
                             for abstract_et in article_et.findall("./front/article-meta/abstract"):
@@ -112,6 +114,10 @@ with os.scandir('../documents/pmc') as entries1:
                         except et.ParseError:
                             print('error')
 
+                print(pmids)
+                result = get_pubtype_and_mesh(pmids)
+                print(result)
+                input()
                 solr = pysolr.Solr(URL, results_cls=dict)
 
                 solr.add(articles)
