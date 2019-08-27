@@ -3,7 +3,7 @@ import pysolr, json, os
 
 from model.topic import Topic
 
-TOPICS_FILE_LOCATION = 'topics2014.xml'
+TOPICS_FILE_LOCATION = 'resources/topics2014.xml'
 
 if not os.path.exists('results'):
     os.makedirs('results')
@@ -41,7 +41,7 @@ def search_by_category(topic_description, filter):
     return pmcs
 
 
-with open('filters.json') as f:
+with open('./resources/filters.json') as f:
     filters = json.load(f)
 
 results = []
