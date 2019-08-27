@@ -114,10 +114,14 @@ with os.scandir('../documents/pmc') as entries1:
                         except et.ParseError:
                             print('error')
 
-                print(pmids)
-                result = get_pubtype_and_mesh(pmids)
-                print(result)
-                input()
+                    result = get_pubtype_and_mesh(pmids)
+
+                    for c in result:
+                        filtered_article = filter(lambda article: article.get('pmid') == c.get('pmid'), articles)
+                        for article in filtered_article:
+                            article.update( { 'mesh_terms': c.get('mesh_terms') })
+                            article.update( { 'types': c.get('types') })
+
                 solr = pysolr.Solr(URL, results_cls=dict)
 
                 solr.add(articles)
