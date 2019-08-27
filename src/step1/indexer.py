@@ -119,8 +119,8 @@ with os.scandir('../documents/pmc') as entries1:
                     for c in result:
                         filtered_article = filter(lambda article: article.get('pmid') == c.get('pmid'), articles)
                         for article in filtered_article:
-                            article.update( { 'mesh_terms': c.get('mesh_terms') })
-                            article.update( { 'types': c.get('types') })
+                            article.update( { 'mesh': c.get('mesh_terms') })
+                            article.update( { 'type': c.get('types') })
 
                 solr = pysolr.Solr(URL, results_cls=dict)
 
