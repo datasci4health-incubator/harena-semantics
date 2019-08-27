@@ -11,30 +11,33 @@ params = dict(db='pubmed', retmode='xml', rettype='MEDLINE')
 
 def get_pubtype_and_mesh(pmids):
     result = []
+    slice_lengths = len(pmids) // 16
 
-    params.update({'id': pmids})
-    r = requests.get(url=BASE_URL, params=params)
+    count = 0
+    chunks = [pmids[x:x + slice_lengths] for x in range(0, len(pmids), slice_lengths)]
 
-    articles_et = et.fromstring(r.text)
-    print(articles_et)
-    for article_et in articles_et:
-        pub_types = []
-        mesh_terms = []
-        print(article_et)
-        if article_et.find("MedlineCitation/PMID") is not None:
-            pmid = article_et.find("MedlineCitation/PMID").text
+    for chunk in chunks:
+        params.update({'id': chunk})
+        r = requests.get(url=BASE_URL, params=params)
+        articles_et = et.fromstring(r.text)
 
-        for pub_type_et in article_et.findall("MedlineCitation/Article/PublicationTypeList/PublicationType"):
-            pub_types.append(pub_type_et.text)
+        # print(articles_et)
+        for article_et in articles_et:
+            pub_types = []
+            mesh_terms = []
+            if article_et.find("MedlineCitation/PMID") is not None:
+                pmid = article_et.find("MedlineCitation/PMID").text
 
-        for mesh_term_et in article_et.findall("MedlineCitation/MeshHeadingList/MeshHeading/DescriptorName"):
-            mesh_terms.append(mesh_term_et.text)
+            for pub_type_et in article_et.findall("MedlineCitation/Article/PublicationTypeList/PublicationType"):
+                pub_types.append(pub_type_et.text)
 
-        result.append( { 'pmid':pmid, 'types':pub_types, 'mesh_terms':mesh_terms} )
-    return result
+            for mesh_term_et in article_et.findall("MedlineCitation/MeshHeadingList/MeshHeading/DescriptorName"):
+                mesh_terms.append(mesh_term_et.text)
 
+            result.append( { 'pmid':pmid, 'types':pub_types, 'mesh_terms':mesh_terms} )
+        return result
 
-# print(get_pubtype_and_mesh([31348278,     31283119 ]))
+# get_pubtype_and_mesh(i)
 #
 # data = r.json()
 # print(data)
