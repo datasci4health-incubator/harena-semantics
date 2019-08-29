@@ -2,7 +2,7 @@ import pysolr, json, os
 import xml.etree.ElementTree as et
 from pubmed.entrez_utilities import get_pubtype_and_mesh
 
-URL = 'http://' + os.environ['SOLR_HOST'] + ':8983/solr/pmc4'
+URL = 'http://' + os.environ['SOLR_HOST'] + ':8983/solr/pmc2'
 
 solr = pysolr.Solr(URL, results_cls=dict)
 
