@@ -18,7 +18,7 @@ def get_pubtype_and_mesh(pmids):
 
     for chunk in chunks:
         params.update({'id': chunk})
-        r = requests.get(url=BASE_URL, params=params)
+        r = requests.get(url=BASE_URL, params=params, stream=True)
         articles_et = et.fromstring(r.text)
 
         # print(articles_et)
