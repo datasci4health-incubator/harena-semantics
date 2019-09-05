@@ -31,6 +31,6 @@ if [[ ! -d ./documents/pmc/pmc-text-03 ]]; then
     fi
 fi
 
-python -m spacy download en_core_web_sm
+# python -m spacy download en_core_web_sm
 
 flask run -h 0.0.0.0

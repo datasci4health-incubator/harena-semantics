@@ -8,7 +8,7 @@ TOPICS_FILE_LOCATION = 'resources/topics2014.xml'
 if not os.path.exists('results'):
     os.makedirs('results')
 
-SOLR_URL = 'http://' + os.environ['SOLR_HOST'] + ':8983/solr/pmc2'
+SOLR_URL = 'http://' + os.environ['SOLR_HOST'] + ':8983/solr/pmc'
 
 
 def get_topics():
