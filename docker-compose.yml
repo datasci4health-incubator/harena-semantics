@@ -18,8 +18,8 @@ services:
     image: solr
     ports:
       - "8983:8983"
-    # volumes:
-    #  - ./solr/:/var/solr/
+    volumes:
+      - ./solr/:/var/solr/data
     entrypoint:
       - docker-entrypoint.sh
       - solr-precreate

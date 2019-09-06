@@ -132,7 +132,7 @@ with os.scandir('../documents/pmc') as entries1:
                     solr.add(articles)
                     solr.commit()
                 except:
-                    errors.append(entry2.name)
+                    errors.append(entry1.name + entry2.name)
 print('Documents processed:')
 print(i)
 print('Errors:')

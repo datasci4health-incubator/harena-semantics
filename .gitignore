@@ -112,4 +112,8 @@ venv.bak/
 # Index document sources
 documents/
 
+# Indexed documents
+solr/
+
+src/step1/results/
 .chglog/
