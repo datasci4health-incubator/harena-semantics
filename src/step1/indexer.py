@@ -49,15 +49,6 @@ with os.scandir('../documents/pmc') as entries1:
                                     if article_id_et.attrib.get('pub-id-type') == 'pmid':
                                         article.update({'pmid': article_id_et.text})
                                         pmids.append(article_id_et.text)
-                                        # result = get_pubtype_and_mesh(article_id_et.text)
-                                        # pubtypes = result.get('types')
-                                        # mesh_terms = result.get('mesh_terms')
-
-                                #         for type in pubtypes:
-                                #             publication_types.append(type)
-                                #
-                                # article.update({'type': publication_types})
-                                # article.update({'mesh_terms': mesh_terms})
 
                                 title_group_et = article_et.find("./front/article-meta/title-group")
 
