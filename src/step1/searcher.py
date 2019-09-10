@@ -1,5 +1,6 @@
 import xml.etree.ElementTree as et
 import pysolr, json, os
+from ncbo.ncbo_annotator import get_mesh_terms
 
 from model.topic import Topic
 
@@ -17,8 +18,7 @@ def get_topics():
     topics = []
 
     for topic_et in topics_et:
-        type = topic_et.attrib
-        ['type']
+        type = topic_et.attrib['type']
         number = topic_et.attrib['number']
         description = topic_et.find("description").text
         description = description.replace(':', '\:')
@@ -41,6 +41,22 @@ def search_by_category(topic_description, filter):
     return pmcs
 
 
+def search_by_category_mesh(mesh_terms, filter):
+    querySearch = ''
+
+    for mesh_term in mesh_terms:
+        querySearch = querySearch + mesh_term + ' '
+
+    solr = pysolr.Solr(SOLR_URL)
+    query = 'abstract:' + querySearch
+    print(query)
+    retrievedDocs = solr.search(q=query, fq=filter)
+    pmcs = []
+    for doc in retrievedDocs:
+        pmcs.append(doc['pmc'])
+    return pmcs
+
+
 with open('./step1/resources/filters.json') as f:
     filters = json.load(f)
 
@@ -50,7 +66,9 @@ topics = get_topics()
 for topic in topics:
     filter = filters.get(topic.type)
     if filter is not None:
-        pmcs = search_by_category(topic.description, filter)
+        # pmcs = search_by_category(topic.description, filter)
+        mesh = get_mesh_terms(topic.description)
+        pmcs = search_by_category_mesh(mesh, filter)
         result = {'topic':topic.number, 'pmc':pmcs}
         results.append(result)
 
