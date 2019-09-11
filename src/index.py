@@ -11,20 +11,6 @@ incomes = [
 @app.route('/incomes')
 def get_incomes():
   solr = pysolr.Solr('http://' + os.environ['SOLR_HOST']+':8983/solr/pmc')
-  # solr.add([
-  #   {
-  #     "id": "doc_4",
-  #     "title": "A test document",
-  #   },
-  #   {
-  #     "id": "doc_5",
-  #     "title": "The Banana: Tasty or Dangerous?",
-  #     "_doc": [
-  #       {"id": "child_doc_1", "title": "peel"},
-  #       {"id": "child_doc_2", "title": "seed"},
-  #     ]
-  #   },
-  # ])
   r = solr.search('seed')
   logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
   logging.debug("Saw {0} result(s).".format(len(r)))
@@ -38,3 +24,8 @@ def get_incomes():
 def add_income():
   incomes.append(request.get_json())
   return '', 204
+
+# @app.route('/searcher', methods=['POST'])
+# def get_papers():
+#   incomes.append(request.get_json())
+#   return '', 204
