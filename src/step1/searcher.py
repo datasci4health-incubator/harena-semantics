@@ -48,11 +48,13 @@ results = []
 topics = get_topics()
 
 for topic in topics:
-    filter = filters.get(topic.type)
-    if filter is not None:
-        pmcs = search_by_category(topic.description, filter)
-        result = {'topic':topic.number, 'pmc':pmcs}
+    for filter in filters:
+        filter1 = filters.get(filter)
+        print(filter1)
+        pmcs = search_by_category(topic.description, filter1)
+        result = {'topic':topic.number, 'pmc':pmcs, 'clinical property': filter}
         results.append(result)
 
-with open('./step1/results/abstract.json', 'w') as outfile:
+
+with open('./step1/results/experiment.json', 'w') as outfile:
     json.dump(results, outfile)
