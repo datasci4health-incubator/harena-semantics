@@ -5,8 +5,8 @@ from model.topic import Topic
 
 TOPICS_FILE_LOCATION = './step1/resources/topics2014.xml'
 
-if not os.path.exists('./step1/results'):
-    os.makedirs('./step1/results')
+if not os.path.exists('./results'):
+    os.makedirs('./results')
 
 SOLR_URL = 'http://' + os.environ['SOLR_HOST'] + ':8983/solr/pmc'
 
@@ -55,6 +55,3 @@ for topic in topics:
         result = {'topic':topic.number, 'pmc':pmcs, 'clinical property': filter}
         results.append(result)
 
-
-with open('./step1/results/experiment.json', 'w') as outfile:
-    json.dump(results, outfile)
