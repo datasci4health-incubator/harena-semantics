@@ -7,8 +7,8 @@ from model.topic import Topic
 SOLR_URL = 'http://' + os.environ['SOLR_HOST'] + ':8983/solr/pmc'
 TOPICS_FILE_LOCATION = './step1/resources/topics2014.xml'
 
-if not os.path.exists('./step1/results'):
-    os.makedirs('./step1/results')
+if not os.path.exists('./results'):
+    os.makedirs('./results')
 
 
 def get_topics():
@@ -67,23 +67,9 @@ description_results = []
 topics = get_topics()
 
 for topic in topics:
-    filter = filters.get(topic.type)
-    if filter is not None:
-        pmcs_by_description = search_by_category('abstract', topic.description, filter)
-
-        mesh_terms = get_mesh_terms(topic.description)
-        search_query = get_query_from_mesh_terms(mesh_terms)
-        pmcs_by_mesh = search_by_category('abstract', search_query, filter)
-
-
-        description_result = {'topic':topic.number, 'pmc':pmcs_by_description}
-        mesh_result = {'topic':topic.number, 'pmc':pmcs_by_mesh}
-
-        description_results.append(description_result)
-        mesh_results.append(mesh_result)
-
-with open('./step1/results/by_description.json', 'w') as outfile:
-    json.dump(description_results, outfile)
-
-with open('./step1/results/by_mesh.json', 'w') as outfile:
-    json.dump(mesh_results, outfile)
+    for filter in filters:
+        filter1 = filters.get(filter)
+        print(filter1)
+        pmcs = search_by_category(topic.description, filter1)
+        result = {'topic':topic.number, 'pmc':pmcs, 'clinical property': filter}
+        results.append(result)
