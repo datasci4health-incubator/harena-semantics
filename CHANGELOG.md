@@ -4,6 +4,10 @@
 ### Build
 - **packages:** Add spaCy package
 
+### Feat
+- **experiments:** Search services for retrieving sound clinical studies of health disorders in PMC
+- **searcher:** Implement following search filters: diagnosis, treatment, prognosis, etiology, review
+
 
 <a name="v0.1.0"></a>
 ## [v0.1.0] - 2019-07-12
