@@ -1,6 +1,8 @@
 from flask import Flask, jsonify, request
 import pysolr, os
 import logging, sys
+
+from src.step1.searcher import search_by_category
 app = Flask(__name__)
 
 incomes = [
@@ -25,7 +27,8 @@ def add_income():
   incomes.append(request.get_json())
   return '', 204
 
-# @app.route('/searcher', methods=['POST'])
-# def get_papers():
-#   incomes.append(request.get_json())
-#   return '', 204
+@app.route('/searcher', methods=['GET'])
+def get_papers():
+  
+  return jsonify(search_by_category('abstract', 'chest pain', 'type:\'randomized controlled trial\' title:randomized abstract:randomized title:placebo abstract:placebo'))
+
