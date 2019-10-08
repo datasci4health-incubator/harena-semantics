@@ -1,11 +1,11 @@
 import xml.etree.ElementTree as et
 import pysolr, json, os
-from ncbo.ncbo_annotator import get_mesh_terms
+from src.step1.ncbo.ncbo_annotator import get_mesh_terms
 
-from model.topic import Topic
+from src.step1.model.topic import Topic
 
 SOLR_URL = 'http://' + os.environ['SOLR_HOST'] + ':8983/solr/pmc'
-TOPICS_FILE_LOCATION = './step1/resources/topics2014.xml'
+TOPICS_FILE_LOCATION = 'src/step1/resources/topics2014.xml'
 
 if not os.path.exists('./results'):
     os.makedirs('./results')
@@ -53,23 +53,20 @@ def search_by_category(field, query_search, filter):
     solr = pysolr.Solr(SOLR_URL)
     query = field + ':' + query_search
     retrieved_docs = solr.search(q=query, fq=filter)
+
     pmcs = []
     for doc in retrieved_docs:
         pmcs.append(doc['pmc'])
     return pmcs
 
 
-with open('./step1/resources/filters.json') as f:
+
+
+with open('src/step1/resources/filters.json') as f:
     filters = json.load(f)
 
 mesh_results = []
 description_results = []
 topics = get_topics()
 
-for topic in topics:
-    for filter in filters:
-        filter1 = filters.get(filter)
-        print(filter1)
-        pmcs = search_by_category(topic.description, filter1)
-        result = {'topic':topic.number, 'pmc':pmcs, 'clinical property': filter}
-        results.append(result)
+
