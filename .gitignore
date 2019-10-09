@@ -110,4 +110,10 @@ venv.bak/
 .mypy_cache/
 
 # Index document sources
-../../documents/
+documents/
+
+# Indexed documents
+solr/
+
+src/step1/results/
+.chglog/
