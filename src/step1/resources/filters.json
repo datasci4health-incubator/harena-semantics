@@ -1,4 +1,0 @@
-{
-  "treatment" : "type:'randomized controlled trial' title:randomized abstract:randomized title:placebo abstract:placebo",
-  "diagnosis" : "title:sensitiv* abstract:sensitiv* mesh:'sensitivity and specificity' +(title:predictive abstract:predictive) +(title:value* abstract:value*) mesh:'predictive value of tests' title:accuracy* abstract:accuracy"
-}
