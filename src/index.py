@@ -1,8 +1,11 @@
 from flask import Flask, jsonify, request
 import pysolr, os
 import logging, sys
+import xml.etree.ElementTree as et
 
-from src.step1.searcher import search_by_category
+from src.experiments.first.workflow import perform
+
+from src.step1.searcher import Searcher
 app = Flask(__name__)
 
 incomes = [
@@ -29,6 +32,19 @@ def add_income():
 
 @app.route('/searcher', methods=['GET'])
 def get_papers():
-  
-  return jsonify(search_by_category('abstract', 'chest pain', 'type:\'randomized controlled trial\' title:randomized abstract:randomized title:placebo abstract:placebo'))
+  s = Searcher()
+  related_papers = s.search_by_category('chest pain', 'type:\'randomized controlled trial\' title:randomized abstract:randomized title:placebo abstract:placebo')
+  retrieved_papers = dict()
+  titles = []
+  for paper in related_papers:
+    if paper.get('title') is not None:
+      titles.append({'title':''.join(paper.get('title'))})
+  retrieved_papers.update({'papers':titles})
+  return jsonify(retrieved_papers)
 
+
+@app.route('/exp1', methods=['GET'])
+def exp1():
+  return jsonify(perform())
+  # print('foi tudo')
+  # return {'a':'a'}

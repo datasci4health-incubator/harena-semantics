@@ -1,15 +1,20 @@
 import os, json, pysolr
 import xml.etree.ElementTree as et
 
-from model.topic import Topic
-# from first.searcher import search_by_category
+from src.experiments.model.topic import Topic
+from src.step1.searcher import Searcher
 
-TOPICS_FILE_LOCATION = './experiments/resources/topics2014.xml'
 SOLR_URL = 'http://' + os.environ['SOLR_HOST'] + ':8983/solr/pmc'
+
+TOPICS_FILE_LOCATION = "src/experiments/resources/topics2014.xml"
+FILTERS_LOCATION = "src/experiments/resources/filters.json"
+
+def get_filters():
+    with open(FILTERS_LOCATION) as f:
+        return json.load(f)
 
 def get_topics():
     tree = et.parse(TOPICS_FILE_LOCATION)
-    print(tree)
     topics_et = tree.getroot()
     topics = []
 
@@ -26,37 +31,38 @@ def get_topics():
         topics.append(topic)
     return topics
 
-def search_by_category(topic_description, filter):
-    solr = pysolr.Solr(SOLR_URL)
-    query = 'abstract:' + topic_description + 'or body:' + topic_description
-    return solr.search(q=query, fq=filter)
+def write_topic_result(filter, results):
+    if not os.path.exists('src/experiments/first/results/'):
+        os.makedirs('src/experiments/first/results/')
 
+    with open('src/experiments/first/results/' + filter + '.json', 'w') as outfile:
+        json.dump(results, outfile)
 
-with open('./experiments/resources/filters.json') as f:
-    filters = json.load(f)
+def perform():
+    filters = get_filters()
+    topics = get_topics()
 
-topics = get_topics()
+    for filter in filters:
+        results = []
 
-for filter in filters:
-    results = []
+        query_filter = filters.get(filter)
+        print(query_filter)
 
-    query_filter = filters.get(filter)
-    print(query_filter)
+        for topic in topics:
+            print(topic.description)
 
-    for topic in topics:
-        print(topic.description)
-        related_papers = search_by_category(topic.description, query_filter)
+            s = Searcher()
+            related_papers = s.search_by_category('chest pain',
+                                                  'type:\'randomized controlled trial\' title:randomized abstract:randomized title:placebo abstract:placebo')
 
-        titles = []
-        for paper in related_papers:
-            if paper.get('title') is not None:
-                titles.append(paper.get('title'))
+            titles = []
+            for paper in related_papers:
+                if paper.get('title') is not None:
+                    titles.append(paper.get('title'))
 
-        result = {'Description':topic.description, 'Paper':titles}
-        results.append(result)
+            result = {'Description':topic.description, 'Papers':titles}
+            results.append(result)
 
-        if not os.path.exists('./experiments/first/results/'):
-            os.makedirs('./experiments/first/results/')
+            write_topic_result(filter, results)
 
-        with open('./experiments/first/results/' + filter + '.json', 'w') as outfile:
-            json.dump(results, outfile)
+            return results
