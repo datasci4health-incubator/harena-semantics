@@ -1,5 +1,6 @@
 import xml.etree.ElementTree as et
 import pysolr, json, os
+
 from src.step1.ncbo.ncbo_annotator import get_mesh_terms
 
 SOLR_URL = 'http://' + os.environ['SOLR_HOST'] + ':8983/solr/pmc'
@@ -8,7 +9,7 @@ class Searcher:
 
     # def __init__(self):
 
-    def get_query_from_mesh_terms(mesh_terms):
+    def get_query_from_mesh_terms(self, mesh_terms):
         query_search = ''
 
         for mesh_term in mesh_terms:
@@ -26,9 +27,14 @@ class Searcher:
         return query_search
 
 
-    def search_by_category(self, query_search, filter):
-        solr = pysolr.Solr(SOLR_URL)
-        query = 'abstract:' + query_search
-        return solr.search(q=query, fq=filter)
+    def search_by_category(self, description, filter, mode):
+        if mode == 'textword':
+            search_query = description
+        else:
+            mesh_terms = get_mesh_terms(description)
+            search_query = self.get_query_from_mesh_terms(mesh_terms)
 
+        solr = pysolr.Solr(SOLR_URL)
+        query = 'abstract:' + search_query
+        return solr.search(q=query, fq=filter)
 
