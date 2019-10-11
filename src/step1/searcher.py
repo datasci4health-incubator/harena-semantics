@@ -1,7 +1,7 @@
 import xml.etree.ElementTree as et
 import pysolr, json, os
 
-from src.step1.ncbo.ncbo_annotator import get_mesh_terms
+from src.step1.ncbo.ncbo_annotator import Annotator
 
 SOLR_URL = 'http://' + os.environ['SOLR_HOST'] + ':8983/solr/pmc'
 
@@ -31,7 +31,9 @@ class Searcher:
         if mode == 'textword':
             search_query = description
         else:
-            mesh_terms = get_mesh_terms(description)
+            a = Annotator()
+
+            mesh_terms = a.get_mesh_terms(description)
             search_query = self.get_query_from_mesh_terms(mesh_terms)
 
         solr = pysolr.Solr(SOLR_URL)

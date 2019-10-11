@@ -5,6 +5,7 @@ import xml.etree.ElementTree as et
 
 from src.experiments.first.workflow import perform
 from src.step1.searcher import Searcher
+from src.step1.ncbo.ncbo_annotator import Annotator
 
 app = Flask(__name__)
 
@@ -27,3 +28,10 @@ def get_papers():
 @app.route('/exp1', methods=['GET'])
 def exp1():
   return jsonify(perform())
+
+@app.route('/annotate', methods=['POST'])
+def annotate():
+    text = request.form.get('text')
+    a = Annotator()
+
+    return jsonify(a.highlights_mesh(text))
