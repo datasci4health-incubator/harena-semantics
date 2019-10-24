@@ -30,16 +30,21 @@ class Annotator:
         new_text = ""
         excerpts = []
         i = 0
-
-        for x in result_array:
-            annotations = x.get('annotations')
+        meshs = []
+        for result_element in result_array:
+            irl = result_element.get("annotatedClass").get('@id')
+            annotations = result_element.get('annotations')
             count = 0
+
             for y in annotations:
                 mesh_term = y.get('text')
                 print(mesh_term)
 
                 from_index = y.get('from')
                 to_index = y.get('to')
+
+                mesh_json = {'irl':irl, 'from':from_index, 'to_index':to_index}
+                meshs.append(mesh_json)
 
                 excerpt = text[i:from_index-1] + '{' + text[from_index-1:to_index] + '}'
                 excerpts.append(excerpt)
@@ -50,6 +55,6 @@ class Annotator:
         for e in excerpts:
             new_text = new_text + e
         print(excerpts)
-        return new_text
+        return meshs
 
 # print(jsonArray)
