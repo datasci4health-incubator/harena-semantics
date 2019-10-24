@@ -21,40 +21,47 @@ class Annotator:
                 mesh_terms.append(y.get('text'))
         return mesh_terms
 
+
+    def sort_by_index(self, result_array):
+        meshs = []
+
+        for result_element in result_array:
+            irl = result_element.get("annotatedClass").get('@id')
+            annotations = result_element.get('annotations')
+
+            for y in annotations:
+                from_index = y.get('from')
+                to_index = y.get('to')
+
+                mesh_json = {'irl':irl, 'from_index':from_index, 'to_index':to_index}
+                meshs.append(mesh_json)
+        meshs.sort(key=lambda x: x['from_index'])
+        return meshs
+
+
     def highlights_mesh(self, text):
         params.update({'text': text})
         r = requests.post(url=BASE_URL, params=params, stream=True, headers={'Authorization': 'apikey token=' + API_KEY})
 
         result_array = json.loads(r.text)
-        # print(result_array)
+
+        meshs = self.sort_by_index(result_array)
+
         new_text = ""
         excerpts = []
         i = 0
-        meshs = []
-        for result_element in result_array:
-            irl = result_element.get("annotatedClass").get('@id')
-            annotations = result_element.get('annotations')
-            count = 0
+        for element in meshs:
+            excerpt = text[i:element['from_index'] - 1] + '{' + text[element['from_index'] - 1:element['to_index']] + '}'
+            excerpts.append(excerpt)
 
-            for y in annotations:
-                mesh_term = y.get('text')
-                print(mesh_term)
+            i = element['to_index']
 
-                from_index = y.get('from')
-                to_index = y.get('to')
-
-                mesh_json = {'irl':irl, 'from':from_index, 'to_index':to_index}
-                meshs.append(mesh_json)
-
-                excerpt = text[i:from_index-1] + '{' + text[from_index-1:to_index] + '}'
-                excerpts.append(excerpt)
-                i = to_index
-                count = count + 2
-
-        # print(new_texts)
         for e in excerpts:
             new_text = new_text + e
+        new_text = new_text + text[element['to_index']:]
+
         print(excerpts)
-        return meshs
+
+        return (new_text, meshs)
 
 # print(jsonArray)
