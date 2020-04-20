@@ -4,8 +4,11 @@
 ## Table of Contents 
 
 * [Table of Contents](#table-of-contents)
+* [Overview](#overview)
 * [Getting Started](#getting-started)
   * [Running as Docker containers](#running-as-docker-containers)
+* [Performing Searches](#peforming-searches)
+
 <!-- * [System Requirements](#system-requirements)
   * [For running as Docker containers](#for-running-as-linuxwindows-docker-containers)
   * [For running locally](#for-running-locally)
@@ -16,7 +19,13 @@
   * [Project organization](#project-organization)
   * [Branch organization (future CI/CD)](#branch-organization-future-cicd)-->
 
-   
+## Overview
+
+ASM indexes a papers collection to enable efficient search over it.
+
+Papers collection is from http://www.trec-cds.org/2014.html. 
+
+The collection is automatically downloaded through the installation process (`docker-compose` command)
 
 ## Getting Started
 
@@ -24,22 +33,27 @@
 
 At the ```harena-asm``` root folder run the command to start the docker container:
 
-```docker-compose -f docker-compose.yml -f docker-compose-dev.yml up```
+```docker-compose -f docker-compose-dev.yml up```
 
-When start process is done, you can get access to the container through the sh:
+As the start process is done, you must access the following endpoint in order to index the papers:  
+
+```buildoutcfg
+GET http://localhost:5000/indexer
+```
+
+ you can get access to the container through the sh:
 
 ```bash
 docker exec -it harena-asm sh
 ```
 
-Inside the harena-asm container, run the following commands in order to index the pmc documents on the solr server:
+You can access ASM at http://localhost:5000
+You can access SOLR admin at http://localhost:8983
 
-```bash
-cd src/
-pipenv run python pmc_indexer.py
+## Performing Searches
+
+```buildoutcfg
+POST http://localhost:5000/searcher
+
+params: description (text)
 ```
-
-You can access the solr admin at (http://localhost:8983)
-
-
-
