@@ -1,13 +1,30 @@
 version: '3'
-
 services:
-
-
   web:
+    image: faguim/harena-asm:v0.1.0
+    ports:
+      - "5000:5000"
     volumes:
       - ./:/app
-#    command: "bash -c \" npm install ; ./bootstrap.sh \" "
-  
+    environment:
+      - SOLR_HOST=solr
+    depends_on:
+      - solr
+    container_name: harena-asm
+
   solr:
+    image: solr
+    ports:
+      - "8983:8983"
     volumes:
-      - ./solr:/opt/solr/server/solr/mycores
+      - harena-asm-solr:/var/solr/
+    entrypoint:
+      - docker-entrypoint.sh
+      - solr-precreate
+      - pmc
+    container_name: harena-solr
+
+volumes:
+  harena-asm-solr:
+    driver: "local"
+

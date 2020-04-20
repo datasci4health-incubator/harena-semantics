@@ -2,7 +2,7 @@ import os, json, pysolr
 import xml.etree.ElementTree as et
 
 from src.experiments.model.topic import Topic
-from src.step1.searcher import Searcher
+from src.solr_functions import search_by_category
 
 SOLR_URL = 'http://' + os.environ['SOLR_HOST'] + ':8983/solr/pmc'
 
@@ -51,8 +51,7 @@ def perform():
         for topic in topics:
             print(topic.description)
 
-            s = Searcher()
-            related_papers = s.search_by_category('chest pain',
+            related_papers = search_by_category('chest pain',
                                                   'type:\'randomized controlled trial\' title:randomized abstract:randomized title:placebo abstract:placebo')
 
             titles = []
