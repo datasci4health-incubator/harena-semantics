@@ -31,7 +31,7 @@ The collection is automatically downloaded through the installation process (`do
 
 ### Running as Docker containers
 
-At the ```harena-asm``` root folder run the command to start the docker container:
+At the ```harena-asm/``` root folder run the command to start the docker container:
 
 ```docker-compose -f docker-compose-dev.yml up```
 
