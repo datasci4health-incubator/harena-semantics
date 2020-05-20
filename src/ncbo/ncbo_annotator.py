@@ -1,4 +1,5 @@
-import requests, json
+import requests, json, pysolr, os
+from flask import jsonify
 
 BASE_URL = "http://data.bioontology.org/annotator"
 API_KEY = '1cff5532-d88d-4a43-97a2-729e43dd2a4b'
@@ -64,4 +65,19 @@ class Annotator:
 
         return (new_text, meshs)
 
+    def get_concept(self, descriptor_id):
+        MESH_URL = 'http://' + os.environ['SOLR_HOST'] + ':8983/solr/mesh'
+
+
+        solr = pysolr.Solr(MESH_URL)
+        query = 'DescriptorUI:' + descriptor_id
+        concept = solr.search(q=query)
+
+        t = []
+        for c in concept:
+            if c.get('ConceptName') is not None:
+                print(c.get('ConceptName'))
+                t.append({'title': ''.join(c.get('ConceptName'))})
+        print(jsonify(t))
+        return jsonify(t)
 # print(jsonArray)
