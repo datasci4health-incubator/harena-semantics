@@ -5,7 +5,7 @@ import logging, sys
 import xml.etree.ElementTree as et
 
 from src.experiments.first.workflow import perform
-from src.solr_functions import indexer, search_by_category
+from src.solr_functions import indexer, search_by_category, indexMESH
 from src.ncbo.ncbo_annotator import Annotator
 from src.pubmed.entrez_utilities import get_pubtype_and_mesh
 
@@ -36,6 +36,17 @@ def get_papers():
     retrieved_papers.update({'papers': titles})
     return jsonify(retrieved_papers)
 
+@app.route('/indexer', methods=['GET'])
+def indexer_end_point():
+    indexer()
+    return 'indexed'
+
+
+@app.route('/indexMESH', methods=['POST'])
+def indexer_end_point2():
+    indexMESH()
+    return 'indexed'
+
 
 @app.route('/exp1', methods=['GET'])
 def exp1():
@@ -50,7 +61,3 @@ def annotate():
     return jsonify(a.highlights_mesh(text))
 
 
-@app.route('/indexer', methods=['GET'])
-def indexer_end_point():
-    indexer()
-    return 'indexed'
