@@ -17,7 +17,6 @@ services:
     ports:
       - "8888:8888"
     volumes:
-#      - ./src/adonisjs:/app
        - ./:/home/jovyan/work
     environment:
       - SOLR_HOST=solr
