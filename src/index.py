@@ -61,3 +61,9 @@ def annotate():
     return jsonify(a.highlights_mesh(text))
 
 
+@app.route('/ner', methods=['POST'])
+def ner():
+    text = request.form.get('text')
+    bern = BernController()
+
+    return jsonify(bern.retrieve_ner(text))
