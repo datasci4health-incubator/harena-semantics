@@ -5,9 +5,10 @@ import logging, sys
 import xml.etree.ElementTree as et
 
 from src.experiments.first.workflow import perform
-from src.solr_functions import indexer, search_by_category, indexMESH
+from src.solr_functions import indexer, search_by_category
 from src.ncbo.ncbo_annotator import Annotator
 from src.pubmed.entrez_utilities import get_pubtype_and_mesh
+from src.ner.bern.BernController import BernController
 
 app = Flask(__name__)
 
@@ -42,12 +43,6 @@ def indexer_end_point():
     return 'indexed'
 
 
-@app.route('/indexMESH', methods=['POST'])
-def indexer_end_point2():
-    indexMESH()
-    return 'indexed'
-
-
 @app.route('/exp1', methods=['GET'])
 def exp1():
     return jsonify(perform())
@@ -63,6 +58,7 @@ def annotate():
 
 @app.route('/ner', methods=['POST'])
 def ner():
+    print('route')
     text = request.form.get('text')
     bern = BernController()
 

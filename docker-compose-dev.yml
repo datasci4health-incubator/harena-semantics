@@ -1,7 +1,7 @@
 version: '3'
 services:
   web:
-    image: faguim/harena-asm:v0.1.0
+    image: asm
     ports:
       - "5000:5000"
     volumes:
@@ -46,4 +46,3 @@ volumes:
 networks:
   harena-asm:
     driver: bridge
-
