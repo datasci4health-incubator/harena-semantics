@@ -58,8 +58,11 @@ def annotate():
 
 @app.route('/ner', methods=['POST'])
 def ner():
-    print('route')
     text = request.form.get('text')
     bern = BernController()
+    
 
     return jsonify(bern.retrieve_ner(text))
+
+# if __name__ == '__main__':
+#     app.run(debug=True)

@@ -11,8 +11,7 @@ pysolr = "*"
 spacy = "*"
 marshmallow = "*"
 requests = "*"
-torch = "*"
-tensorflow = "*"
+
 
 [requires]
 python_version = "3.6"
