@@ -9,6 +9,7 @@ from src.solr_functions import indexer, search_by_category
 from src.ncbo.ncbo_annotator import Annotator
 from src.pubmed.entrez_utilities import get_pubtype_and_mesh
 from src.ner.bern.BernController import BernController
+from src.ner.bert.BertController import BertController
 
 app = Flask(__name__)
 
@@ -56,13 +57,20 @@ def annotate():
     return jsonify(a.highlights_mesh(text))
 
 
-@app.route('/ner', methods=['POST'])
-def ner():
+@app.route('/ner/bern', methods=['POST'])
+def bern():
     text = request.form.get('text')
     bern = BernController()
-    
 
     return jsonify(bern.retrieve_ner(text))
 
+
+@app.route('/ner/bert', methods=['POST'])
+def bert():
+    text = request.form.get('text')
+    bert = BertController()
+
+    bert_output = bert.predict(text)
+    return jsonify(bert_output)
 # if __name__ == '__main__':
 #     app.run(debug=True)
