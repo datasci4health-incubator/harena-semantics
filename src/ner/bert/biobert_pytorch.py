@@ -13,7 +13,22 @@ import torch.nn.functional as F
 from transformers import BertForTokenClassification
 from transformers import BertTokenizer
 
-class BertNer(BertForTokenClassification):
+
+from typing import  List, Tuple
+
+from transformers import (
+    AutoConfig,
+    AutoModelForTokenClassification,
+    AutoModel,
+    AutoTokenizer,
+    EvalPrediction,
+    HfArgumentParser,
+    Trainer,
+    TrainingArguments,
+    set_seed,
+)
+
+class BertNer(AutoModelForTokenClassification):
 
     def teste(self, input_ids, token_type_ids=None, attention_mask=None, valid_ids=None):
         print('testooooooou')
@@ -21,55 +36,78 @@ class BertNer(BertForTokenClassification):
 
 class Ner:
     def __init__(self,model_dir: str):
-        self.model , self.tokenizer, self.model_config = self.load_model(model_dir)
-        self.label_map = self.model_config["label_map"]
-        self.max_seq_length = self.model_config["max_seq_length"]
-        self.label_map = {int(k):v for k,v in self.label_map.items()}
+        self.model , self.tokenizer = self.load_model(model_dir)
+        # self.label_map = self.model_config["label_map"]
+        # self.max_seq_length = self.model_config["max_seq_length"]
+        # self.label_map = {int(k):v for k,v in self.label_map.items()}
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         self.model = self.model.to(self.device)
         self.model.eval()
 
 
+
     def load_model(self, model_dir: str, model_config: str = "model_config.json"):
-        model_config = os.path.join(model_dir,model_config)
-        model_config = json.load(open(model_config))
-        model = BertNer.from_pretrained(model_dir)
-        tokenizer = BertTokenizer.from_pretrained(model_dir, do_lower_case=model_config["do_lower"])
+        # model_config = os.path.join(model_dir,model_config)
+        # model_config = json.load(open(model_config))
+        model = AutoModel.from_pretrained(model_dir)
+        tokenizer = AutoTokenizer.from_pretrained(model_dir, do_lower_case=False)
 
-        return model, tokenizer, model_config
+        return model, tokenizer
 
+
+    def align_predictions(predictions: np.ndarray, label_ids: np.ndarray) -> Tuple[List[int], List[int]]:
+        preds = np.argmax(predictions, axis=2)
+
+        batch_size, seq_len = preds.shape
+
+        out_label_list = [[] for _ in range(batch_size)]
+        preds_list = [[] for _ in range(batch_size)]
+
+        for i in range(batch_size):
+            for j in range(seq_len):
+                if label_ids[i, j] != nn.CrossEntropyLoss().ignore_index:
+                    out_label_list[i].append(label_map[label_ids[i][j]])
+                    preds_list[i].append(label_map[preds[i][j]])
+
+        return preds_list, out_label_list
 
     def predict(self, text: str):
         # tag_values = ["I-Anatomy", "B-Protein", "B-Cell", "I-Pathology", "B-Organism", "B-Chemical", "I-Gene", "B-Disease",
         #     "I-Organ", "I-Protein", "I-Tissue", "I-Chemical", "I-Taxon", "I-Organism", "I-Disease", "B-Gene", "B-Anatomy",
         #     "B-Tissue", "I-Cell", "I-Cancer", "B-Cancer", "O", "B-Organ", "B-Pathology", "B-Taxon", "PAD"]
 
-
         tag_values = ["I-Disease", "O", "I-Chemical", "B-Chemical", "B-Disease", "PAD"]
 
+
         tokenized_sentence = self.tokenizer.encode(text)
+
 
         input_ids = torch.tensor([tokenized_sentence],device=self.device)
 
         with torch.no_grad():
             output = self.model(input_ids)
+        # output = self.model.predict()
         # print(output)
 
+        # print(self.model.config)
 
         label_indices = np.argmax(output[0].to('cpu').numpy(), axis=2)
-
+        # pdb.set_trace()
         # join bpe split tokens
         tokens = self.tokenizer.convert_ids_to_tokens(input_ids.to('cpu').numpy()[0])
         new_tokens, new_labels = [], []
-
+        print(tokens)
+        print(label_indices)
 
         versum = ""
         for idx, (token, label_idx) in enumerate(zip(tokens, label_indices[0])):
             if (token == "[CLS]" or token == "[SEP]"):
                 continue
 
+            print('aquiiiiiiiiiiiiiiii')
+            print(self.model.config.id2label)
 
-            # print(tag_values[label_indices[0][idx+1]][0])
+
             next = tag_values[label_indices[0][idx+1]][0]
             next_b = tag_values[label_indices[0][idx+1]].startswith("B")
 
