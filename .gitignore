@@ -115,5 +115,7 @@ documents/
 # Indexed documents
 solr/
 
+src/ner/bert/pretrained_models
+
 src/step1/results/
 .chglog/
