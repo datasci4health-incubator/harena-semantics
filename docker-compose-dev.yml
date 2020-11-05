@@ -11,7 +11,8 @@ services:
     depends_on:
       - solr
     container_name: harena-asm
-
+    networks:
+      - harena-asm
 #   jupyter:
 #     image: jupyter/datascience-notebook
 #     ports:

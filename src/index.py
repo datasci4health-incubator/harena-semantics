@@ -8,8 +8,10 @@ from src.experiments.first.workflow import perform
 from src.solr_functions import indexer, search_by_category
 from src.ncbo.ncbo_annotator import Annotator
 from src.pubmed.entrez_utilities import get_pubtype_and_mesh
+
 from src.ner.bern.BernController import BernController
 from src.ner.bert.BertController import BertController
+from src.clustering.ClusteringController import ClusteringController
 
 app = Flask(__name__)
 
@@ -23,6 +25,8 @@ def index():
 
 @app.route('/searcher', methods=['POST'])
 def get_papers():
+    print('aqui')
+
     retrieved_papers = dict()
     titles = []
     description = request.form.get('description')
@@ -70,7 +74,19 @@ def bert():
     text = request.form.get('text')
     bert = BertController()
 
+
     bert_output = bert.predict(text)
     return jsonify(bert_output)
+
+
+@app.route('/clustering', methods=['POST'])
+def clustering():
+    print('chegou')
+
+    text = request.form.get('words')
+    cluster = ClusteringController()
+
+    cluster_output = cluster.predict(text)
+    return jsonify(cluster_output)
 # if __name__ == '__main__':
 #     app.run(debug=True)
