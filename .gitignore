@@ -117,3 +117,9 @@ solr/
 
 src/step1/results/
 .chglog/
+
+models/
+
+embeddings/tsv_files
+
+src/ner/unsupervised_by_clustering/bert_vectors.txt
