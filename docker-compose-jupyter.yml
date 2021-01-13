@@ -8,3 +8,8 @@ services:
 #      - ./src/adonisjs:/app
        - ./:/home/jovyan/work
     container_name: harena-asm-jupyter
+    networks:
+      - harena-asm
+networks:
+  harena-asm:
+    driver: bridge

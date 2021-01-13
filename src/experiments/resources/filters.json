@@ -3,5 +3,6 @@
   "diagnosis" : "title:sensitiv* abstract:sensitiv* mesh:'sensitivity and specificity' +(title:predictive abstract:predictive) +(title:value* abstract:value*) mesh:'predictive value of tests' title:accuracy* abstract:accuracy",
   "prognosis" : "mesh:prognosis title:diagnosed abstract:diagnosed title:cohort* abstract:cohort* mesh:'cohort effect' mesh:'cohort studies' title:predictor* abstract:predictor* title:death abstract:death mesh:'models, statistical'",
   "etiology"  : "title:risk abstract:risk mesh:risk title:mortality abstract:mortality mesh:mortality title:cohort abstract:cohort",
-  "review"    : "type:'meta analysis' title:'meta analysis' abstract:'meta analysis' mesh:'meta analysis' type:review title:search* abstract:search*"
+  "review1"    : "type:'meta analysis' title:'meta analysis' abstract:'meta analysis' mesh:'meta analysis' type:review title:search* abstract:search*",
+  "review"    : "+title:'sepsis' body:epidemiology type:review"
 }
