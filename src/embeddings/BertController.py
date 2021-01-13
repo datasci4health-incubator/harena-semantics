@@ -9,13 +9,11 @@ class BertController:
     def predict(self, text):
         # model = Ner("/app/src/ner/bert/pretrained_models/enzo_model/")
         # model = Ner("/app/src/ner/bert/pretrained_models/biobert_pytorch")
-        # pretrained_model = "/app/src/ner/bert/pretrained_models/BC5CDR-IOB"
-        # pretrained_model = "/app/src/ner/bert/pretrained_models/biobert_ner"
-        model = "/app/models/BC5CDR-IOB"
+        # model = Ner("/app/src/ner/bert/pretrained_models/BC5CDR-IOB")
+        pretrained_model = "/app/src/ner/bert/pretrained_models/biobert_ner"
 
-        # print('pretrained_model', pretrained_model)
-        model = Ner(model)
-
+        
+        model = Ner(pretrained_model)
 
         output = model.predict(text)
         print(output)

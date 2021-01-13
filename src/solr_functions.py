@@ -1,9 +1,10 @@
 import pysolr, json, os
 import xml.etree.ElementTree as et
 from src.pubmed.entrez_utilities import get_pubtype_and_mesh
-from src.ncbo.ncbo_annotator import Annotator
+from src.ner.ncbo.ncbo_annotator import Annotator
 
 SOLR_URL = 'http://' + os.environ['SOLR_HOST'] + ':8983/solr/pmc'
+
 
 
 def search_by_category(description, filter, mode):
@@ -12,8 +13,10 @@ def search_by_category(description, filter, mode):
     else:
         a = Annotator()
 
+
         mesh_terms = a.get_mesh_terms(description)
         search_query = get_query_from_mesh_terms(mesh_terms)
+        print('aquiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii ',SOLR_URL)
 
     solr = pysolr.Solr(SOLR_URL)
     query = 'abstract:' + search_query
