@@ -8,15 +8,18 @@ verify_ssl = true
 [packages]
 flask = "*"
 pysolr = "*"
-spacy = "*"
+
+pandas = "*"
+
 marshmallow = "*"
 requests = "*"
-# pytorch-transformers = "==1.2.0"
+
 transformers = "*"
-torchvision = "*"
+torch = "*"
+
 nltk = "*"
 wheel = "*"
-pandas = "*"
+
 
 [requires]
 python_version = "3.6"
