@@ -1,7 +1,7 @@
 version: '3'
 services:
   web:
-    image: faguim/harena-asm:v0.1.0
+    image: asm
     ports:
       - "5000:5000"
     volumes:
@@ -11,6 +11,20 @@ services:
     depends_on:
       - solr
     container_name: harena-asm
+    networks:
+      - harena-asm
+#   jupyter:
+#     image: jupyter/datascience-notebook
+#     ports:
+#       - "8888:8888"
+#     volumes:
+# #      - ./src/adonisjs:/app
+#        - ./:/home/jovyan/work
+#     environment:
+#       - SOLR_HOST=solr
+#     container_name: harena-asm-jupyter
+#     networks:
+#       - harena-asm
 
   solr:
     image: solr
@@ -23,8 +37,13 @@ services:
       - solr-precreate
       - pmc
     container_name: harena-solr
+    networks:
+      - harena-asm
 
 volumes:
   harena-asm-solr:
     driver: "local"
 
+networks:
+  harena-asm:
+    driver: bridge

@@ -11,6 +11,12 @@ pysolr = "*"
 spacy = "*"
 marshmallow = "*"
 requests = "*"
+# pytorch-transformers = "==1.2.0"
+transformers = "*"
+torchvision = "*"
+nltk = "*"
+wheel = "*"
+pandas = "*"
 
 [requires]
 python_version = "3.6"
