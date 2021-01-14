@@ -1,0 +1,15 @@
+version: '3'
+services:
+  jupyter:
+    image: jupyter/datascience-notebook
+    ports:
+      - "8888:8888"
+    volumes:
+#      - ./src/adonisjs:/app
+       - ./:/home/jovyan/work
+    container_name: harena-asm-jupyter
+    networks:
+      - harena-asm
+networks:
+  harena-asm:
+    driver: bridge

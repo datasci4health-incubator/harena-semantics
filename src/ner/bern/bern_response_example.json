@@ -1,0 +1,232 @@
+{
+  "denotations": [
+    {
+      "id": [
+        "MESH:D002637", 
+        "BERN:265734601"
+      ], 
+      "obj": "disease", 
+      "span": {
+        "begin": 61, 
+        "end": 106
+      }
+    }, 
+    {
+      "id": [
+        "MESH:D009325", 
+        "BERN:263161801"
+      ], 
+      "obj": "disease", 
+      "span": {
+        "begin": 251, 
+        "end": 257
+      }
+    }, 
+    {
+      "id": [
+        "CUI-less"
+      ], 
+      "obj": "disease", 
+      "span": {
+        "begin": 259, 
+        "end": 270
+      }
+    }, 
+    {
+      "id": [
+        "MESH:D001049", 
+        "BERN:256800901"
+      ], 
+      "obj": "disease", 
+      "span": {
+        "begin": 280, 
+        "end": 287
+      }
+    }, 
+    {
+      "id": [
+        "MESH:D010146", 
+        "BERN:262326101"
+      ], 
+      "obj": "disease", 
+      "span": {
+        "begin": 348, 
+        "end": 352
+      }
+    }, 
+    {
+      "id": [
+        "MESH:D006973", 
+        "BERN:106966601"
+      ], 
+      "obj": "disease", 
+      "span": {
+        "begin": 415, 
+        "end": 427
+      }
+    }, 
+    {
+      "id": [
+        "OMIM:601665", 
+        "MESH:D009765", 
+        "BERN:261400701"
+      ], 
+      "obj": "disease", 
+      "span": {
+        "begin": 432, 
+        "end": 439
+      }
+    }, 
+    {
+      "id": [
+        "BERN:258006601"
+      ], 
+      "obj": "disease", 
+      "span": {
+        "begin": 461, 
+        "end": 469
+      }
+    }, 
+    {
+      "id": [
+        "MESH:D006937", 
+        "BERN:256192501"
+      ], 
+      "obj": "disease", 
+      "span": {
+        "begin": 471, 
+        "end": 491
+      }
+    }, 
+    {
+      "id": [
+        "MESH:D006331", 
+        "BERN:257967001"
+      ], 
+      "obj": "disease", 
+      "span": {
+        "begin": 516, 
+        "end": 529
+      }
+    }, 
+    {
+      "id": [
+        "CUI-less"
+      ], 
+      "obj": "gene", 
+      "span": {
+        "begin": 603, 
+        "end": 606
+      }
+    }
+  ], 
+  "logits": {
+    "disease": [
+      [
+        {
+          "end": 106, 
+          "id": "MESH:D002637\tBERN:265734601", 
+          "start": 61
+        }, 
+        0.9999882578849792
+      ], 
+      [
+        {
+          "end": 257, 
+          "id": "MESH:D009325\tBERN:263161801", 
+          "start": 251
+        }, 
+        0.9999306201934814
+      ], 
+      [
+        {
+          "end": 270, 
+          "id": "CUI-less", 
+          "start": 259
+        }, 
+        0.9999997615814209
+      ], 
+      [
+        {
+          "end": 287, 
+          "id": "MESH:D001049\tBERN:256800901", 
+          "start": 280
+        }, 
+        0.9999998807907104
+      ], 
+      [
+        {
+          "end": 352, 
+          "id": "MESH:D010146\tBERN:262326101", 
+          "start": 348
+        }, 
+        0.9993453621864319
+      ], 
+      [
+        {
+          "end": 427, 
+          "id": "MESH:D006973\tBERN:106966601", 
+          "start": 415
+        }, 
+        0.9999998807907104
+      ], 
+      [
+        {
+          "end": 439, 
+          "id": "OMIM:601665\tMESH:D009765\tBERN:261400701", 
+          "start": 432
+        }, 
+        0.9999998807907104
+      ], 
+      [
+        {
+          "end": 469, 
+          "id": "BERN:258006601", 
+          "start": 461
+        }, 
+        0.9999997615814209
+      ], 
+      [
+        {
+          "end": 491, 
+          "id": "MESH:D006937\tBERN:256192501", 
+          "start": 471
+        }, 
+        0.9999998807907104
+      ], 
+      [
+        {
+          "end": 529, 
+          "id": "MESH:D006331\tBERN:257967001", 
+          "start": 516
+        }, 
+        0.9999999403953552
+      ]
+    ], 
+    "drug": [], 
+    "gene": [
+      [
+        {
+          "end": 606, 
+          "id": "CUI-less", 
+          "start": 603
+        }, 
+        0.9999744892120361
+      ]
+    ], 
+    "species": [
+      [
+        {
+          "end": 36, 
+          "start": 31
+        }, 
+        0.9999998807907104
+      ]
+    ]
+  }, 
+  "project": "BERN", 
+  "sourcedb": "", 
+  "sourceid": "e171534f4c4feac70cde566fbb5279a890207e7864a64e5a33d5eb19-Thread-872660", 
+  "text": "A 58-year-old African-American woman presents to the ER with episodic pressing/burning anterior chest pain that began two days earlier for the first time in her life. The pain started while she was walking, radiates to the back, and is accompanied by nausea, diaphoresis and mild dyspnea, but is not increased on inspiration. The latest episode of pain ended half an hour prior to her arrival. She is known to have hypertension and obesity. She denies smoking, diabetes, hypercholesterolemia, or a family history of heart disease. She currently takes no medications. Physical examination is normal. The EKG shows nonspecific changes.", 
+  "timestamp": "Sat Oct 10 15:52:28 +0000 2020"
+}
