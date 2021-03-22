@@ -11,7 +11,7 @@ class BertController:
         # model = Ner("/app/src/ner/bert/pretrained_models/biobert_pytorch")
         # pretrained_model = "/app/src/ner/bert/pretrained_models/BC5CDR-IOB"
         # pretrained_model = "/app/src/ner/bert/pretrained_models/biobert_ner"
-        model = "/app/models/BC5CDR-IOB"
+        model = "/app/models/word_embeddings/BC5CDR-IOB"
 
         # print('pretrained_model', pretrained_model)
         model = Ner(model)
