@@ -124,4 +124,4 @@ embeddings/tsv_files
 
 src/ner/unsupervised_by_clustering/bert_vectors.txt
 
-notebooks/ner/data/tratados
+
