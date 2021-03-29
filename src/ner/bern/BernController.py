@@ -10,13 +10,15 @@ class BernController:
         url='https://bern.korea.ac.kr/plain'
         response = requests.post(url, data={'sample_text': text}).json()
 
-        # when is development env, i'll we a file instead call bern service in order to prevent so many requests
-        # comment this when at production
+
+    # When in development env, i'll use a file instead call bern service in order to prevent so many requests
+    # Comment this when at production
         # with open('src/ner/bern/bern_response_example.json') as json_file:
         #     data = json.load(json_file)
         #     response = data
 
 
+        print(response)
         denotations = response['denotations']
         annotations = []
 
