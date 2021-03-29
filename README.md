@@ -1,44 +1,54 @@
 # Harena ASM - Authoring Support Module
-## A [Harena](https://github.com/datasci4health/harena)'s module to support Clinical Cases authoring task
 
-## Table of Contents 
+## A [Harena](https://github.com/harena-lab)'s module to support Clinical Cases authoring task
 
-* [Table of Contents](#table-of-contents)
-* [Overview](#overview)
-* [Getting Started](#getting-started)
-  * [Running as Docker containers](#running-as-docker-containers)
-* [Performing Searches](#peforming-searches)
-
-<!-- * [System Requirements](#system-requirements)
-  * [For running as Docker containers](#for-running-as-linuxwindows-docker-containers)
-  * [For running locally](#for-running-locally)
-* [Configuration](#configuration)
-  * [Virtualenvs: AdonisJS](#virtualenvs-adonisjs)
-  * [Virtualenvs: Database](#virtualenvs-database)
-* [Contributing](#contributing)
-  * [Project organization](#project-organization)
-  * [Branch organization (future CI/CD)](#branch-organization-future-cicd)-->
-
-## Overview
+ASM Content Annotation. Suggestion system. 
 
 ASM indexes a papers collection to enable efficient search over it.
 
-Papers collection is from http://www.trec-cds.org/2014.html. 
+<!-- Papers collection is from http://www.trec-cds.org/2014.html. 
 
-The collection is automatically downloaded through the installation process (`docker-compose` command)
+The collection is automatically downloaded through the installation process (`docker-compose` command)-->
 
 ## Getting Started
 
-### Running as Docker containers
+We provide a `docker container` to locally run `harena-asm` code. Containers guarantee the required minimal configuration to run the code. Read [docker](https://docs.docker.com/install/) e [docker-compose](https://docs.docker.com/compose/install/) documentations to install docker and learn further about containers.
 
-At the ```harena-asm/``` root folder run the command to start the docker container:
+> In order to execute `docker` without `sudo`, read this link: https://docs.docker.com/engine/install/linux-postinstall/, which shows another optional and valuable configurations in docker environment.
 
-```docker-compose -f docker-compose-dev.yml up```
+#### Instructions (for Linux users)
 
-As the start process is done, you must access the following endpoint in order to index the papers:  
+Clone `harena-asm` repository, get into it, checkout `development` branch, and build the manager docker image:
+
+```bash
+git clone https://github.com/datasci4health-incubator/harena-asm.git
+cd harena-asm
+git checkout -b development
+git pull origin development
+
+docker build . -t asm
+cd ..
+```
+
+Start up the docker container:
+
+```bash
+docker-compose -f docker-compose-dev.yml up
+```
+
+Once the start up process is done, access http://localhost:10040/ to check if the system is working. You can access SOLR admin at http://localhost:8983
+
+
+If you want to get the command line of the container, then run the command:
+
+```bash
+docker exec -it harena-manager_harena-manager_1 bash
+```
+
+<!-- As the start process is done, you must access the following endpoint in order to index the papers:  
 
 ```buildoutcfg
-GET http://localhost:5000/indexer
+GET http://localhost:5000/indexer -->
 ```
 
  you can get access to the container through the sh:
@@ -46,9 +56,6 @@ GET http://localhost:5000/indexer
 ```bash
 docker exec -it harena-asm sh
 ```
-
-You can access ASM at http://localhost:5000
-You can access SOLR admin at http://localhost:8983
 
 ## Performing Searches
 
