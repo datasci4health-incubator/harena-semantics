@@ -12,6 +12,7 @@ class BertController:
         # pretrained_model = "/app/src/ner/bert/pretrained_models/BC5CDR-IOB"
         # pretrained_model = "/app/src/ner/bert/pretrained_models/biobert_ner"
         model = "/app/models/word_embeddings/BC5CDR-IOB"
+        # model = "/app/models/word_embeddings/biobert_base_NER_NCBI-disease"
 
         # print('pretrained_model', pretrained_model)
         model = Ner(model)
