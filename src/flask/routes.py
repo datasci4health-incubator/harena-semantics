@@ -8,15 +8,13 @@ from pathlib import Path
 from flask import Flask, render_template, jsonify, request
 from collections import Counter
 
-
-
-# from src.experiments.first.workflow import perform
 from controllers.indexer.solr_functions import indexer, search_by_category
 from controllers.indexer.entrez_utilities import get_pubtype_and_mesh
 from controllers.ner.ncbo.ncbo_annotator import Annotator
 from controllers.ner.bern.BernController import BernController
 from controllers.ner.bert.BertController import BertController
-# from src.ner.unsupervised_by_clustering.ClusteringController import ClusteringController
+from controllers.ner.unsupervised_by_clustering.ClusteringController import ClusteringController
+# from src.experiments.first.workflow import perform
 # from src.pos.PoSController import PoSController
 # from src.embeddings.EmbeddingController import EmbeddingController
 
@@ -62,7 +60,27 @@ def bert():
     bert_output = bert.predict(text)
 
     return jsonify(bert_output)
-#################
+
+
+@app.route('/ner/unsupervised', methods=['POST'])
+def clustering():
+    text = request.form.get('words')
+    cluster = ClusteringController()
+
+    cluster_output = cluster.predict(text)
+    return jsonify(cluster_output)
+##################################################
+
+
+
+##################################################
+# indexer services #
+##################################################
+##################################################
+@app.route('/indexer', methods=['GET'])
+def indexer_end_point():
+    indexer()
+    return 'indexed'
 
 
 @app.route('/searcher', methods=['POST'])
@@ -83,11 +101,7 @@ def get_papers():
             titles.append({'title': ''.join(paper.get('title'))})
     retrieved_papers.update({'papers': titles})
     return jsonify(retrieved_papers)
-
-@app.route('/indexer', methods=['GET'])
-def indexer_end_point():
-    indexer()
-    return 'indexed'
+##################################################
 
 
 @app.route('/exp1', methods=['GET'])
@@ -95,10 +109,10 @@ def exp1():
     return jsonify(perform())
 
 
-#######################
+##################################################
 # Embeddings services #
-#######################
-#######################
+##################################################
+##################################################
 @app.route('/embeddings', methods=['GET'])
 def get_embeddings():
     text = request.form.get('text')
@@ -172,13 +186,6 @@ def get_embeddings_similarity():
     return "success"
 
 
-@app.route('/clustering', methods=['POST'])
-def clustering():
-    text = request.form.get('words')
-    cluster = ClusteringController()
-
-    cluster_output = cluster.predict(text)
-    return jsonify(cluster_output)
 
 
 # Pra estes serviços funcionar é preciso clonar e rodar o repositorio https://github.com/ajitrajasekharan/JPTDP_wrapper
@@ -251,7 +258,6 @@ def concept_graph():
 
     embedding_controller.create_tsv_files(list_of_fully_predictions)
     return jsonify(list_of_fully_predictions)
-
 
 
 @app.route('/graph/nn_concepts', methods=['GET'])
