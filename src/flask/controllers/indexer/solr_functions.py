@@ -1,7 +1,7 @@
 import pysolr, json, os
 import xml.etree.ElementTree as et
-from src.pubmed.entrez_utilities import get_pubtype_and_mesh
-from src.ner.ncbo.ncbo_annotator import Annotator
+from .entrez_utilities import get_pubtype_and_mesh
+from ..ner.ncbo.ncbo_annotator import Annotator
 
 SOLR_URL = 'http://' + os.environ['SOLR_HOST'] + ':8983/solr/pmc'
 
