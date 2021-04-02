@@ -6,10 +6,10 @@
 	},
 	"item": [
 		{
-			"name": "search",
+			"name": "indexer",
 			"item": [
 				{
-					"name": "search",
+					"name": "search (working)",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -41,12 +41,7 @@
 						}
 					},
 					"response": []
-				}
-			]
-		},
-		{
-			"name": "indexer",
-			"item": [
+				},
 				{
 					"name": "/indexer",
 					"protocolProfileBehavior": {
@@ -101,6 +96,223 @@
 									"value": "",
 									"disabled": true
 								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ner",
+			"item": [
+				{
+					"name": "/ner/bern (working)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "text",
+									"value": "Sepsis is the second most common cause of death in non-coronary intensive care units and the tenth leading cause of death overall in high-income countries. During the past two decades, the incidence of sepsis has increased annually by 9% to reach 240 per 100 000 population in the USA by 2000.\n\nThe true incidence of sepsis in any given country is unknown. The reported incidence is dependent on the specific definition used, the infecting organism, the reporting mechanism (such as the use of the International Classification of Diseases-9 coding systems) and the requirement for either organ support or intensive care. These factors result in marked differences between estimates and discrete geographical locations. Most data describing the incidence of sepsis are from high-income countries, where 2.8 million deaths per year are attributable to sepsis. In 2001, Angus and colleagues reported in, the USA the, that incidence of severe sepsis was more than 750 000 cases per annum (300 cases per 100 000 population), equivalent to 2.26 cases per 100 hospital discharges. In the UK, the reported prevalence of sepsis in ICU-derived cohorts is 27% of all ICU admissions, whereas the prevalence is 12% in the USA. 14 This difference could partly be explained by the sub stantially greater numbers of ICU beds available in the USA than in the UK, and thus the differing triage patterns and admission criteria. It is also possible that, in institutions where clinical staff are trained in sepsis recognition, the previous use of the less-specific SIRS criteria could have led to an over-reporting of sepsis cases. \n",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{api-base-url}}/ner/bern",
+							"host": [
+								"{{api-base-url}}"
+							],
+							"path": [
+								"ner",
+								"bern"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "/ner",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "text",
+											"value": "A 58-year-old African-American woman presents to the ER with episodic pressing/burning anterior chest pain that began two days earlier for the first time in her life. The pain started while she was walking, radiates to the back, and is accompanied by nausea, diaphoresis and mild dyspnea, but is not increased on inspiration. The latest episode of pain ended half an hour prior to her arrival. She is known to have hypertension and obesity. She denies smoking, diabetes, hypercholesterolemia, or a family history of heart disease. She currently takes no medications. Physical examination is normal. The EKG shows nonspecific changes.",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{api-base-url}}/ner",
+									"host": [
+										"{{api-base-url}}"
+									],
+									"path": [
+										"ner"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "4707"
+								},
+								{
+									"key": "Server",
+									"value": "Werkzeug/1.0.1 Python/3.6.12"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 10 Oct 2020 05:02:47 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"denotations\": [\n        {\n            \"id\": [\n                \"MESH:D002637\",\n                \"BERN:265734601\"\n            ],\n            \"obj\": \"disease\",\n            \"span\": {\n                \"begin\": 61,\n                \"end\": 106\n            }\n        },\n        {\n            \"id\": [\n                \"MESH:D009325\",\n                \"BERN:263161801\"\n            ],\n            \"obj\": \"disease\",\n            \"span\": {\n                \"begin\": 251,\n                \"end\": 257\n            }\n        },\n        {\n            \"id\": [\n                \"CUI-less\"\n            ],\n            \"obj\": \"disease\",\n            \"span\": {\n                \"begin\": 259,\n                \"end\": 270\n            }\n        },\n        {\n            \"id\": [\n                \"MESH:D001049\",\n                \"BERN:256800901\"\n            ],\n            \"obj\": \"disease\",\n            \"span\": {\n                \"begin\": 280,\n                \"end\": 287\n            }\n        },\n        {\n            \"id\": [\n                \"MESH:D010146\",\n                \"BERN:262326101\"\n            ],\n            \"obj\": \"disease\",\n            \"span\": {\n                \"begin\": 348,\n                \"end\": 352\n            }\n        },\n        {\n            \"id\": [\n                \"MESH:D006973\",\n                \"BERN:106966601\"\n            ],\n            \"obj\": \"disease\",\n            \"span\": {\n                \"begin\": 415,\n                \"end\": 427\n            }\n        },\n        {\n            \"id\": [\n                \"OMIM:601665\",\n                \"MESH:D009765\",\n                \"BERN:261400701\"\n            ],\n            \"obj\": \"disease\",\n            \"span\": {\n                \"begin\": 432,\n                \"end\": 439\n            }\n        },\n        {\n            \"id\": [\n                \"BERN:258006601\"\n            ],\n            \"obj\": \"disease\",\n            \"span\": {\n                \"begin\": 461,\n                \"end\": 469\n            }\n        },\n        {\n            \"id\": [\n                \"MESH:D006937\",\n                \"BERN:256192501\"\n            ],\n            \"obj\": \"disease\",\n            \"span\": {\n                \"begin\": 471,\n                \"end\": 491\n            }\n        },\n        {\n            \"id\": [\n                \"MESH:D006331\",\n                \"BERN:257967001\"\n            ],\n            \"obj\": \"disease\",\n            \"span\": {\n                \"begin\": 516,\n                \"end\": 529\n            }\n        },\n        {\n            \"id\": [\n                \"CUI-less\"\n            ],\n            \"obj\": \"gene\",\n            \"span\": {\n                \"begin\": 603,\n                \"end\": 606\n            }\n        }\n    ],\n    \"logits\": {\n        \"disease\": [\n            [\n                {\n                    \"end\": 106,\n                    \"id\": \"MESH:D002637\\tBERN:265734601\",\n                    \"start\": 61\n                },\n                0.9999882578849792\n            ],\n            [\n                {\n                    \"end\": 257,\n                    \"id\": \"MESH:D009325\\tBERN:263161801\",\n                    \"start\": 251\n                },\n                0.9999306201934814\n            ],\n            [\n                {\n                    \"end\": 270,\n                    \"id\": \"CUI-less\",\n                    \"start\": 259\n                },\n                0.9999997615814209\n            ],\n            [\n                {\n                    \"end\": 287,\n                    \"id\": \"MESH:D001049\\tBERN:256800901\",\n                    \"start\": 280\n                },\n                0.9999998807907104\n            ],\n            [\n                {\n                    \"end\": 352,\n                    \"id\": \"MESH:D010146\\tBERN:262326101\",\n                    \"start\": 348\n                },\n                0.9993453621864319\n            ],\n            [\n                {\n                    \"end\": 427,\n                    \"id\": \"MESH:D006973\\tBERN:106966601\",\n                    \"start\": 415\n                },\n                0.9999998807907104\n            ],\n            [\n                {\n                    \"end\": 439,\n                    \"id\": \"OMIM:601665\\tMESH:D009765\\tBERN:261400701\",\n                    \"start\": 432\n                },\n                0.9999998807907104\n            ],\n            [\n                {\n                    \"end\": 469,\n                    \"id\": \"BERN:258006601\",\n                    \"start\": 461\n                },\n                0.9999997615814209\n            ],\n            [\n                {\n                    \"end\": 491,\n                    \"id\": \"MESH:D006937\\tBERN:256192501\",\n                    \"start\": 471\n                },\n                0.9999998807907104\n            ],\n            [\n                {\n                    \"end\": 529,\n                    \"id\": \"MESH:D006331\\tBERN:257967001\",\n                    \"start\": 516\n                },\n                0.9999999403953552\n            ]\n        ],\n        \"drug\": [],\n        \"gene\": [\n            [\n                {\n                    \"end\": 606,\n                    \"id\": \"CUI-less\",\n                    \"start\": 603\n                },\n                0.9999744892120361\n            ]\n        ],\n        \"species\": [\n            [\n                {\n                    \"end\": 36,\n                    \"start\": 31\n                },\n                0.9999998807907104\n            ]\n        ]\n    },\n    \"project\": \"BERN\",\n    \"sourcedb\": \"\",\n    \"sourceid\": \"e171534f4c4feac70cde566fbb5279a890207e7864a64e5a33d5eb19-Thread-872223\",\n    \"text\": \"A 58-year-old African-American woman presents to the ER with episodic pressing/burning anterior chest pain that began two days earlier for the first time in her life. The pain started while she was walking, radiates to the back, and is accompanied by nausea, diaphoresis and mild dyspnea, but is not increased on inspiration. The latest episode of pain ended half an hour prior to her arrival. She is known to have hypertension and obesity. She denies smoking, diabetes, hypercholesterolemia, or a family history of heart disease. She currently takes no medications. Physical examination is normal. The EKG shows nonspecific changes.\",\n    \"timestamp\": \"Sat Oct 10 05:02:46 +0000 2020\"\n}"
+						}
+					]
+				},
+				{
+					"name": "/ner/bert (finetuned on BC5CDR-IOB) (working)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "text",
+									"value": "Sepsis is the second most common cause of death in non-coronary intensive care units and the tenth leading cause of death overall in high-income countries. During the past two decades, the incidence of sepsis has increased annually by 9% to reach 240 per 100 000 population in the USA by 2000.\n\nThe true incidence of sepsis in any given country is unknown. The reported incidence is dependent on the specific definition used, the infecting organism, the reporting mechanism (such as the use of the International Classification of Diseases-9 coding systems) and the requirement for either organ support or intensive care. These factors result in marked differences between estimates and discrete geographical locations. Most data describing the incidence of sepsis are from high-income countries, where 2.8 million deaths per year are attributable to sepsis. In 2001, Angus and colleagues reported in, the USA the, that incidence of severe sepsis was more than 750 000 cases per annum (300 cases per 100 000 population), equivalent to 2.26 cases per 100 hospital discharges. In the UK, the reported prevalence of sepsis in ICU-derived cohorts is 27% of all ICU admissions, whereas the prevalence is 12% in the USA. 14 This difference could partly be explained by the sub stantially greater numbers of ICU beds available in the USA than in the UK, and thus the differing triage patterns and admission criteria. It is also possible that, in institutions where clinical staff are trained in sepsis recognition, the previous use of the less-specific SIRS criteria could have led to an over-reporting of sepsis cases. \n\nOverall, however, there is probably a substantial under-reporting of the incidence of sepsis and with an ageing population, the incidence will continue to increase. This pattern might be further accentuated by campaigns to increase the awareness of and screening for the condition. Except for maternal and neonatal sepsis, the condition is usually considerably under-reported in the global burden of disease statistics. The true scale of the problem is probably much higher than what has been reported. Data suggest that sepsis contributes to between a third and a half of all in-hospital deaths in the USA. Although these data represent the incidence of sepsis in high-resource countries, most deaths due to sepsis happen in low-resource countries, where the exact incidence of sepsis is difficult to accurately estimate.",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{api-base-url}}/ner/bert",
+							"host": [
+								"{{api-base-url}}"
+							],
+							"path": [
+								"ner",
+								"bert"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "/ner",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "text",
+											"value": "A 58-year-old African-American woman presents to the ER with episodic pressing/burning anterior chest pain that began two days earlier for the first time in her life. The pain started while she was walking, radiates to the back, and is accompanied by nausea, diaphoresis and mild dyspnea, but is not increased on inspiration. The latest episode of pain ended half an hour prior to her arrival. She is known to have hypertension and obesity. She denies smoking, diabetes, hypercholesterolemia, or a family history of heart disease. She currently takes no medications. Physical examination is normal. The EKG shows nonspecific changes.",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{api-base-url}}/ner",
+									"host": [
+										"{{api-base-url}}"
+									],
+									"path": [
+										"ner"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "4707"
+								},
+								{
+									"key": "Server",
+									"value": "Werkzeug/1.0.1 Python/3.6.12"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 10 Oct 2020 05:02:47 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"denotations\": [\n        {\n            \"id\": [\n                \"MESH:D002637\",\n                \"BERN:265734601\"\n            ],\n            \"obj\": \"disease\",\n            \"span\": {\n                \"begin\": 61,\n                \"end\": 106\n            }\n        },\n        {\n            \"id\": [\n                \"MESH:D009325\",\n                \"BERN:263161801\"\n            ],\n            \"obj\": \"disease\",\n            \"span\": {\n                \"begin\": 251,\n                \"end\": 257\n            }\n        },\n        {\n            \"id\": [\n                \"CUI-less\"\n            ],\n            \"obj\": \"disease\",\n            \"span\": {\n                \"begin\": 259,\n                \"end\": 270\n            }\n        },\n        {\n            \"id\": [\n                \"MESH:D001049\",\n                \"BERN:256800901\"\n            ],\n            \"obj\": \"disease\",\n            \"span\": {\n                \"begin\": 280,\n                \"end\": 287\n            }\n        },\n        {\n            \"id\": [\n                \"MESH:D010146\",\n                \"BERN:262326101\"\n            ],\n            \"obj\": \"disease\",\n            \"span\": {\n                \"begin\": 348,\n                \"end\": 352\n            }\n        },\n        {\n            \"id\": [\n                \"MESH:D006973\",\n                \"BERN:106966601\"\n            ],\n            \"obj\": \"disease\",\n            \"span\": {\n                \"begin\": 415,\n                \"end\": 427\n            }\n        },\n        {\n            \"id\": [\n                \"OMIM:601665\",\n                \"MESH:D009765\",\n                \"BERN:261400701\"\n            ],\n            \"obj\": \"disease\",\n            \"span\": {\n                \"begin\": 432,\n                \"end\": 439\n            }\n        },\n        {\n            \"id\": [\n                \"BERN:258006601\"\n            ],\n            \"obj\": \"disease\",\n            \"span\": {\n                \"begin\": 461,\n                \"end\": 469\n            }\n        },\n        {\n            \"id\": [\n                \"MESH:D006937\",\n                \"BERN:256192501\"\n            ],\n            \"obj\": \"disease\",\n            \"span\": {\n                \"begin\": 471,\n                \"end\": 491\n            }\n        },\n        {\n            \"id\": [\n                \"MESH:D006331\",\n                \"BERN:257967001\"\n            ],\n            \"obj\": \"disease\",\n            \"span\": {\n                \"begin\": 516,\n                \"end\": 529\n            }\n        },\n        {\n            \"id\": [\n                \"CUI-less\"\n            ],\n            \"obj\": \"gene\",\n            \"span\": {\n                \"begin\": 603,\n                \"end\": 606\n            }\n        }\n    ],\n    \"logits\": {\n        \"disease\": [\n            [\n                {\n                    \"end\": 106,\n                    \"id\": \"MESH:D002637\\tBERN:265734601\",\n                    \"start\": 61\n                },\n                0.9999882578849792\n            ],\n            [\n                {\n                    \"end\": 257,\n                    \"id\": \"MESH:D009325\\tBERN:263161801\",\n                    \"start\": 251\n                },\n                0.9999306201934814\n            ],\n            [\n                {\n                    \"end\": 270,\n                    \"id\": \"CUI-less\",\n                    \"start\": 259\n                },\n                0.9999997615814209\n            ],\n            [\n                {\n                    \"end\": 287,\n                    \"id\": \"MESH:D001049\\tBERN:256800901\",\n                    \"start\": 280\n                },\n                0.9999998807907104\n            ],\n            [\n                {\n                    \"end\": 352,\n                    \"id\": \"MESH:D010146\\tBERN:262326101\",\n                    \"start\": 348\n                },\n                0.9993453621864319\n            ],\n            [\n                {\n                    \"end\": 427,\n                    \"id\": \"MESH:D006973\\tBERN:106966601\",\n                    \"start\": 415\n                },\n                0.9999998807907104\n            ],\n            [\n                {\n                    \"end\": 439,\n                    \"id\": \"OMIM:601665\\tMESH:D009765\\tBERN:261400701\",\n                    \"start\": 432\n                },\n                0.9999998807907104\n            ],\n            [\n                {\n                    \"end\": 469,\n                    \"id\": \"BERN:258006601\",\n                    \"start\": 461\n                },\n                0.9999997615814209\n            ],\n            [\n                {\n                    \"end\": 491,\n                    \"id\": \"MESH:D006937\\tBERN:256192501\",\n                    \"start\": 471\n                },\n                0.9999998807907104\n            ],\n            [\n                {\n                    \"end\": 529,\n                    \"id\": \"MESH:D006331\\tBERN:257967001\",\n                    \"start\": 516\n                },\n                0.9999999403953552\n            ]\n        ],\n        \"drug\": [],\n        \"gene\": [\n            [\n                {\n                    \"end\": 606,\n                    \"id\": \"CUI-less\",\n                    \"start\": 603\n                },\n                0.9999744892120361\n            ]\n        ],\n        \"species\": [\n            [\n                {\n                    \"end\": 36,\n                    \"start\": 31\n                },\n                0.9999998807907104\n            ]\n        ]\n    },\n    \"project\": \"BERN\",\n    \"sourcedb\": \"\",\n    \"sourceid\": \"e171534f4c4feac70cde566fbb5279a890207e7864a64e5a33d5eb19-Thread-872223\",\n    \"text\": \"A 58-year-old African-American woman presents to the ER with episodic pressing/burning anterior chest pain that began two days earlier for the first time in her life. The pain started while she was walking, radiates to the back, and is accompanied by nausea, diaphoresis and mild dyspnea, but is not increased on inspiration. The latest episode of pain ended half an hour prior to her arrival. She is known to have hypertension and obesity. She denies smoking, diabetes, hypercholesterolemia, or a family history of heart disease. She currently takes no medications. Physical examination is normal. The EKG shows nonspecific changes.\",\n    \"timestamp\": \"Sat Oct 10 05:02:46 +0000 2020\"\n}"
+						}
+					]
+				},
+				{
+					"name": "/ner/ncbo (MESH) (working)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "text",
+									"value": "Sepsis is the second most common cause of death in non-coronary intensive care units and the tenth leading cause of death overall in high-income countries. During the past two decades, the incidence of sepsis has increased annually by 9% to reach 240 per 100 000 population in the USA by 2000.\nThe true incidence of sepsis in any given country is unknown. The reported incidence is dependent on the specific definition used, the infecting organism, the reporting mechanism (such as the use of the International Classification of Diseases-9 coding systems) and the requirement for either organ support or intensive care. These factors result in marked differences between estimates and discrete geographical locations. Most data describing the incidence of sepsis are from high-income countries, where 2.8 million deaths per year are attributable to sepsis. In 2001, Angus and colleagues reported in, the USA the, that incidence of severe sepsis was more than 750 000 cases per annum (300 cases per 100 000 population), equivalent to 2.26 cases per 100 hospital discharges. In the UK, the reported prevalence of sepsis in ICU-derived cohorts is 27% of all ICU admissions, whereas the prevalence is 12% in the USA. 14 This difference could partly be explained by the sub stantially greater numbers of ICU beds available in the USA than in the UK, and thus the differing triage patterns and admission criteria. It is also possible that, in institutions where clinical staff are trained in sepsis recognition, the previous use of the less-specific SIRS criteria could have led to an over-reporting of sepsis cases.\nOverall, however, there is probably a substantial under-reporting of the incidence of sepsis and with an ageing population, the incidence will continue to increase. This pattern might be further accentuated by campaigns to increase the awareness of and screening for the condition. Except for maternal and neonatal sepsis, the condition is usually considerably under-reported in the global burden of disease statistics. The true scale of the problem is probably much higher than what has been reported. Data suggest that sepsis contributes to between a third and a half of all in-hospital deaths in the USA. Although these data represent the incidence of sepsis in high-resource countries, most deaths due to sepsis happen in low-resource countries, where the exact incidence of sepsis is difficult to accurately estimate. The available literature suggests that an estimated 90% of worldwide deaths from chest infections occur in low-resource settings; about 70% of the 9 million deaths due to chest infections in neonates and infants are associated with sepsis, and most cases occur in Asia and Africa.\nSepsis can be a terminal event in patients who are already dying from other causes (eg, terminal cancer). This fact is especially important to remember in the context of an increased number of admissions of old and frail patients in hospital wards and ICUs, and when evaluating our expectations on to what extent mortality rates from sepsis can be reduced. It is very likely that a baseline mortality from sepsis is part of the nature of the syndrome itself, and in practice it is unreasonable to expect mortality rates to drop to zero, despite our best efforts to understand, and, recognise treat the condition. \nIt is hoped that positive advancements, such as the recent World Health Assembly and WHO resolution on sepsis, will raise awareness of sepsis as a global priority, and its prevention, recognition, and treatment will improve worldwide.\nIn the United States, there are currently 1.7 million cases of sepsis per year, a trend that has been increasing annually. There are almost 250,000 deaths per year owing to sepsis, and it is the leading cause of death in noncardiac ICUs. \nOf septic patients admitted to ICUs worldwide, the most common source of infection is the lungs (64%), abdomen (20%), bloodstream (15%), and urinary tract (14%). \nOf isolated organisms, 62% gram negative-were bacteria; 47% were gram-positive bacteria, and 19% were fungi. The most common gram-positive organism is Staphylococcus aureus (20%), and the most common gram-negative isolates are Pseudomonas (20%) and coli Escherichia (16%). \nMany factors are associated with increased risk of mortality in patients with sepsis and septic shock: emergency surgery (odds ratio [OR] 1.56), trauma (OR 1.01), transfer from hospital floor (OR 1.37), presence of chronic obstructive pulmonary disease (OR 1.21), cancer (OR 1.33), heart failure (OR 1.45), immunosuppression (OR 1.81), cirrhosis (OR 2.14), previous mechanical ventilation (OR 1.90), or hemodialysis (OR 1.58).\n",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{api-base-url}}/ner/ncbo",
+							"host": [
+								"{{api-base-url}}"
+							],
+							"path": [
+								"ner",
+								"ncbo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/ner/unsupervised (broken)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "words",
+									"value": "sepsis cancer diabetes",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{api-base-url}}/ner/unsupervised",
+							"host": [
+								"{{api-base-url}}"
+							],
+							"path": [
+								"ner",
+								"unsupervised"
 							]
 						}
 					},
@@ -192,195 +404,6 @@
 			]
 		},
 		{
-			"name": "ner",
-			"item": [
-				{
-					"name": "/ner/bern",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "text",
-									"value": "Sepsis is the second most common cause of death in non-coronary intensive care units and the tenth leading cause of death overall in high-income countries. During the past two decades, the incidence of sepsis has increased annually by 9% to reach 240 per 100 000 population in the USA by 2000.\n\nThe true incidence of sepsis in any given country is unknown. The reported incidence is dependent on the specific definition used, the infecting organism, the reporting mechanism (such as the use of the International Classification of Diseases-9 coding systems) and the requirement for either organ support or intensive care. These factors result in marked differences between estimates and discrete geographical locations. Most data describing the incidence of sepsis are from high-income countries, where 2.8 million deaths per year are attributable to sepsis. In 2001, Angus and colleagues reported in, the USA the, that incidence of severe sepsis was more than 750 000 cases per annum (300 cases per 100 000 population), equivalent to 2.26 cases per 100 hospital discharges. In the UK, the reported prevalence of sepsis in ICU-derived cohorts is 27% of all ICU admissions, whereas the prevalence is 12% in the USA. 14 This difference could partly be explained by the sub stantially greater numbers of ICU beds available in the USA than in the UK, and thus the differing triage patterns and admission criteria. It is also possible that, in institutions where clinical staff are trained in sepsis recognition, the previous use of the less-specific SIRS criteria could have led to an over-reporting of sepsis cases. \n",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{api-base-url}}/ner/bern",
-							"host": [
-								"{{api-base-url}}"
-							],
-							"path": [
-								"ner",
-								"bern"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "/ner",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "formdata",
-									"formdata": [
-										{
-											"key": "text",
-											"value": "A 58-year-old African-American woman presents to the ER with episodic pressing/burning anterior chest pain that began two days earlier for the first time in her life. The pain started while she was walking, radiates to the back, and is accompanied by nausea, diaphoresis and mild dyspnea, but is not increased on inspiration. The latest episode of pain ended half an hour prior to her arrival. She is known to have hypertension and obesity. She denies smoking, diabetes, hypercholesterolemia, or a family history of heart disease. She currently takes no medications. Physical examination is normal. The EKG shows nonspecific changes.",
-											"type": "text"
-										}
-									]
-								},
-								"url": {
-									"raw": "{{api-base-url}}/ner",
-									"host": [
-										"{{api-base-url}}"
-									],
-									"path": [
-										"ner"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "Content-Length",
-									"value": "4707"
-								},
-								{
-									"key": "Server",
-									"value": "Werkzeug/1.0.1 Python/3.6.12"
-								},
-								{
-									"key": "Date",
-									"value": "Sat, 10 Oct 2020 05:02:47 GMT"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"denotations\": [\n        {\n            \"id\": [\n                \"MESH:D002637\",\n                \"BERN:265734601\"\n            ],\n            \"obj\": \"disease\",\n            \"span\": {\n                \"begin\": 61,\n                \"end\": 106\n            }\n        },\n        {\n            \"id\": [\n                \"MESH:D009325\",\n                \"BERN:263161801\"\n            ],\n            \"obj\": \"disease\",\n            \"span\": {\n                \"begin\": 251,\n                \"end\": 257\n            }\n        },\n        {\n            \"id\": [\n                \"CUI-less\"\n            ],\n            \"obj\": \"disease\",\n            \"span\": {\n                \"begin\": 259,\n                \"end\": 270\n            }\n        },\n        {\n            \"id\": [\n                \"MESH:D001049\",\n                \"BERN:256800901\"\n            ],\n            \"obj\": \"disease\",\n            \"span\": {\n                \"begin\": 280,\n                \"end\": 287\n            }\n        },\n        {\n            \"id\": [\n                \"MESH:D010146\",\n                \"BERN:262326101\"\n            ],\n            \"obj\": \"disease\",\n            \"span\": {\n                \"begin\": 348,\n                \"end\": 352\n            }\n        },\n        {\n            \"id\": [\n                \"MESH:D006973\",\n                \"BERN:106966601\"\n            ],\n            \"obj\": \"disease\",\n            \"span\": {\n                \"begin\": 415,\n                \"end\": 427\n            }\n        },\n        {\n            \"id\": [\n                \"OMIM:601665\",\n                \"MESH:D009765\",\n                \"BERN:261400701\"\n            ],\n            \"obj\": \"disease\",\n            \"span\": {\n                \"begin\": 432,\n                \"end\": 439\n            }\n        },\n        {\n            \"id\": [\n                \"BERN:258006601\"\n            ],\n            \"obj\": \"disease\",\n            \"span\": {\n                \"begin\": 461,\n                \"end\": 469\n            }\n        },\n        {\n            \"id\": [\n                \"MESH:D006937\",\n                \"BERN:256192501\"\n            ],\n            \"obj\": \"disease\",\n            \"span\": {\n                \"begin\": 471,\n                \"end\": 491\n            }\n        },\n        {\n            \"id\": [\n                \"MESH:D006331\",\n                \"BERN:257967001\"\n            ],\n            \"obj\": \"disease\",\n            \"span\": {\n                \"begin\": 516,\n                \"end\": 529\n            }\n        },\n        {\n            \"id\": [\n                \"CUI-less\"\n            ],\n            \"obj\": \"gene\",\n            \"span\": {\n                \"begin\": 603,\n                \"end\": 606\n            }\n        }\n    ],\n    \"logits\": {\n        \"disease\": [\n            [\n                {\n                    \"end\": 106,\n                    \"id\": \"MESH:D002637\\tBERN:265734601\",\n                    \"start\": 61\n                },\n                0.9999882578849792\n            ],\n            [\n                {\n                    \"end\": 257,\n                    \"id\": \"MESH:D009325\\tBERN:263161801\",\n                    \"start\": 251\n                },\n                0.9999306201934814\n            ],\n            [\n                {\n                    \"end\": 270,\n                    \"id\": \"CUI-less\",\n                    \"start\": 259\n                },\n                0.9999997615814209\n            ],\n            [\n                {\n                    \"end\": 287,\n                    \"id\": \"MESH:D001049\\tBERN:256800901\",\n                    \"start\": 280\n                },\n                0.9999998807907104\n            ],\n            [\n                {\n                    \"end\": 352,\n                    \"id\": \"MESH:D010146\\tBERN:262326101\",\n                    \"start\": 348\n                },\n                0.9993453621864319\n            ],\n            [\n                {\n                    \"end\": 427,\n                    \"id\": \"MESH:D006973\\tBERN:106966601\",\n                    \"start\": 415\n                },\n                0.9999998807907104\n            ],\n            [\n                {\n                    \"end\": 439,\n                    \"id\": \"OMIM:601665\\tMESH:D009765\\tBERN:261400701\",\n                    \"start\": 432\n                },\n                0.9999998807907104\n            ],\n            [\n                {\n                    \"end\": 469,\n                    \"id\": \"BERN:258006601\",\n                    \"start\": 461\n                },\n                0.9999997615814209\n            ],\n            [\n                {\n                    \"end\": 491,\n                    \"id\": \"MESH:D006937\\tBERN:256192501\",\n                    \"start\": 471\n                },\n                0.9999998807907104\n            ],\n            [\n                {\n                    \"end\": 529,\n                    \"id\": \"MESH:D006331\\tBERN:257967001\",\n                    \"start\": 516\n                },\n                0.9999999403953552\n            ]\n        ],\n        \"drug\": [],\n        \"gene\": [\n            [\n                {\n                    \"end\": 606,\n                    \"id\": \"CUI-less\",\n                    \"start\": 603\n                },\n                0.9999744892120361\n            ]\n        ],\n        \"species\": [\n            [\n                {\n                    \"end\": 36,\n                    \"start\": 31\n                },\n                0.9999998807907104\n            ]\n        ]\n    },\n    \"project\": \"BERN\",\n    \"sourcedb\": \"\",\n    \"sourceid\": \"e171534f4c4feac70cde566fbb5279a890207e7864a64e5a33d5eb19-Thread-872223\",\n    \"text\": \"A 58-year-old African-American woman presents to the ER with episodic pressing/burning anterior chest pain that began two days earlier for the first time in her life. The pain started while she was walking, radiates to the back, and is accompanied by nausea, diaphoresis and mild dyspnea, but is not increased on inspiration. The latest episode of pain ended half an hour prior to her arrival. She is known to have hypertension and obesity. She denies smoking, diabetes, hypercholesterolemia, or a family history of heart disease. She currently takes no medications. Physical examination is normal. The EKG shows nonspecific changes.\",\n    \"timestamp\": \"Sat Oct 10 05:02:46 +0000 2020\"\n}"
-						}
-					]
-				},
-				{
-					"name": "/ner/bert (finetuned on BC5CDR-IOB)",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "text",
-									"value": "Sepsis is the second most common cause of death in non-coronary intensive care units and the tenth leading cause of death overall in high-income countries. During the past two decades, the incidence of sepsis has increased annually by 9% to reach 240 per 100 000 population in the USA by 2000.\n\nThe true incidence of sepsis in any given country is unknown. The reported incidence is dependent on the specific definition used, the infecting organism, the reporting mechanism (such as the use of the International Classification of Diseases-9 coding systems) and the requirement for either organ support or intensive care. These factors result in marked differences between estimates and discrete geographical locations. Most data describing the incidence of sepsis are from high-income countries, where 2.8 million deaths per year are attributable to sepsis. In 2001, Angus and colleagues reported in, the USA the, that incidence of severe sepsis was more than 750 000 cases per annum (300 cases per 100 000 population), equivalent to 2.26 cases per 100 hospital discharges. In the UK, the reported prevalence of sepsis in ICU-derived cohorts is 27% of all ICU admissions, whereas the prevalence is 12% in the USA. 14 This difference could partly be explained by the sub stantially greater numbers of ICU beds available in the USA than in the UK, and thus the differing triage patterns and admission criteria. It is also possible that, in institutions where clinical staff are trained in sepsis recognition, the previous use of the less-specific SIRS criteria could have led to an over-reporting of sepsis cases. \n\nOverall, however, there is probably a substantial under-reporting of the incidence of sepsis and with an ageing population, the incidence will continue to increase. This pattern might be further accentuated by campaigns to increase the awareness of and screening for the condition. Except for maternal and neonatal sepsis, the condition is usually considerably under-reported in the global burden of disease statistics. The true scale of the problem is probably much higher than what has been reported. Data suggest that sepsis contributes to between a third and a half of all in-hospital deaths in the USA. Although these data represent the incidence of sepsis in high-resource countries, most deaths due to sepsis happen in low-resource countries, where the exact incidence of sepsis is difficult to accurately estimate.",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{api-base-url}}/ner/bert",
-							"host": [
-								"{{api-base-url}}"
-							],
-							"path": [
-								"ner",
-								"bert"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "/ner",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "formdata",
-									"formdata": [
-										{
-											"key": "text",
-											"value": "A 58-year-old African-American woman presents to the ER with episodic pressing/burning anterior chest pain that began two days earlier for the first time in her life. The pain started while she was walking, radiates to the back, and is accompanied by nausea, diaphoresis and mild dyspnea, but is not increased on inspiration. The latest episode of pain ended half an hour prior to her arrival. She is known to have hypertension and obesity. She denies smoking, diabetes, hypercholesterolemia, or a family history of heart disease. She currently takes no medications. Physical examination is normal. The EKG shows nonspecific changes.",
-											"type": "text"
-										}
-									]
-								},
-								"url": {
-									"raw": "{{api-base-url}}/ner",
-									"host": [
-										"{{api-base-url}}"
-									],
-									"path": [
-										"ner"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "Content-Length",
-									"value": "4707"
-								},
-								{
-									"key": "Server",
-									"value": "Werkzeug/1.0.1 Python/3.6.12"
-								},
-								{
-									"key": "Date",
-									"value": "Sat, 10 Oct 2020 05:02:47 GMT"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"denotations\": [\n        {\n            \"id\": [\n                \"MESH:D002637\",\n                \"BERN:265734601\"\n            ],\n            \"obj\": \"disease\",\n            \"span\": {\n                \"begin\": 61,\n                \"end\": 106\n            }\n        },\n        {\n            \"id\": [\n                \"MESH:D009325\",\n                \"BERN:263161801\"\n            ],\n            \"obj\": \"disease\",\n            \"span\": {\n                \"begin\": 251,\n                \"end\": 257\n            }\n        },\n        {\n            \"id\": [\n                \"CUI-less\"\n            ],\n            \"obj\": \"disease\",\n            \"span\": {\n                \"begin\": 259,\n                \"end\": 270\n            }\n        },\n        {\n            \"id\": [\n                \"MESH:D001049\",\n                \"BERN:256800901\"\n            ],\n            \"obj\": \"disease\",\n            \"span\": {\n                \"begin\": 280,\n                \"end\": 287\n            }\n        },\n        {\n            \"id\": [\n                \"MESH:D010146\",\n                \"BERN:262326101\"\n            ],\n            \"obj\": \"disease\",\n            \"span\": {\n                \"begin\": 348,\n                \"end\": 352\n            }\n        },\n        {\n            \"id\": [\n                \"MESH:D006973\",\n                \"BERN:106966601\"\n            ],\n            \"obj\": \"disease\",\n            \"span\": {\n                \"begin\": 415,\n                \"end\": 427\n            }\n        },\n        {\n            \"id\": [\n                \"OMIM:601665\",\n                \"MESH:D009765\",\n                \"BERN:261400701\"\n            ],\n            \"obj\": \"disease\",\n            \"span\": {\n                \"begin\": 432,\n                \"end\": 439\n            }\n        },\n        {\n            \"id\": [\n                \"BERN:258006601\"\n            ],\n            \"obj\": \"disease\",\n            \"span\": {\n                \"begin\": 461,\n                \"end\": 469\n            }\n        },\n        {\n            \"id\": [\n                \"MESH:D006937\",\n                \"BERN:256192501\"\n            ],\n            \"obj\": \"disease\",\n            \"span\": {\n                \"begin\": 471,\n                \"end\": 491\n            }\n        },\n        {\n            \"id\": [\n                \"MESH:D006331\",\n                \"BERN:257967001\"\n            ],\n            \"obj\": \"disease\",\n            \"span\": {\n                \"begin\": 516,\n                \"end\": 529\n            }\n        },\n        {\n            \"id\": [\n                \"CUI-less\"\n            ],\n            \"obj\": \"gene\",\n            \"span\": {\n                \"begin\": 603,\n                \"end\": 606\n            }\n        }\n    ],\n    \"logits\": {\n        \"disease\": [\n            [\n                {\n                    \"end\": 106,\n                    \"id\": \"MESH:D002637\\tBERN:265734601\",\n                    \"start\": 61\n                },\n                0.9999882578849792\n            ],\n            [\n                {\n                    \"end\": 257,\n                    \"id\": \"MESH:D009325\\tBERN:263161801\",\n                    \"start\": 251\n                },\n                0.9999306201934814\n            ],\n            [\n                {\n                    \"end\": 270,\n                    \"id\": \"CUI-less\",\n                    \"start\": 259\n                },\n                0.9999997615814209\n            ],\n            [\n                {\n                    \"end\": 287,\n                    \"id\": \"MESH:D001049\\tBERN:256800901\",\n                    \"start\": 280\n                },\n                0.9999998807907104\n            ],\n            [\n                {\n                    \"end\": 352,\n                    \"id\": \"MESH:D010146\\tBERN:262326101\",\n                    \"start\": 348\n                },\n                0.9993453621864319\n            ],\n            [\n                {\n                    \"end\": 427,\n                    \"id\": \"MESH:D006973\\tBERN:106966601\",\n                    \"start\": 415\n                },\n                0.9999998807907104\n            ],\n            [\n                {\n                    \"end\": 439,\n                    \"id\": \"OMIM:601665\\tMESH:D009765\\tBERN:261400701\",\n                    \"start\": 432\n                },\n                0.9999998807907104\n            ],\n            [\n                {\n                    \"end\": 469,\n                    \"id\": \"BERN:258006601\",\n                    \"start\": 461\n                },\n                0.9999997615814209\n            ],\n            [\n                {\n                    \"end\": 491,\n                    \"id\": \"MESH:D006937\\tBERN:256192501\",\n                    \"start\": 471\n                },\n                0.9999998807907104\n            ],\n            [\n                {\n                    \"end\": 529,\n                    \"id\": \"MESH:D006331\\tBERN:257967001\",\n                    \"start\": 516\n                },\n                0.9999999403953552\n            ]\n        ],\n        \"drug\": [],\n        \"gene\": [\n            [\n                {\n                    \"end\": 606,\n                    \"id\": \"CUI-less\",\n                    \"start\": 603\n                },\n                0.9999744892120361\n            ]\n        ],\n        \"species\": [\n            [\n                {\n                    \"end\": 36,\n                    \"start\": 31\n                },\n                0.9999998807907104\n            ]\n        ]\n    },\n    \"project\": \"BERN\",\n    \"sourcedb\": \"\",\n    \"sourceid\": \"e171534f4c4feac70cde566fbb5279a890207e7864a64e5a33d5eb19-Thread-872223\",\n    \"text\": \"A 58-year-old African-American woman presents to the ER with episodic pressing/burning anterior chest pain that began two days earlier for the first time in her life. The pain started while she was walking, radiates to the back, and is accompanied by nausea, diaphoresis and mild dyspnea, but is not increased on inspiration. The latest episode of pain ended half an hour prior to her arrival. She is known to have hypertension and obesity. She denies smoking, diabetes, hypercholesterolemia, or a family history of heart disease. She currently takes no medications. Physical examination is normal. The EKG shows nonspecific changes.\",\n    \"timestamp\": \"Sat Oct 10 05:02:46 +0000 2020\"\n}"
-						}
-					]
-				},
-				{
-					"name": "/ner/ncbo (MESH)",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "text",
-									"value": "Sepsis is the second most common cause of death in non-coronary intensive care units and the tenth leading cause of death overall in high-income countries. During the past two decades, the incidence of sepsis has increased annually by 9% to reach 240 per 100 000 population in the USA by 2000.\nThe true incidence of sepsis in any given country is unknown. The reported incidence is dependent on the specific definition used, the infecting organism, the reporting mechanism (such as the use of the International Classification of Diseases-9 coding systems) and the requirement for either organ support or intensive care. These factors result in marked differences between estimates and discrete geographical locations. Most data describing the incidence of sepsis are from high-income countries, where 2.8 million deaths per year are attributable to sepsis. In 2001, Angus and colleagues reported in, the USA the, that incidence of severe sepsis was more than 750 000 cases per annum (300 cases per 100 000 population), equivalent to 2.26 cases per 100 hospital discharges. In the UK, the reported prevalence of sepsis in ICU-derived cohorts is 27% of all ICU admissions, whereas the prevalence is 12% in the USA. 14 This difference could partly be explained by the sub stantially greater numbers of ICU beds available in the USA than in the UK, and thus the differing triage patterns and admission criteria. It is also possible that, in institutions where clinical staff are trained in sepsis recognition, the previous use of the less-specific SIRS criteria could have led to an over-reporting of sepsis cases.\nOverall, however, there is probably a substantial under-reporting of the incidence of sepsis and with an ageing population, the incidence will continue to increase. This pattern might be further accentuated by campaigns to increase the awareness of and screening for the condition. Except for maternal and neonatal sepsis, the condition is usually considerably under-reported in the global burden of disease statistics. The true scale of the problem is probably much higher than what has been reported. Data suggest that sepsis contributes to between a third and a half of all in-hospital deaths in the USA. Although these data represent the incidence of sepsis in high-resource countries, most deaths due to sepsis happen in low-resource countries, where the exact incidence of sepsis is difficult to accurately estimate. The available literature suggests that an estimated 90% of worldwide deaths from chest infections occur in low-resource settings; about 70% of the 9 million deaths due to chest infections in neonates and infants are associated with sepsis, and most cases occur in Asia and Africa.\nSepsis can be a terminal event in patients who are already dying from other causes (eg, terminal cancer). This fact is especially important to remember in the context of an increased number of admissions of old and frail patients in hospital wards and ICUs, and when evaluating our expectations on to what extent mortality rates from sepsis can be reduced. It is very likely that a baseline mortality from sepsis is part of the nature of the syndrome itself, and in practice it is unreasonable to expect mortality rates to drop to zero, despite our best efforts to understand, and, recognise treat the condition. \nIt is hoped that positive advancements, such as the recent World Health Assembly and WHO resolution on sepsis, will raise awareness of sepsis as a global priority, and its prevention, recognition, and treatment will improve worldwide.\nIn the United States, there are currently 1.7 million cases of sepsis per year, a trend that has been increasing annually. There are almost 250,000 deaths per year owing to sepsis, and it is the leading cause of death in noncardiac ICUs. \nOf septic patients admitted to ICUs worldwide, the most common source of infection is the lungs (64%), abdomen (20%), bloodstream (15%), and urinary tract (14%). \nOf isolated organisms, 62% gram negative-were bacteria; 47% were gram-positive bacteria, and 19% were fungi. The most common gram-positive organism is Staphylococcus aureus (20%), and the most common gram-negative isolates are Pseudomonas (20%) and coli Escherichia (16%). \nMany factors are associated with increased risk of mortality in patients with sepsis and septic shock: emergency surgery (odds ratio [OR] 1.56), trauma (OR 1.01), transfer from hospital floor (OR 1.37), presence of chronic obstructive pulmonary disease (OR 1.21), cancer (OR 1.33), heart failure (OR 1.45), immunosuppression (OR 1.81), cirrhosis (OR 2.14), previous mechanical ventilation (OR 1.90), or hemodialysis (OR 1.58).\n",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{api-base-url}}/ner/ncbo",
-							"host": [
-								"{{api-base-url}}"
-							],
-							"path": [
-								"ner",
-								"ncbo"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
 			"name": "pos tagger",
 			"item": [
 				{
@@ -405,38 +428,6 @@
 							],
 							"path": [
 								"pos"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "clustering",
-			"item": [
-				{
-					"name": "/clustering",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "words",
-									"value": "sepsis cancer diabetes",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{api-base-url}}/clustering",
-							"host": [
-								"{{api-base-url}}"
-							],
-							"path": [
-								"clustering"
 							]
 						}
 					},
