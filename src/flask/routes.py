@@ -1,34 +1,68 @@
-from flask import Flask, render_template, jsonify, request
+import sys, os, logging, pdb
 import requests
-
-import pysolr, os
-import logging, sys, pdb
+import pysolr
+import pandas as pd
 import xml.etree.ElementTree as et
 
-from src.experiments.first.workflow import perform
-from src.solr_functions import indexer, search_by_category
-from src.pubmed.entrez_utilities import get_pubtype_and_mesh
-
-from src.ner.ncbo.ncbo_annotator import Annotator
-from src.ner.bern.BernController import BernController
-from src.ner.bert.BertController import BertController
-from src.ner.unsupervised_by_clustering.ClusteringController import ClusteringController
-from src.pos.PoSController import PoSController
-from src.embeddings.EmbeddingController import EmbeddingController
+from pathlib import Path
+from flask import Flask, render_template, jsonify, request
 from collections import Counter
 
-import pandas as pd
+
+
+# from src.experiments.first.workflow import perform
+from controllers.indexer.solr_functions import indexer, search_by_category
+from controllers.indexer.entrez_utilities import get_pubtype_and_mesh
+from controllers.ner.ncbo.ncbo_annotator import Annotator
+from controllers.ner.bern.BernController import BernController
+from controllers.ner.bert.BertController import BertController
+# from src.ner.unsupervised_by_clustering.ClusteringController import ClusteringController
+# from src.pos.PoSController import PoSController
+# from src.embeddings.EmbeddingController import EmbeddingController
 
 # import tensorflow as tf
 
 app = Flask(__name__)
-
+app.run(debug=True)
 
 @app.route('/')
 def index():
     """ Displays the index page accessible at '/'
     """
     return render_template('index.html')
+
+
+#################
+# NER services #
+#################
+#################
+@app.route('/ner/ncbo', methods=['POST'])
+def ncbo():
+    print(sys.path.append(str(Path('.').absolute())))
+
+    text = request.form.get('text')
+    a = Annotator()
+
+    return jsonify(a.highlights_mesh(text))
+
+
+@app.route('/ner/bern', methods=['POST'])
+def bern():
+    text = request.form.get('text')
+    bern = BernController()
+
+    return jsonify(bern.retrieve_ner(text))
+
+
+@app.route('/ner/bert', methods=['POST'])
+def bert():
+    text = request.form.get('text')
+    bert = BertController()
+
+    bert_output = bert.predict(text)
+
+    return jsonify(bert_output)
+#################
 
 
 @app.route('/searcher', methods=['POST'])
@@ -61,43 +95,10 @@ def exp1():
     return jsonify(perform())
 
 
-#
-#
-# NER services
-#
-#
-@app.route('/ner/ncbo', methods=['POST'])
-def annotate():
-    text = request.form.get('text')
-    a = Annotator()
-
-    return jsonify(a.highlights_mesh(text))
-
-
-@app.route('/ner/bern', methods=['POST'])
-def bern():
-    text = request.form.get('text')
-    bern = BernController()
-
-    return jsonify(bern.retrieve_ner(text))
-
-
-@app.route('/ner/bert', methods=['POST'])
-def bert():
-    text = request.form.get('text')
-    bert = BertController()
-
-    bert_output = bert.predict(text)
-
-    return jsonify(bert_output)
-
-
-
-#
-#
-# Embeddings services
-#
-#
+#######################
+# Embeddings services #
+#######################
+#######################
 @app.route('/embeddings', methods=['GET'])
 def get_embeddings():
     text = request.form.get('text')
