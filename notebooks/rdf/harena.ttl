@@ -1,0 +1,51 @@
+@prefix harena: <http://harena.org/> .
+@prefix ns1: <http://xmlns.com/foaf/0.1/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+harena:clinical_case a rdfs:Class ;
+    rdfs:label "Clinical Case" .
+
+harena:institution a rdfs:Class ;
+    rdfs:label "Institution" .
+
+harena:template a rdfs:Class ;
+    rdfs:label "Template" .
+
+harena:copyright a rdf:Property ;
+    rdfs:domain harena:institution,
+        ns1:Person ;
+    rdfs:range harena:clinical_case,
+        harena:template .
+
+harena:has_template a rdf:Property ;
+    rdfs:domain harena:clinical_case ;
+    rdfs:range harena:template .
+
+harena:jacinto a ns1:Person ;
+    harena:copyright harena:pocus,
+        harena:respiratory_failure ;
+    ns1:name "Jacinto Bemelhor" .
+
+harena:minho a harena:institution .
+
+harena:unicamp a harena:institution ;
+    rdfs:label "unicamp" ;
+    harena:copyright harena:pocus,
+        harena:sepsis .
+
+harena:respiratory_failure a harena:clinical_case ;
+    rdfs:label "Respiratory Failure" ;
+    harena:has_template harena:pocus .
+
+harena:sepsis a harena:clinical_case ;
+    rdfs:label "Sepsis" ;
+    harena:has_template harena:pocus,
+        harena:virtual_rounds .
+
+harena:virtual_rounds a harena:template ;
+    rdfs:label "Virtual Rounds" .
+
+harena:pocus a harena:template ;
+    rdfs:label "Pocus Challenge" .
+
