@@ -124,4 +124,16 @@ embeddings/tsv_files
 
 src/ner/unsupervised_by_clustering/bert_vectors.txt
 
+.local
+.ipython
+.jupyter
+.keras
+.bash_history
 
+cases/
+datasets/
+
+
+notebooks/antigos/
+notebooks/antigos/enzo_work/
+notebooks/ner/data/sources/
