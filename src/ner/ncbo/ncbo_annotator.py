@@ -4,9 +4,9 @@ from flask import jsonify
 BASE_URL = "http://data.bioontology.org/annotator"
 API_KEY = '1cff5532-d88d-4a43-97a2-729e43dd2a4b'
 params = dict(ontologies='MESH',
-              exclude_numbers='true',
+              exclude_numbers='false',
               exclude_synonyms='false',
-              longest_only='true')
+              longest_only='false')
 
 class Annotator:
 
