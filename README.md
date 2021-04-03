@@ -1,14 +1,26 @@
-# Harena ASM - Authoring Support Module
+# Harena ASM - Annotation Support Module
 
-## A [Harena](https://github.com/harena-lab)'s module to support Clinical Cases authoring task
-
+A [Harena](https://github.com/harena-lab)'s module to support Clinical Cases annotation
 ASM Content Annotation. Suggestion system. 
 
-ASM indexes a papers collection to enable efficient search over it.
+## Available Services
+
+Currently, ASM provides REST endpoints grouped into 2 categories:
+- Biomedical Named Entity Recognition endpoints, which Recognize biomedical concepts in a given text using to different approaches. The return is text annotated in a Verum format
+  - `/ner/bern`
+  - `/ner/bert`
+  - `/ner/ncbo`
+  - `/ner/unsupervised` 
+- Retrieval of Biomedical scientific articles
+  - `/indexer`: indexes papers collection to enable efficient search over it
+  - `/indexer/search`: search papers according to needs specified as parameters
+
+
+Check https://www.getpostman.com/collections/c164e51189e95c3270a5 to discover available endpoints provided by `harena manager api`.
 
 <!-- Papers collection is from http://www.trec-cds.org/2014.html. 
 
-The collection is automatically downloaded through the installation process (`docker-compose` command)-->
+The collection is automatically downloaded through the installation process (`docker-compose` command) -->
 
 ## Getting Started
 
@@ -55,12 +67,4 @@ GET http://localhost:5000/indexer -->
 
 ```bash
 docker exec -it harena-asm sh
-```
-
-## Performing Searches
-
-```buildoutcfg
-POST http://localhost:5000/searcher
-
-params: description (text)
 ```
