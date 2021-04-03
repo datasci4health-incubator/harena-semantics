@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export FLASK_APP=./src/flask/routes.py
+export FLASK_APP=./routes.py
 export FLASK_ENV=development
 source $(pipenv --venv)/bin/activate
 
