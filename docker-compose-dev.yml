@@ -8,6 +8,7 @@ services:
       # - ./:/app
       - ./src/flask:/app
       - models:/app/models
+      - datasets:/app/datasets
 
     environment:
       - SOLR_HOST=solr
@@ -49,6 +50,8 @@ volumes:
   harena-asm-solr:
     driver: "local"
   models:
+    driver: "local"
+  datasets:
     driver: "local"
 
 networks:
