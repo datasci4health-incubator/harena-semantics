@@ -16,5 +16,5 @@ COPY Pipfile Pipfile.lock bootstrap.sh ./
 RUN pipenv install
 
 ## Start app
-EXPOSE 5000
+#EXPOSE 10040
 ENTRYPOINT ["./bootstrap.sh"]
