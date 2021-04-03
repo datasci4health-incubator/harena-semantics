@@ -5,7 +5,10 @@ services:
     ports:
       - "10040:5000"
     volumes:
-      - ./:/app
+      # - ./:/app
+      - ./src/flask:/app
+      - models:/app/models
+
     environment:
       - SOLR_HOST=solr
     depends_on:
@@ -44,6 +47,8 @@ services:
 
 volumes:
   harena-asm-solr:
+    driver: "local"
+  models:
     driver: "local"
 
 networks:
