@@ -119,6 +119,7 @@ src/step1/results/
 .chglog/
 
 models/
+datasets/
 
 embeddings/tsv_files
 
