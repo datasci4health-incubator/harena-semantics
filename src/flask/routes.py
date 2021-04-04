@@ -36,10 +36,22 @@ def index():
 #################
 @app.route('/ner/ncbo', methods=['POST'])
 def ncbo():
-    print(sys.path.append(str(Path('.').absolute())))
-
     text = request.form.get('text')
-    a = Annotator()
+    ontologies = request.form.get('ontologies')
+    whole_word_only = request.form.get('whole_word_only')
+    exclude_numbers = request.form.get('exclude_numbers')
+    exclude_synonyms = request.form.get('exclude_synonyms')
+    longest_only = request.form.get('longest_only')
+    expand_mappings = request.form.get('expand_mappings')
+    semantic_types = request.form.get('semantic_types')
+
+    a = Annotator(ontologies,
+                    whole_word_only,
+                    exclude_numbers,
+                    exclude_synonyms,
+                    longest_only,
+                    expand_mappings,
+                    semantic_types)
 
     return jsonify(a.highlights_mesh(text))
 

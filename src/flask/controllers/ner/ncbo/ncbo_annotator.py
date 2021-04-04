@@ -3,16 +3,28 @@ from flask import jsonify
 
 BASE_URL = "http://data.bioontology.org/annotator"
 API_KEY = '1cff5532-d88d-4a43-97a2-729e43dd2a4b'
-params = dict(ontologies='MESH',
-              exclude_numbers='false',
-              exclude_synonyms='false',
-              longest_only='false')
 
 class Annotator:
+    params = dict(ontologies='MESH',
+                  require_exact_match='true')
+                  # exclude_numbers='false',
+                  # exclude_synonyms='false',
+                  # longest_only='false')
+
+
+    def __init__(self, ontologies, whole_word_only, exclude_numbers, exclude_synonyms, longest_only, expand_mappings, semantic_types):
+        self.params.update({'whole_word_only': whole_word_only})
+        self.params.update({'ontologies': ontologies})
+        self.params.update({'exclude_numbers': exclude_numbers})
+        self.params.update({'exclude_synonyms': exclude_synonyms})
+        self.params.update({'longest_only': longest_only})
+        self.params.update({'expand_mappings': expand_mappings})
+        self.params.update({'semantic_types': semantic_types})
+
 
     def get_mesh_terms(self, text):
-        params.update({'text': text})
-        r = requests.post(url=BASE_URL, params=params, stream=True, headers={'Authorization': 'apikey token=' + API_KEY})
+        self.params.update({'text': text})
+        r = requests.post(url=BASE_URL, params=self.params, stream=True, headers={'Authorization': 'apikey token=' + API_KEY})
 
         resultArray = json.loads(r.text)
         mesh_terms = []
@@ -23,45 +35,59 @@ class Annotator:
         return mesh_terms
 
 
-    def sort_by_index(self, result_array):
+    def get_resources(self, xml):
         meshs = []
 
-        for result_element in result_array:
-            irl = result_element.get("annotatedClass").get('@id')
-            annotations = result_element.get('annotations')
+        for element in xml:
+            print('------------------------elements------------------')
+            print(element)
+            irl = element.get("annotatedClass").get('@id')
+            annotations = element.get('annotations')
 
             for y in annotations:
                 from_index = y.get('from')
                 to_index = y.get('to')
+                text = y.get('text')
 
-                mesh_json = {'irl':irl, 'from_index':from_index, 'to_index':to_index}
+                mesh_json = {'irl':irl, 'from_index':from_index, 'to_index':to_index, 'text':text}
                 meshs.append(mesh_json)
         meshs.sort(key=lambda x: x['from_index'])
         return meshs
 
 
-    def highlights_mesh(self, text):
-        params.update({'text': text})
-        r = requests.post(url=BASE_URL, params=params, stream=True, headers={'Authorization': 'apikey token=' + API_KEY})
+    def highlights_mesh(self, input_text):
+        self.params.update({'text': input_text})
+
+        r = requests.post(url=BASE_URL, params=self.params, stream=True, headers={'Authorization': 'apikey token=' + API_KEY})
 
         result_array = json.loads(r.text)
-
-        meshs = self.sort_by_index(result_array)
+        # print(result_array)
+        meshs = self.get_resources(result_array)
+        # print('meshs '+str(meshs))
 
         new_text = ""
         excerpts = []
         i = 0
-        for element in meshs:
-            excerpt = text[i:element['from_index'] - 1] + '{' + text[element['from_index'] - 1:element['to_index']] + '}'
-            excerpts.append(excerpt)
 
-            i = element['to_index']
+        index_from_guard = []
+        index_to_guard = []
+
+        for element in meshs:
+            if element['from_index'] not in index_from_guard and element['to_index'] not in index_to_guard:
+                index_from_guard.append(element['from_index'])
+                index_to_guard.append(element['to_index'])
+                excerpt = input_text[i:element['from_index'] - 1] + '{' + input_text[element['from_index'] - 1:element['to_index']] + '}'
+
+                excerpts.append(excerpt)
+
+                i = element['to_index']
 
         for e in excerpts:
             new_text = new_text + e
-        new_text = new_text + text[element['to_index']:]
+        new_text = new_text + input_text[element['to_index']:]
 
-        print(excerpts)
+        # print('-----------------------------------------------')
+        # print(excerpts)
 
         return (new_text, meshs)
 
