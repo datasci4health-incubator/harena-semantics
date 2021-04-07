@@ -18,18 +18,20 @@ services:
     networks:
       - harena-asm
 
-#   jupyter:
-#     image: jupyter/datascience-notebook
-#     ports:
-#       - "8888:8888"
-#     volumes:
-# #      - ./src/adonisjs:/app
-#        - ./:/home/jovyan/
-#     environment:
-#       - SOLR_HOST=solr
-#     container_name: harena-asm-jupyter
-#     networks:
-#       - harena-asm
+  jupyter:
+    image: jupyter/datascience-notebook
+    ports:
+      - "8888:8888"
+    volumes:
+#      - ./src/adonisjs:/app
+       - ./:/home/jovyan/
+       - datasets:/home/jovyan/datasets
+
+    environment:
+      - SOLR_HOST=solr
+    container_name: harena-asm-jupyter
+    networks:
+      - harena-asm
 
   solr:
     image: solr
