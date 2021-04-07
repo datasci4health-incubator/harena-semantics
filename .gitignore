@@ -99,13 +99,6 @@ venv.bak/
 
 # mkdocs documentation
 
-# Pycharm
-.idea
-/site
-
-# Pycharm
-.idea
-
 # mypy
 .mypy_cache/
 
@@ -119,16 +112,17 @@ src/step1/results/
 .chglog/
 
 models/
+datasets/
 
 embeddings/tsv_files
 
 src/ner/unsupervised_by_clustering/bert_vectors.txt
 
-.local
-.ipython
-.jupyter
-.keras
-.bash_history
+.local/
+.ipython/
+.jupyter/
+.keras/
+.bash_history/
 
 cases/
 datasets/
@@ -137,3 +131,12 @@ datasets/
 notebooks/antigos/
 notebooks/antigos/enzo_work/
 notebooks/ner/data/sources/
+notebooks/export embeddings to tsv/tsv_files/
+notebooks/gpu-jupyter/clustering/clustering-results/
+notebooks/gpu-jupyter/clustering/img/
+notebooks/gpu-jupyter/clustering/tsv_files/
+notebooks/gpu-jupyter/sentence_embedding/tsv_files/
+notebooks/gpu-jupyter/topic_modeling/img
+notebooks/ner/data/
+notebooks/ner/data/tratados/devel-AnatEM-BC5CDR.tsv
+notebooks/topic_modeling/img/
