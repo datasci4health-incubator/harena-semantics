@@ -3,9 +3,13 @@ services:
   web:
     image: asm
     ports:
-      - "5000:5000"
+      - "10040:5000"
     volumes:
-      - ./:/app
+      # - ./:/app
+      - ./src/flask:/app
+      - models:/app/models
+      - datasets:/app/datasets
+
     environment:
       - SOLR_HOST=solr
     depends_on:
@@ -21,6 +25,8 @@ services:
     volumes:
 #      - ./src/adonisjs:/app
        - ./:/home/jovyan/
+       - datasets:/home/jovyan/datasets
+
     environment:
       - SOLR_HOST=solr
     container_name: harena-asm-jupyter
@@ -36,14 +42,18 @@ services:
     entrypoint:
       - docker-entrypoint.sh
       - solr-precreate
-      # - pmc
-      - bert-clusters
+      - pmc
+      # - bert-clusters
     container_name: harena-solr
     networks:
       - harena-asm
 
 volumes:
   harena-asm-solr:
+    driver: "local"
+  models:
+    driver: "local"
+  datasets:
     driver: "local"
 
 networks:
