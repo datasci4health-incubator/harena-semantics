@@ -1,0 +1,3 @@
+[submodule "src/clustering/bert_vector_clustering"]
+	path = src/clustering/bert_vector_clustering
+	url = https://github.com/ajitrajasekharan/bert_vector_clustering.git
