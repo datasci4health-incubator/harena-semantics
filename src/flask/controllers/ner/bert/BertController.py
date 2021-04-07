@@ -19,5 +19,5 @@ class BertController:
 
 
         output = model.predict(text)
-        print(output)
+        # print(output)
         return output
