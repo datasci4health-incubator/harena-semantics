@@ -39,9 +39,12 @@ class Annotator:
         meshs = []
 
         for element in xml:
-            print('------------------------elements------------------')
-            print(element)
+            # print(element)
+            # print('------------------------elements------------------')
+
             irl = element.get("annotatedClass").get('@id')
+            ontology = element.get("annotatedClass").get('links').get('ontology')
+
             annotations = element.get('annotations')
 
             for y in annotations:
@@ -49,9 +52,10 @@ class Annotator:
                 to_index = y.get('to')
                 text = y.get('text')
 
-                mesh_json = {'irl':irl, 'from_index':from_index, 'to_index':to_index, 'text':text}
+                mesh_json = {'irl':irl, 'from_index':from_index, 'to_index':to_index, 'text':text, 'ontology':ontology}
                 meshs.append(mesh_json)
         meshs.sort(key=lambda x: x['from_index'])
+        print(meshs)
         return meshs
 
 
@@ -71,17 +75,21 @@ class Annotator:
 
         index_from_guard = []
         index_to_guard = []
+        ontologies_to_guard = []
 
         for element in meshs:
             if element['from_index'] not in index_from_guard and element['to_index'] not in index_to_guard:
                 index_from_guard.append(element['from_index'])
                 index_to_guard.append(element['to_index'])
-                excerpt = input_text[i:element['from_index'] - 1] + '{' + input_text[element['from_index'] - 1:element['to_index']] + '}'
+                excerpt = input_text[i:element['from_index'] - 1] + '{' + input_text[element['from_index'] - 1:element['to_index']] + '}(' + element['ontology'].split('/')[-1] + ':' + element['irl'].split('/')[-1] + ')'
 
                 excerpts.append(excerpt)
 
                 i = element['to_index']
 
+
+                if element['ontology'] not in ontologies_to_guard:
+                    ontologies_to_guard.append(element['ontology'])
         for e in excerpts:
             new_text = new_text + e
         new_text = new_text + input_text[element['to_index']:]
@@ -89,7 +97,19 @@ class Annotator:
         # print('-----------------------------------------------')
         # print(excerpts)
 
-        return (new_text, meshs)
+        data_layer = """ \n____ Data _____ \n
+                               * theme: jacinto \n
+                               * namespaces: \n """
+        for o in ontologies_to_guard:
+            data_layer  = data_layer + ' * ' + o.split('/')[-1] + ':' + o + ' \n'
+                                    # * evidence: http://purl.org/versum/evidence/ \n
+                                    # * meddra: http://purl.bioontology.org/ontology/MEDDRA \n
+                                    # * ncit: https://bioportal.bioontology.org/ontologies/NCIT"""
+        new_text = new_text + data_layer
+
+        # new_text += data_layer
+
+        return new_text
 
     def get_concept(self, descriptor_id):
         MESH_URL = 'http://' + os.environ['SOLR_HOST'] + ':8983/solr/mesh'

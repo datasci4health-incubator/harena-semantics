@@ -131,3 +131,12 @@ datasets/
 notebooks/antigos/
 notebooks/antigos/enzo_work/
 notebooks/ner/data/sources/
+notebooks/export embeddings to tsv/tsv_files/
+notebooks/gpu-jupyter/clustering/clustering-results/
+notebooks/gpu-jupyter/clustering/img/
+notebooks/gpu-jupyter/clustering/tsv_files/
+notebooks/gpu-jupyter/sentence_embedding/tsv_files/
+notebooks/gpu-jupyter/topic_modeling/img
+notebooks/ner/data/
+notebooks/ner/data/tratados/devel-AnatEM-BC5CDR.tsv
+notebooks/topic_modeling/img/
