@@ -72,34 +72,6 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "indexer Copy",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": []
-						},
-						"url": {
-							"raw": "{{api-base-url}}/indexer",
-							"host": [
-								"{{api-base-url}}"
-							],
-							"path": [
-								"indexer"
-							],
-							"query": [
-								{
-									"key": "description",
-									"value": "",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
 				}
 			]
 		},
@@ -116,7 +88,7 @@
 							"formdata": [
 								{
 									"key": "text",
-									"value": "Sepsis is the second most common cause of death in non-coronary intensive care units and the tenth leading cause of death overall in high-income countries. During the past two decades, the incidence of sepsis has increased annually by 9% to reach 240 per 100 000 population in the USA by 2000.\n\nThe true incidence of sepsis in any given country is unknown. The reported incidence is dependent on the specific definition used, the infecting organism, the reporting mechanism (such as the use of the International Classification of Diseases-9 coding systems) and the requirement for either organ support or intensive care. These factors result in marked differences between estimates and discrete geographical locations. Most data describing the incidence of sepsis are from high-income countries, where 2.8 million deaths per year are attributable to sepsis. In 2001, Angus and colleagues reported in, the USA the, that incidence of severe sepsis was more than 750 000 cases per annum (300 cases per 100 000 population), equivalent to 2.26 cases per 100 hospital discharges. In the UK, the reported prevalence of sepsis in ICU-derived cohorts is 27% of all ICU admissions, whereas the prevalence is 12% in the USA. 14 This difference could partly be explained by the sub stantially greater numbers of ICU beds available in the USA than in the UK, and thus the differing triage patterns and admission criteria. It is also possible that, in institutions where clinical staff are trained in sepsis recognition, the previous use of the less-specific SIRS criteria could have led to an over-reporting of sepsis cases. \n",
+									"value": "@NURSE\n> Doctor, we have a man (51 years old) who entered the emergency department reporting chest pain. His vital signs are ABP: 144x92mmHG; HR: 78bpm; RR: 21rpm; Temp: 37oC; O2Sat: 98%.\n@PATIENT\n> Doctor, I am feeling chest pain since yesterday. The pain is continuous and is located just in the middle of my chest, worsening when I breathe and when I lay down on my bed. I suffer from arterial hypertension and smoke 20 cigarettes every day. My father had a \"heart attack\" at my age and I am very worried about it.\n<b>PHYSICAL EXAMINATION</b> <br> The cardiac and pulmonary auscultation are normal; chest pain does not worse with palpation of the thorax; there is no jugular stasis nor lower limb edema.",
 									"type": "text"
 								}
 							]
@@ -194,7 +166,7 @@
 							"formdata": [
 								{
 									"key": "text",
-									"value": "Sepsis is the second most common cause of death in non-coronary intensive care units and the tenth leading cause of death overall in high-income countries. During the past two decades, the incidence of sepsis has increased annually by 9% to reach 240 per 100 000 population in the USA by 2000.\n\nThe true incidence of sepsis in any given country is unknown. The reported incidence is dependent on the specific definition used, the infecting organism, the reporting mechanism (such as the use of the International Classification of Diseases-9 coding systems) and the requirement for either organ support or intensive care. These factors result in marked differences between estimates and discrete geographical locations. Most data describing the incidence of sepsis are from high-income countries, where 2.8 million deaths per year are attributable to sepsis. In 2001, Angus and colleagues reported in, the USA the, that incidence of severe sepsis was more than 750 000 cases per annum (300 cases per 100 000 population), equivalent to 2.26 cases per 100 hospital discharges. In the UK, the reported prevalence of sepsis in ICU-derived cohorts is 27% of all ICU admissions, whereas the prevalence is 12% in the USA. 14 This difference could partly be explained by the sub stantially greater numbers of ICU beds available in the USA than in the UK, and thus the differing triage patterns and admission criteria. It is also possible that, in institutions where clinical staff are trained in sepsis recognition, the previous use of the less-specific SIRS criteria could have led to an over-reporting of sepsis cases. \n\nOverall, however, there is probably a substantial under-reporting of the incidence of sepsis and with an ageing population, the incidence will continue to increase. This pattern might be further accentuated by campaigns to increase the awareness of and screening for the condition. Except for maternal and neonatal sepsis, the condition is usually considerably under-reported in the global burden of disease statistics. The true scale of the problem is probably much higher than what has been reported. Data suggest that sepsis contributes to between a third and a half of all in-hospital deaths in the USA. Although these data represent the incidence of sepsis in high-resource countries, most deaths due to sepsis happen in low-resource countries, where the exact incidence of sepsis is difficult to accurately estimate.",
+									"value": "@NURSE\n> Doctor, we have a man (51 years old) who entered the emergency department reporting chest pain. His vital signs are ABP: 144x92mmHG; HR: 78bpm; RR: 21rpm; Temp: 37oC; O2Sat: 98%.\n@PATIENT\n> Doctor, I am feeling chest pain since yesterday. The pain is continuous and is located just in the middle of my chest, worsening when I breathe and when I lay down on my bed. I suffer from arterial hypertension and smoke 20 cigarettes every day. My father had a \"heart attack\" at my age and I am very worried about it.\n<b>PHYSICAL EXAMINATION</b> <br> The cardiac and pulmonary auscultation are normal; chest pain does not worse with palpation of the thorax; there is no jugular stasis nor lower limb edema.",
 									"type": "text"
 								}
 							]
@@ -272,8 +244,55 @@
 							"formdata": [
 								{
 									"key": "text",
-									"value": "Sepsis is the second most common cause of death in non-coronary intensive care units and the tenth leading cause of death overall in high-income countries. During the past two decades, the incidence of sepsis has increased annually by 9% to reach 240 per 100 000 population in the USA by 2000.\nThe true incidence of sepsis in any given country is unknown. The reported incidence is dependent on the specific definition used, the infecting organism, the reporting mechanism (such as the use of the International Classification of Diseases-9 coding systems) and the requirement for either organ support or intensive care. These factors result in marked differences between estimates and discrete geographical locations. Most data describing the incidence of sepsis are from high-income countries, where 2.8 million deaths per year are attributable to sepsis. In 2001, Angus and colleagues reported in, the USA the, that incidence of severe sepsis was more than 750 000 cases per annum (300 cases per 100 000 population), equivalent to 2.26 cases per 100 hospital discharges. In the UK, the reported prevalence of sepsis in ICU-derived cohorts is 27% of all ICU admissions, whereas the prevalence is 12% in the USA. 14 This difference could partly be explained by the sub stantially greater numbers of ICU beds available in the USA than in the UK, and thus the differing triage patterns and admission criteria. It is also possible that, in institutions where clinical staff are trained in sepsis recognition, the previous use of the less-specific SIRS criteria could have led to an over-reporting of sepsis cases.\nOverall, however, there is probably a substantial under-reporting of the incidence of sepsis and with an ageing population, the incidence will continue to increase. This pattern might be further accentuated by campaigns to increase the awareness of and screening for the condition. Except for maternal and neonatal sepsis, the condition is usually considerably under-reported in the global burden of disease statistics. The true scale of the problem is probably much higher than what has been reported. Data suggest that sepsis contributes to between a third and a half of all in-hospital deaths in the USA. Although these data represent the incidence of sepsis in high-resource countries, most deaths due to sepsis happen in low-resource countries, where the exact incidence of sepsis is difficult to accurately estimate. The available literature suggests that an estimated 90% of worldwide deaths from chest infections occur in low-resource settings; about 70% of the 9 million deaths due to chest infections in neonates and infants are associated with sepsis, and most cases occur in Asia and Africa.\nSepsis can be a terminal event in patients who are already dying from other causes (eg, terminal cancer). This fact is especially important to remember in the context of an increased number of admissions of old and frail patients in hospital wards and ICUs, and when evaluating our expectations on to what extent mortality rates from sepsis can be reduced. It is very likely that a baseline mortality from sepsis is part of the nature of the syndrome itself, and in practice it is unreasonable to expect mortality rates to drop to zero, despite our best efforts to understand, and, recognise treat the condition. \nIt is hoped that positive advancements, such as the recent World Health Assembly and WHO resolution on sepsis, will raise awareness of sepsis as a global priority, and its prevention, recognition, and treatment will improve worldwide.\nIn the United States, there are currently 1.7 million cases of sepsis per year, a trend that has been increasing annually. There are almost 250,000 deaths per year owing to sepsis, and it is the leading cause of death in noncardiac ICUs. \nOf septic patients admitted to ICUs worldwide, the most common source of infection is the lungs (64%), abdomen (20%), bloodstream (15%), and urinary tract (14%). \nOf isolated organisms, 62% gram negative-were bacteria; 47% were gram-positive bacteria, and 19% were fungi. The most common gram-positive organism is Staphylococcus aureus (20%), and the most common gram-negative isolates are Pseudomonas (20%) and coli Escherichia (16%). \nMany factors are associated with increased risk of mortality in patients with sepsis and septic shock: emergency surgery (odds ratio [OR] 1.56), trauma (OR 1.01), transfer from hospital floor (OR 1.37), presence of chronic obstructive pulmonary disease (OR 1.21), cancer (OR 1.33), heart failure (OR 1.45), immunosuppression (OR 1.81), cirrhosis (OR 2.14), previous mechanical ventilation (OR 1.90), or hemodialysis (OR 1.58).\n",
+									"value": "@NURSE\n> Doctor, we have a man (51 years old) who entered the emergency department reporting chest pain. His vital signs are ABP: 144x92mmHG; HR: 78bpm; RR: 21rpm; Temp: 37oC; O2Sat: 98%.\n@PATIENT\n> Doctor, I am feeling chest pain since yesterday. The pain is continuous and is located just in the middle of my chest, worsening when I breathe and when I lay down on my bed. I suffer from arterial hypertension and smoke 20 cigarettes every day. My father had a \"heart attack\" at my age and I am very worried about it.\n<b>PHYSICAL EXAMINATION</b> <br> The cardiac and pulmonary auscultation are normal; chest pain does not worse with palpation of the thorax; there is no jugular stasis nor lower limb edema.",
 									"type": "text"
+								},
+								{
+									"key": "ontologies",
+									"value": "MESH, LOINC",
+									"type": "text"
+								},
+								{
+									"key": "whole_word_only",
+									"value": "1",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "exclude_numbers",
+									"value": "1",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "exclude_synonyms",
+									"value": "1",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "longest_only",
+									"value": "0",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "minimum_match_length",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "expand_mappings",
+									"value": "1",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "semantic_types",
+									"value": "disease",
+									"type": "text",
+									"disabled": true
 								}
 							]
 						},

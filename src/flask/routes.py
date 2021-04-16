@@ -8,8 +8,6 @@ from pathlib import Path
 from flask import Flask, render_template, jsonify, request
 from collections import Counter
 
-from controllers.indexer.solr_functions import indexer, search_by_category
-from controllers.indexer.entrez_utilities import get_pubtype_and_mesh
 from controllers.ner.ncbo.ncbo_annotator import Annotator
 from controllers.ner.bern.BernController import BernController
 from controllers.ner.bert.BertController import BertController
@@ -69,7 +67,8 @@ def bert():
     text = request.form.get('text')
     bert = BertController()
 
-    bert_output = bert.predict(text)
+#    bert_output = bert.predict(text)
+    bert_output = bert.predict_v2(text)
 
     return jsonify(bert_output)
 
