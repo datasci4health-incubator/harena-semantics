@@ -12,11 +12,12 @@ services:
 
     environment:
       - SOLR_HOST=solr
-    depends_on:
-      - solr
+    # depends_on:
+    #   - solr
     container_name: harena-asm
     networks:
       - harena-asm
+
 
   jupyter:
     image: jupyter/datascience-notebook
@@ -25,6 +26,7 @@ services:
     volumes:
 #      - ./src/adonisjs:/app
        - ./:/home/jovyan/
+       - models:/home/jovyan/models
        - datasets:/home/jovyan/datasets
 
     environment:
@@ -33,24 +35,24 @@ services:
     networks:
       - harena-asm
 
-  solr:
-    image: solr
-    ports:
-      - "8983:8983"
-    volumes:
-      - harena-asm-solr:/var/solr/
-    entrypoint:
-      - docker-entrypoint.sh
-      - solr-precreate
-      - pmc
-      # - bert-clusters
-    container_name: harena-solr
-    networks:
-      - harena-asm
+  # solr:
+  #   image: solr
+  #   ports:
+  #     - "8983:8983"
+  #   volumes:
+  #     - harena-asm-solr:/var/solr/
+  #   entrypoint:
+  #     - docker-entrypoint.sh
+  #     - solr-precreate
+  #     - pmc
+  #     # - bert-clusters
+  #   container_name: harena-solr
+  #   networks:
+  #     - harena-asm
 
 volumes:
-  harena-asm-solr:
-    driver: "local"
+  # harena-asm-solr:
+  #   driver: "local"
   models:
     driver: "local"
   datasets:
