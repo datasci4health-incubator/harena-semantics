@@ -6,7 +6,7 @@ ASM Content Annotation. Suggestion system.
 ## Available Services
 
 Currently, ASM provides REST endpoints grouped into 2 categories:
-- Biomedical Named Entity Recognition endpoints, which Recognize biomedical concepts in a given text using to different approaches. The return is text annotated in a Verum format
+- Biomedical Named Entity Recognition endpoints, which Recognize biomedical concepts in a given text using to different approaches. The return is text annotated in a Versum format
   - `/ner/bern`
   - `/ner/bert`
   - `/ner/ncbo`
@@ -16,7 +16,7 @@ Currently, ASM provides REST endpoints grouped into 2 categories:
   - `/indexer/search`: search papers according to needs specified as parameters
 
 
-Check https://www.getpostman.com/collections/c164e51189e95c3270a5 to discover available endpoints provided by `harena manager api`.
+Check https://www.getpostman.com/collections/c164e51189e95c3270a5 to discover available endpoints provided by `harena asm api`.
 
 <!-- Papers collection is from http://www.trec-cds.org/2014.html. 
 
@@ -30,7 +30,7 @@ We provide a `docker container` to locally run `harena-asm` code. Containers gua
 
 #### Instructions (for Linux users)
 
-Clone `harena-asm` repository, get into it, checkout `development` branch, and build the manager docker image:
+Clone `harena-asm` repository, get into it, checkout `development` branch, and build the asm docker image:
 
 ```bash
 git clone https://github.com/datasci4health-incubator/harena-asm.git
@@ -54,17 +54,11 @@ Once the start up process is done, access http://localhost:10040/ to check if th
 If you want to get the command line of the container, then run the command:
 
 ```bash
-docker exec -it harena-manager_harena-manager_1 bash
+docker exec -it harena_asm bash
 ```
 
 <!-- As the start process is done, you must access the following endpoint in order to index the papers:  
 
 ```buildoutcfg
-GET http://localhost:5000/indexer -->
-```
-
- you can get access to the container through the sh:
-
-```bash
-docker exec -it harena-asm sh
-```
+GET http://localhost:5000/indexer 
+``` -->
