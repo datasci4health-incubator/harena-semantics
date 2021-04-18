@@ -1,5 +1,5 @@
-from .bert_v2 import Ner
-# from .biobert_pytorch import Ner
+# from .bert_v2 import Ner
+from .biobert_pytorch import Ner
 
 # from src.ner.bert.Bert import Ner
 
@@ -12,7 +12,7 @@ class BertController:
         # pretrained_model = "/app/src/ner/bert/pretrained_models/BC5CDR-IOB"
         # pretrained_model = "/app/src/ner/bert/pretrained_models/biobert_ner"
         # model = "/app/models/word_embeddings/BC5CDR-IOB"
-        model = "/app/models/word_embeddings/biobert/AnatEM-BC5CDR"
+        model = "/app/models/word_embeddings/fine_tuned/NER/ACD_10epochs"
 
         # print('pretrained_model', pretrained_model)
         model = Ner(model)
@@ -23,8 +23,7 @@ class BertController:
         return output
 
 
-    # MODEL_DIR = "/app/models/word_embeddings/biobert/AnatEM-BC5CDR"
-    MODEL_DIR = "/app/models/word_embeddings/biobert/ACD"
+    MODEL_DIR = "/app/models/word_embeddings/fine_tuned/NER/ACD_1epoch"
 
 
     def predict_v2(self, text):
