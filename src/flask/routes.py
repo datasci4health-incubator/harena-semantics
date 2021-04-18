@@ -67,8 +67,8 @@ def bert():
     text = request.form.get('text')
     bert = BertController()
 
-#    bert_output = bert.predict(text)
-    bert_output = bert.predict_v2(text)
+    bert_output = bert.predict(text)
+    # bert_output = bert.predict_v2(text)
 
     return jsonify(bert_output)
 
