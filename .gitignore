@@ -118,11 +118,19 @@ embeddings/tsv_files
 
 src/ner/unsupervised_by_clustering/bert_vectors.txt
 
+<<<<<<< HEAD
 .local/*
 .ipython/*
 .jupyter/
 .keras/
 .bash_history
+=======
+.local/
+.ipython/
+.jupyter/
+.keras/
+.bash_history/
+>>>>>>> cf8bd79e00e6469d726fc4893d491774a324d8a8
 
 cases/
 datasets/
