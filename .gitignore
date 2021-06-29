@@ -118,11 +118,11 @@ embeddings/tsv_files
 
 src/ner/unsupervised_by_clustering/bert_vectors.txt
 
-.local/
-.ipython/
+.local/*
+.ipython/*
 .jupyter/
 .keras/
-.bash_history/
+.bash_history
 
 cases/
 datasets/
