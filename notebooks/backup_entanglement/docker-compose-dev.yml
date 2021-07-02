@@ -1,0 +1,68 @@
+version: '3'
+services:
+  web:
+    image: asm
+    ports:
+      - "10040:5000"
+    volumes:
+      # - ./:/app
+      - ./src/flask:/app
+      - models:/app/models
+      - datasets:/app/datasets
+
+    environment:
+      - SOLR_HOST=solr
+    # depends_on:
+    #   - solr
+    container_name: harena-asm
+    networks:
+      - harena-asm
+
+
+  jupyter:
+    image: jupyter/datascience-notebook
+    # image: tensorflow/tensorflow:nightly-py3-jupyter
+
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./:/home/jovyan/
+      - models:/home/jovyan/models
+      - datasets:/home/jovyan/datasets
+
+      # - ./src/adonisjs:/app
+      # - ./notebooks:/app
+      # - notebooks:/tf
+
+    environment:
+      - SOLR_HOST=solr
+    container_name: harena-asm-jupyter
+    networks:
+      - harena-asm
+
+  # solr:
+  #   image: solr
+  #   ports:
+  #     - "8983:8983"
+  #   volumes:
+  #     - harena-asm-solr:/var/solr/
+  #   entrypoint:
+  #     - docker-entrypoint.sh
+  #     - solr-precreate
+  #     - pmc
+  #     # - bert-clusters
+  #   container_name: harena-solr
+  #   networks:
+  #     - harena-asm
+
+volumes:
+  # harena-asm-solr:
+  #   driver: "local"
+  models:
+    driver: "local"
+  datasets:
+    driver: "local"
+
+networks:
+  harena-asm:
+    driver: bridge
