@@ -21,7 +21,7 @@ services:
 
   jupyter:
     image: jupyter/datascience-notebook
-<<<<<<< HEAD
+
     # image: tensorflow/tensorflow:nightly-py3-jupyter
 
     ports:
@@ -34,7 +34,6 @@ services:
       # - ./src/adonisjs:/app
       # - ./notebooks:/app
       # - notebooks:/tf
-=======
     ports:
       - "8888:8888"
     volumes:
@@ -43,7 +42,6 @@ services:
        - models:/home/jovyan/models
        - datasets:/home/jovyan/datasets
 
->>>>>>> cf8bd79e00e6469d726fc4893d491774a324d8a8
     environment:
       - SOLR_HOST=solr
     container_name: harena-asm-jupyter
