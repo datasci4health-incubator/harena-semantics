@@ -154,6 +154,100 @@ class Ner:
         # pdb.set_trace()
         return versum
 
+
+    def predict_refactoring(self, text: str):
+        # tag_values = ["I-Anatomy", "B-Protein", "B-Cell", "I-Pathology", "B-Organism", "B-Chemical", "I-Gene", "B-Disease",
+        #     "I-Organ", "I-Protein", "I-Tissue", "I-Chemical", "I-Taxon", "I-Organism", "I-Disease", "B-Gene", "B-Anatomy",
+        #     "B-Tissue", "I-Cell", "I-Cancer", "B-Cancer", "O", "B-Organ", "B-Pathology", "B-Taxon", "PAD"]
+
+        # tag_values = ["I-Disease", "O", "I-Chemical", "B-Chemical", "B-Disease", "PAD"]
+
+        # labels = []
+        class_labels = [value for k, value in self.config.id2label.items()]
+        # print(class_labels)
+
+        tokenized_sentence = self.tokenizer.encode(text)
+
+        input_ids = torch.tensor([tokenized_sentence],device=self.device)
+
+
+        with torch.no_grad():
+            output = self.model(input_ids)
+        # output = self.model.predict()
+        # print(output)
+
+        # print(self.model.config)
+
+        label_indices = np.argmax(output[0].to('cpu').numpy(), axis=2)
+        # pdb.set_trace()
+        # join bpe split tokens
+        tokens = self.tokenizer.convert_ids_to_tokens(input_ids.to('cpu').numpy()[0])
+        new_tokens, new_labels = [], []
+        print('tokens: ',tokens)
+        print('labels: ',label_indices)
+
+        versum = ""
+        for idx, (token, label_idx) in enumerate(zip(tokens, label_indices[0])):
+            # print(idx)
+            # print(token)
+            # print(label_idx)
+
+            if (token == "[CLS]" or token == "[SEP]"):
+                continue
+
+
+            print(class_labels)
+            print(label_indices[0])
+            print(label_indices[0][idx+1])
+
+
+            print(class_labels[label_idx])
+            next = class_labels[label_indices[0][idx+1]][0]
+            next_b = class_labels[label_indices[0][idx+1]].startswith("B")
+
+            if (class_labels[label_idx] == "O"):
+                if token.startswith("##"):
+                    # se o proximo começa com ##
+                    if (tokens[idx + 1].startswith("##")):
+                        versum += token[2:]
+                    else:
+                        versum += token[2:] + " "
+                else:
+                    if (tokens[idx + 1].startswith("##")):
+                        versum += token
+                    else:
+                        versum += token + " "
+
+            if (class_labels[label_idx].startswith("B")):
+                if next == "O":
+                    # este if so existe por causa de outputs como d(B-disease) ##ys(B-disease) ##p(B-disease) ##nea(B-disease)
+                    # acredito que esse caso não deveria existir, e deve ser resultado de erro no treinamento do modelo.
+                    # estou registrando este erro como: Erro 1
+                    if token.startswith("##"):
+                        versum += token[2:] + "}(" + tag_values[label_idx][2:] + ") "
+                    else:
+                        # sem o erro bastaria esta linha, sem o if
+                        versum += "{" + token + "}(" + tag_values[label_idx][2:] + ") "
+
+                if next == "I":
+                    versum += "{" + token
+                if next == "B":
+                    # Consequencia do Erro 1
+                    if token.startswith("##"):
+                        versum += token[2:]
+                    else:
+                        # sem o erro bastaria esta linha, sem o ir
+                        versum += "{" + token
+            if (class_labels[label_idx].startswith("I")):
+                if next == "O":
+                    versum += " " + token + "}(" + tag_values[label_idx][2:] + ") "
+                if next == "I":
+                    versum += " " + token
+
+        print(versum)
+        # pdb.set_trace()
+        return versum
+
     def tokenize(self, text: str):
         """ tokenize input"""
         nltk.download('punkt')

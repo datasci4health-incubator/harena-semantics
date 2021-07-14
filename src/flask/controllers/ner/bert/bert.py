@@ -20,7 +20,7 @@ class BertNer(BertForTokenClassification):
 
 
 class Ner:
-    def __init__(self,model_dir: str):
+    def __init__(self, model_dir: str):
         self.model , self.tokenizer, self.model_config = self.load_model(model_dir)
         self.label_map = self.model_config["label_map"]
         self.max_seq_length = self.model_config["max_seq_length"]

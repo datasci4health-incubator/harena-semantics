@@ -12,13 +12,19 @@ class BertController:
         # pretrained_model = "/app/src/ner/bert/pretrained_models/BC5CDR-IOB"
         # pretrained_model = "/app/src/ner/bert/pretrained_models/biobert_ner"
         # model = "/app/models/word_embeddings/BC5CDR-IOB"
-        model = "/app/models/word_embeddings/fine_tuned/NER/ACD_10epochs"
+        # print('aqi')
+        # model = "/app/models/word_embeddings/fine_tuned/NER/ACD_10epochs"
+        model = 'fagner/envoy'
 
-        # print('pretrained_model', pretrained_model)
+        # print(model)
+
+
+
+        print('pretrained_model', model)
         model = Ner(model)
+        print(model)
 
-
-        output = model.predict(text)
+        output = model.predict_refactoring(text)
         # print(output)
         return output
 

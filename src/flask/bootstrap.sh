@@ -2,7 +2,19 @@
 
 export FLASK_APP=./routes.py
 export FLASK_ENV=development
+export MODEL=ACD
+
 source $(pipenv --venv)/bin/activate
+
+if [[ ! -d ./models ]]; then
+    mkdir ./models/
+fi
+
+if [[ ! -d ./models/${MODEL} ]]; then
+  echo 'waiting model download';
+fi
+  # wget ceb.nlm.nih.gov/~simpsonmatt/pmc-text-00.tar.gz
+  #
 
 # if [[ ! -d ./documents ]]; then
 #     mkdir ./documents/
@@ -19,6 +31,7 @@ source $(pipenv --venv)/bin/activate
 #         wget ceb.nlm.nih.gov/~simpsonmatt/pmc-text-03.tar.gz
 #
 #
+
 #         tar xzf pmc-text-00.tar.gz -C ./documents/pmc
 #         rm pmc-text-00.tar.gz
 #
