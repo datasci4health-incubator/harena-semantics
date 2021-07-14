@@ -156,10 +156,6 @@ class Ner:
 
 
     def predict_refactoring(self, text: str):
-        # tag_values = ["I-Anatomy", "B-Protein", "B-Cell", "I-Pathology", "B-Organism", "B-Chemical", "I-Gene", "B-Disease",
-        #     "I-Organ", "I-Protein", "I-Tissue", "I-Chemical", "I-Taxon", "I-Organism", "I-Disease", "B-Gene", "B-Anatomy",
-        #     "B-Tissue", "I-Cell", "I-Cancer", "B-Cancer", "O", "B-Organ", "B-Pathology", "B-Taxon", "PAD"]
-
         # tag_values = ["I-Disease", "O", "I-Chemical", "B-Chemical", "B-Disease", "PAD"]
 
         # labels = []
