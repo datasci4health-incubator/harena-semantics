@@ -1,4 +1,5 @@
-import requests, json, pysolr, os
+import requests, json, os
+# import pysolr
 from flask import jsonify
 
 BASE_URL = "http://data.bioontology.org/annotator"

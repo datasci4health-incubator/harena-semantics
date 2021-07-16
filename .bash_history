@@ -45,3 +45,9 @@ cd ../
 ls
 cd ..
 ls
+ls
+ls -lha
+cd .cache/
+ls
+sudo rm -r huggingface/
+rm -r huggingface/

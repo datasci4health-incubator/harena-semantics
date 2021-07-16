@@ -7,7 +7,7 @@ verify_ssl = true
 
 [packages]
 flask = "*"
-pysolr = "*"
+# pysolr = "*"
 
 pandas = "*"
 
@@ -16,6 +16,8 @@ requests = "*"
 
 transformers = "*"
 torch = "*"
+
+sentencepiece = "*"
 
 nltk = "*"
 wheel = "*"

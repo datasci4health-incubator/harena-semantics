@@ -21,6 +21,19 @@ services:
 
   jupyter:
     image: jupyter/datascience-notebook
+
+    # image: tensorflow/tensorflow:nightly-py3-jupyter
+
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./:/home/jovyan/
+      - models:/home/jovyan/models
+      - datasets:/home/jovyan/datasets
+
+      # - ./src/adonisjs:/app
+      # - ./notebooks:/app
+      # - notebooks:/tf
     ports:
       - "8888:8888"
     volumes:
