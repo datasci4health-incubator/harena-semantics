@@ -43,9 +43,10 @@ docker exec -it harena-semantics bash
 You can access SOLR admin at http://localhost:8983 -->
 
 <!-- ## Performing Searches -->
-
+<!-- 
 ```buildoutcfg
 POST http://localhost:5000/searcher
 
 params: description (text)
 ```
+ -->
