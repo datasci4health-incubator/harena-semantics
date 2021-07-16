@@ -13,21 +13,15 @@ class BertController:
         # pretrained_model = "/app/src/ner/bert/pretrained_models/biobert_ner"
         # model = "/app/models/word_embeddings/BC5CDR-IOB"
         # print('aqi')
-        # model = "/app/models/word_embeddings/fine_tuned/NER/ACD_10epochs"
-        model = 'fagner/envoy'
+        # MODEL_PATH = "/app/models/ACD(overfited)"
+        MODEL_PATH = 'fagner/envoy'
 
-        # print(model)
+        print('pretrained_model', MODEL_PATH)
+        model = Ner(MODEL_PATH)
 
+        output = model.predict(text)
 
-
-        print('pretrained_model', model)
-        model = Ner(model)
-        print(model)
-
-        output = model.predict_refactoring(text)
-        # print(output)
         return output
-
 
     MODEL_DIR = "/app/models/word_embeddings/fine_tuned/NER/ACD_1epoch"
 

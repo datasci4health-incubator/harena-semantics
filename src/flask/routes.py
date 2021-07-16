@@ -1,6 +1,6 @@
 import sys, os, logging, pdb
 import requests
-import pysolr
+# import pysolr
 import pandas as pd
 import xml.etree.ElementTree as et
 
@@ -20,6 +20,7 @@ from controllers.ner.unsupervised_by_clustering.ClusteringController import Clus
 
 app = Flask(__name__)
 app.run(debug=True)
+
 
 @app.route('/')
 def index():
@@ -68,7 +69,7 @@ def bert():
     bert = BertController()
 
     bert_output = bert.predict(text)
-    # bert_output = bert.predict_v2(text)
+    # bert_output = bert.predict_refactoring(text)
 
     return jsonify(bert_output)
 

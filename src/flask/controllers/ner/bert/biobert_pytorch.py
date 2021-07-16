@@ -3,8 +3,8 @@ import numpy as np
 import pandas as pd
 import pdb
 
-import nltk
-from nltk import word_tokenize
+# import nltk
+# from nltk import word_tokenize
 
 import torch
 import torch.nn.functional as F
@@ -19,8 +19,6 @@ from typing import  List, Tuple
 from transformers import (
     AutoConfig,
     AutoModelForTokenClassification,
-    AutoModel,
-    AutoTokenizer,
     EvalPrediction,
     HfArgumentParser,
     Trainer,
@@ -35,251 +33,141 @@ class BertNer(AutoModelForTokenClassification):
 
 
 class Ner:
-    def __init__(self,model_dir: str):
-        self.model , self.tokenizer = self.load_model(model_dir)
-        # self.label_map = self.model_config["label_map"]
-        # self.max_seq_length = self.model_config["max_seq_length"]
-        # self.label_map = {int(k):v for k,v in self.label_map.items()}
-        self.device = "cuda" if torch.cuda.is_available() else "cpu"
-        self.model = self.model.to(self.device)
-        self.model.eval()
+    def __init__(self, MODEL_PATH: str):
+        self.tokenizer = BertTokenizer.from_pretrained(MODEL_PATH, do_lower_case=False)
+        self.config = AutoConfig.from_pretrained(MODEL_PATH)
 
+        self.labels = [value for k, value in self.config.id2label.items()]
 
+        self.model = BertForTokenClassification.from_pretrained(MODEL_PATH,
+            num_labels=len(self.labels),
+            output_attentions = False,
+            output_hidden_states = False
+        )
+        # self.device = "cuda" if torch.cuda.is_available() else "cpu"
 
-    def load_model(self, model_dir: str, model_config: str = "model_config.json"):
-        # model_config = os.path.join(model_dir,model_config)
-        # model_config = json.load(open(model_config))
-        model = AutoModel.from_pretrained(model_dir)
-        tokenizer = AutoTokenizer.from_pretrained(model_dir, do_lower_case=False)
-
-        return model, tokenizer
-
-
-    def align_predictions(predictions: np.ndarray, label_ids: np.ndarray) -> Tuple[List[int], List[int]]:
-        preds = np.argmax(predictions, axis=2)
-
-        batch_size, seq_len = preds.shape
-
-        out_label_list = [[] for _ in range(batch_size)]
-        preds_list = [[] for _ in range(batch_size)]
-
-        for i in range(batch_size):
-            for j in range(seq_len):
-                if label_ids[i, j] != nn.CrossEntropyLoss().ignore_index:
-                    out_label_list[i].append(label_map[label_ids[i][j]])
-                    preds_list[i].append(label_map[preds[i][j]])
-
-        return preds_list, out_label_list
 
     def predict(self, text: str):
-        # tag_values = ["I-Anatomy", "B-Protein", "B-Cell", "I-Pathology", "B-Organism", "B-Chemical", "I-Gene", "B-Disease",
-        #     "I-Organ", "I-Protein", "I-Tissue", "I-Chemical", "I-Taxon", "I-Organism", "I-Disease", "B-Gene", "B-Anatomy",
-        #     "B-Tissue", "I-Cell", "I-Cancer", "B-Cancer", "O", "B-Organ", "B-Pathology", "B-Taxon", "PAD"]
-
-        tag_values = ["I-Disease", "O", "I-Chemical", "B-Chemical", "B-Disease", "PAD"]
-
-
         tokenized_sentence = self.tokenizer.encode(text)
 
-
-        input_ids = torch.tensor([tokenized_sentence],device=self.device)
+        input_ids = torch.tensor([tokenized_sentence])
 
         with torch.no_grad():
             output = self.model(input_ids)
-        # output = self.model.predict()
-        # print(output)
-
-        # print(self.model.config)
 
         label_indices = np.argmax(output[0].to('cpu').numpy(), axis=2)
-        # pdb.set_trace()
-        # join bpe split tokens
+
         tokens = self.tokenizer.convert_ids_to_tokens(input_ids.to('cpu').numpy()[0])
         new_tokens, new_labels = [], []
-        print(tokens)
-        print(label_indices)
-
         versum = ""
+
+        entitying = False
+        change_of_label = False
+        current_label = ""
+        print(self.config.id2label)
+        print(label_indices[0])
         for idx, (token, label_idx) in enumerate(zip(tokens, label_indices[0])):
-            if (token == "[CLS]" or token == "[SEP]"):
-                continue
-
-            print('aquiiiiiiiiiiiiiiii')
-            print(self.model.config.id2label)
-
-
-            next = tag_values[label_indices[0][idx+1]][0]
-            next_b = tag_values[label_indices[0][idx+1]].startswith("B")
-
-            if (tag_values[label_idx] == "O"):
-                if token.startswith("##"):
-                    # se o proximo começa com ##
-                    if (tokens[idx + 1].startswith("##")):
-                        versum += token[2:]
-                    else:
-                        versum += token[2:] + " "
-                else:
-                    if (tokens[idx + 1].startswith("##")):
-                        versum += token
-                    else:
-                        versum += token + " "
-
-            if (tag_values[label_idx].startswith("B")):
-                if next == "O":
-                    # este if so existe por causa de outputs como d(B-disease) ##ys(B-disease) ##p(B-disease) ##nea(B-disease)
-                    # acredito que esse caso não deveria existir, e deve ser resultado de erro no treinamento do modelo.
-                    # estou registrando este erro como: Erro 1
-                    if token.startswith("##"):
-                        versum += token[2:] + "}(" + tag_values[label_idx][2:] + ") "
-                    else:
-                        # sem o erro bastaria esta linha, sem o if
-                        versum += "{" + token + "}(" + tag_values[label_idx][2:] + ") "
-
-                if next == "I":
-                    versum += "{" + token
-                if next == "B":
-                    # Consequencia do Erro 1
-                    if token.startswith("##"):
-                        versum += token[2:]
-                    else:
-                        # sem o erro bastaria esta linha, sem o ir
-                        versum += "{" + token
-            if (tag_values[label_idx].startswith("I")):
-                if next == "O":
-                    versum += " " + token + "}(" + tag_values[label_idx][2:] + ") "
-                if next == "I":
-                    versum += " " + token
-
-        print(versum)
-        # pdb.set_trace()
-        return versum
-
-
-    def predict_refactoring(self, text: str):
-        # tag_values = ["I-Disease", "O", "I-Chemical", "B-Chemical", "B-Disease", "PAD"]
-
-        # labels = []
-        class_labels = [value for k, value in self.config.id2label.items()]
-        # print(class_labels)
-
-        tokenized_sentence = self.tokenizer.encode(text)
-
-        input_ids = torch.tensor([tokenized_sentence],device=self.device)
-
-
-        with torch.no_grad():
-            output = self.model(input_ids)
-        # output = self.model.predict()
-        # print(output)
-
-        # print(self.model.config)
-
-        label_indices = np.argmax(output[0].to('cpu').numpy(), axis=2)
-        # pdb.set_trace()
-        # join bpe split tokens
-        tokens = self.tokenizer.convert_ids_to_tokens(input_ids.to('cpu').numpy()[0])
-        new_tokens, new_labels = [], []
-        print('tokens: ',tokens)
-        print('labels: ',label_indices)
-
-        versum = ""
-        for idx, (token, label_idx) in enumerate(zip(tokens, label_indices[0])):
-            # print(idx)
-            # print(token)
-            # print(label_idx)
+        #     print(token)
+        #     print(label_idx)
+        #     print(labels[label_idx])
+        #     print()
 
             if (token == "[CLS]" or token == "[SEP]"):
                 continue
 
 
-            print(class_labels)
-            print(label_indices[0])
-            print(label_indices[0][idx+1])
+            if token.startswith("##"):
+                sub_token = True
+                versum += token[2:]
+                # versum += "".join(token[2:])
 
+            else:
+                if (self.labels[label_idx].startswith("B")):
+                    if entitying:
+                        versum += '}(' + entity +')'
+                        # versum = " ".join([versum, '}(' + entity +')'])
 
-            print(class_labels[label_idx])
-            next = class_labels[label_indices[0][idx+1]][0]
-            next_b = class_labels[label_indices[0][idx+1]].startswith("B")
+                    entitying = True
+                    versum += ' {' + token
+                    # versum = " ".join([versum, ' {' + token])
 
-            if (class_labels[label_idx] == "O"):
-                if token.startswith("##"):
-                    # se o proximo começa com ##
-                    if (tokens[idx + 1].startswith("##")):
-                        versum += token[2:]
+                    entity = self.labels[label_idx][2:]
+
+                if self.labels[label_idx].startswith("O") :
+                    if entitying:
+                        versum += '}(' + entity +') ' + token
+                        # versum = " ".join([versum, '}(' + entity +') ' + token])
+
                     else:
-                        versum += token[2:] + " "
-                else:
-                    if (tokens[idx + 1].startswith("##")):
+                        versum += ' ' + token
+                        # versum = " ".join([versum, token])
+
+                    entitying = False
+
+
+                if self.labels[label_idx].startswith("I") :
+                    if previous_label[2:] != self.labels[label_idx][2:]:
+                        versum += '}(' + entity +') {'
+                        # versum = " ".join([versum, '}(' + entity +') {'])
+
+                        entity = self.labels[label_idx][2:]
+                        change_of_label = True
+                    else: change_of_label = False
+                    if change_of_label:
                         versum += token
-                    else:
-                        versum += token + " "
+                        # versum = " ".join([versum, token])
 
-            if (class_labels[label_idx].startswith("B")):
-                if next == "O":
-                    # este if so existe por causa de outputs como d(B-disease) ##ys(B-disease) ##p(B-disease) ##nea(B-disease)
-                    # acredito que esse caso não deveria existir, e deve ser resultado de erro no treinamento do modelo.
-                    # estou registrando este erro como: Erro 1
-                    if token.startswith("##"):
-                        versum += token[2:] + "}(" + tag_values[label_idx][2:] + ") "
+                        entitying = True
                     else:
-                        # sem o erro bastaria esta linha, sem o if
-                        versum += "{" + token + "}(" + tag_values[label_idx][2:] + ") "
+                        entitying = True
+                        versum += ' ' + token
+                        # versum = " ".join([versum, token])
 
-                if next == "I":
-                    versum += "{" + token
-                if next == "B":
-                    # Consequencia do Erro 1
-                    if token.startswith("##"):
-                        versum += token[2:]
-                    else:
-                        # sem o erro bastaria esta linha, sem o ir
-                        versum += "{" + token
-            if (class_labels[label_idx].startswith("I")):
-                if next == "O":
-                    versum += " " + token + "}(" + tag_values[label_idx][2:] + ") "
-                if next == "I":
-                    versum += " " + token
+
+            previous_label = self.labels[label_idx]
+
+
+
+
+
+# if token.startswith("##"):
+#     sub_token = True
+#     versum += "".join(token[2:])
+#     # versum = versum + token[2:]
+# else:
+#     if (self.labels[label_idx].startswith("B")):
+#         if entitying:
+#             versum = " ".join([versum, '}(' + entity +')'])
+#
+#         entitying = True
+#         versum = " ".join([versum, ' {' + token])
+#         entity = self.labels[label_idx][2:]
+#
+#     if self.labels[label_idx].startswith("O") :
+#         if entitying:
+#             versum = " ".join([versum, '}(' + entity +') ' + token])
+#         else:
+#             versum = " ".join([versum, token])
+#         entitying = False
+#
+#     if self.labels[label_idx].startswith("I") :
+#         if previous_label[2:] != self.labels[label_idx][2:]:
+#             versum = " ".join([versum, '}(' + entity +') {'])
+#             entity = self.labels[label_idx][2:]
+#             change_of_label = True
+#         else: change_of_label = False
+#         if change_of_label:
+#             versum = " ".join([versum, token])
+#             entitying = True
+#         else:
+#             entitying = True
+#             versum = " ".join([versum, token])
+#
+# previous_label = self.labels[label_idx]
+
+
+
+
 
         print(versum)
-        # pdb.set_trace()
         return versum
-
-    def tokenize(self, text: str):
-        """ tokenize input"""
-        nltk.download('punkt')
-
-        words = word_tokenize(text)
-
-        tokens = []
-        valid_positions = []
-        for i,word in enumerate(words):
-            token = self.tokenizer.tokenize(word)
-            tokens.extend(token)
-            for i in range(len(token)):
-                if i == 0:
-                    valid_positions.append(1)
-                else:
-                    valid_positions.append(0)
-        return tokens, valid_positions
-
-
-    def preprocess(self, text: str):
-        """ preprocess """
-        tokens, valid_positions = self.tokenize(text)
-        ## insert "[CLS]"
-        tokens.insert(0,"[CLS]")
-        valid_positions.insert(0,1)
-        ## insert "[SEP]"
-        tokens.append("[SEP]")
-        valid_positions.append(1)
-        segment_ids = []
-        for i in range(len(tokens)):
-            segment_ids.append(0)
-        input_ids = self.tokenizer.convert_tokens_to_ids(tokens)
-        input_mask = [1] * len(input_ids)
-        while len(input_ids) < self.max_seq_length:
-            input_ids.append(0)
-            input_mask.append(0)
-            segment_ids.append(0)
-            valid_positions.append(0)
-        return input_ids,input_mask,segment_ids,valid_positions

@@ -10,6 +10,7 @@ if [[ ! -d ./models ]]; then
     mkdir ./models/
 fi
 
+
 if [[ ! -d ./models/${MODEL} ]]; then
   echo 'waiting model download';
 fi
