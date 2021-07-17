@@ -7,8 +7,8 @@ verify_ssl = true
 
 [packages]
 flask = "*"
-# pysolr = "*"
 
+pytz = "*"
 pandas = "*"
 
 marshmallow = "*"
@@ -21,6 +21,8 @@ sentencepiece = "*"
 
 nltk = "*"
 wheel = "*"
+
+# pysolr = "*"
 
 
 [requires]

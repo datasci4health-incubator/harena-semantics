@@ -1,7 +1,7 @@
 version: '3'
 services:
   web:
-    image: asm
+    image: semantics
     ports:
       - "10040:5000"
     volumes:
@@ -12,11 +12,12 @@ services:
 
     environment:
       - SOLR_HOST=solr
+      # - PIPENV_TIMEOUT=3600
     # depends_on:
     #   - solr
-    container_name: harena-asm
+    container_name: harena-semantics
     networks:
-      - harena-asm
+      - harena-semantics
 
 
   jupyter:
@@ -44,9 +45,9 @@ services:
 
     environment:
       - SOLR_HOST=solr
-    container_name: harena-asm-jupyter
+    container_name: harena-semantics-jupyter
     networks:
-      - harena-asm
+      - harena-semantics
 
   # solr:
   #   image: solr
@@ -72,5 +73,5 @@ volumes:
     driver: "local"
 
 networks:
-  harena-asm:
+  harena-semantics:
     driver: bridge

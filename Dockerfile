@@ -1,14 +1,9 @@
-# Using alpine image
 FROM python:3.6
 
-# Installing packages
-#RUN apk update
 RUN pip install --no-cache-dir pipenv
-
 
 # Defining working directory and adding source code
 WORKDIR /app
-
 COPY ./src/flask .
 # COPY Pipfile Pipfile.lock bootstrap.sh ./
 

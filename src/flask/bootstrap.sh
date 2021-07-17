@@ -6,14 +6,12 @@ export MODEL=ACD
 
 source $(pipenv --venv)/bin/activate
 
-if [[ ! -d ./models ]]; then
-    mkdir ./models/
-fi
+python controllers/ner/bert/download_model.py
 
+# if [[ ! -d ./models ]]; then
+#     mkdir ./models/
+# fi
 
-if [[ ! -d ./models/${MODEL} ]]; then
-  echo 'waiting model download';
-fi
   # wget ceb.nlm.nih.gov/~simpsonmatt/pmc-text-00.tar.gz
   #
 
