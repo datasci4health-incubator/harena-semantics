@@ -140,6 +140,7 @@ notebooks/gpu-jupyter/topic_modeling/img
 notebooks/ner/data/
 notebooks/ner/data/tratados/devel-AnatEM-BC5CDR.tsv
 notebooks/topic_modeling/img/
+notebooks/export embeddings to tsv/output/
 
 .ipython/profile_default/history.sqlite
 .local/share/jupyter/nbsignatures.db
