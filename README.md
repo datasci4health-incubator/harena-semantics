@@ -38,6 +38,10 @@ If you want to get the command line of the container, then run the command:
 ```bash
 docker exec -it harena-semantics bash
 ```
+## Available Services
+
+- `POST /ner/bert`: Annotates the input text with named entities recognized through a BERT-based neural network.
+- `POST /ner/ncbo`: Annotates the input text with ontology concepts recognized via the NCBO Annotator service.  
 
 <!-- You can access Indexer at http://localhost:5000
 You can access SOLR admin at http://localhost:8983 -->
