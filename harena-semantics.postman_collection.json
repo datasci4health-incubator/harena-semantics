@@ -1,15 +1,15 @@
 {
 	"info": {
 		"_postman_id": "c36fe4ac-59bc-4f89-a8f4-a377e3030914",
-		"name": "harena-asm",
+		"name": "harena-semantics",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "indexer",
+			"name": "ner",
 			"item": [
 				{
-					"name": "search (working)",
+					"name": "/bert",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -17,67 +17,100 @@
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "description",
-									"value": "A chest pain is very uuuuuuuuuuuuuuuuuuuuuuuuuuu.",
+									"key": "text",
+									"value": "@NURSE\n> Doctor, we have a man (51 years old) who entered the emergency department reporting chest pain. His vital signs are ABP: 144x92mmHG; HR: 78bpm; RR: 21rpm; Temp: 37oC; O2Sat: 98%.\n@PATIENT\n> Doctor, I am feeling chest pain since yesterday. The pain is continuous and is located just in the middle of my chest, worsening when I breathe and when I lay down on my bed. I suffer from arterial hypertension and smoke 20 cigarettes every day. My father had a \"heart attack\" at my age and I am very worried about it. Besides, I use sertralina.\n<b>PHYSICAL EXAMINATION</b> <br> The cardiac and pulmonary auscultation are normal; chest pain does not worse with palpation of the thorax; there is no jugular stasis nor lower limb edema.",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "{{api-base-url}}/searcher",
+							"raw": "{{api-base-url}}/ner/bert",
 							"host": [
 								"{{api-base-url}}"
 							],
 							"path": [
-								"searcher"
-							],
-							"query": [
-								{
-									"key": "description",
-									"value": "",
-									"disabled": true
-								}
+								"ner",
+								"bert"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "/indexer",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
+					"name": "/ncbo (working)",
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "formdata",
-							"formdata": []
+							"formdata": [
+								{
+									"key": "text",
+									"value": "@NURSE\n> Doctor, we have a man (51 years old) who entered the emergency department reporting chest pain. His vital signs are ABP: 144x92mmHG; HR: 78bpm; RR: 21rpm; Temp: 37oC; O2Sat: 98%.\n@PATIENT\n> Doctor, I am feeling chest pain since yesterday. The pain is continuous and is located just in the middle of my chest, worsening when I breathe and when I lay down on my bed. I suffer from arterial hypertension and smoke 20 cigarettes every day. My father had a \"heart attack\" at my age and I am very worried about it.\n<b>PHYSICAL EXAMINATION</b> <br> The cardiac and pulmonary auscultation are normal; chest pain does not worse with palpation of the thorax; there is no jugular stasis nor lower limb edema.",
+									"type": "text"
+								},
+								{
+									"key": "ontologies",
+									"value": "MESH, LOINC",
+									"type": "text"
+								},
+								{
+									"key": "whole_word_only",
+									"value": "1",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "exclude_numbers",
+									"value": "1",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "exclude_synonyms",
+									"value": "1",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "longest_only",
+									"value": "0",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "minimum_match_length",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "expand_mappings",
+									"value": "1",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "semantic_types",
+									"value": "disease",
+									"type": "text",
+									"disabled": true
+								}
+							]
 						},
 						"url": {
-							"raw": "{{api-base-url}}/indexer",
+							"raw": "{{api-base-url}}/ner/ncbo",
 							"host": [
 								"{{api-base-url}}"
 							],
 							"path": [
-								"indexer"
-							],
-							"query": [
-								{
-									"key": "description",
-									"value": "",
-									"disabled": true
-								}
+								"ner",
+								"ncbo"
 							]
 						}
 					},
 					"response": []
-				}
-			]
-		},
-		{
-			"name": "ner",
-			"item": [
+				},
 				{
 					"name": "/ner/bern (working)",
 					"request": {
@@ -157,159 +190,6 @@
 					]
 				},
 				{
-					"name": "/ner/bert (finetuned on BC5CDR-IOB) (working)",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "text",
-									"value": "@NURSE\n> Doctor, we have a man (51 years old) who entered the emergency department reporting chest pain. His vital signs are ABP: 144x92mmHG; HR: 78bpm; RR: 21rpm; Temp: 37oC; O2Sat: 98%.\n@PATIENT\n> Doctor, I am feeling chest pain since yesterday. The pain is continuous and is located just in the middle of my chest, worsening when I breathe and when I lay down on my bed. I suffer from arterial hypertension and smoke 20 cigarettes every day. My father had a \"heart attack\" at my age and I am very worried about it.\n<b>PHYSICAL EXAMINATION</b> <br> The cardiac and pulmonary auscultation are normal; chest pain does not worse with palpation of the thorax; there is no jugular stasis nor lower limb edema.",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{api-base-url}}/ner/bert",
-							"host": [
-								"{{api-base-url}}"
-							],
-							"path": [
-								"ner",
-								"bert"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "/ner",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "formdata",
-									"formdata": [
-										{
-											"key": "text",
-											"value": "A 58-year-old African-American woman presents to the ER with episodic pressing/burning anterior chest pain that began two days earlier for the first time in her life. The pain started while she was walking, radiates to the back, and is accompanied by nausea, diaphoresis and mild dyspnea, but is not increased on inspiration. The latest episode of pain ended half an hour prior to her arrival. She is known to have hypertension and obesity. She denies smoking, diabetes, hypercholesterolemia, or a family history of heart disease. She currently takes no medications. Physical examination is normal. The EKG shows nonspecific changes.",
-											"type": "text"
-										}
-									]
-								},
-								"url": {
-									"raw": "{{api-base-url}}/ner",
-									"host": [
-										"{{api-base-url}}"
-									],
-									"path": [
-										"ner"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "Content-Length",
-									"value": "4707"
-								},
-								{
-									"key": "Server",
-									"value": "Werkzeug/1.0.1 Python/3.6.12"
-								},
-								{
-									"key": "Date",
-									"value": "Sat, 10 Oct 2020 05:02:47 GMT"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"denotations\": [\n        {\n            \"id\": [\n                \"MESH:D002637\",\n                \"BERN:265734601\"\n            ],\n            \"obj\": \"disease\",\n            \"span\": {\n                \"begin\": 61,\n                \"end\": 106\n            }\n        },\n        {\n            \"id\": [\n                \"MESH:D009325\",\n                \"BERN:263161801\"\n            ],\n            \"obj\": \"disease\",\n            \"span\": {\n                \"begin\": 251,\n                \"end\": 257\n            }\n        },\n        {\n            \"id\": [\n                \"CUI-less\"\n            ],\n            \"obj\": \"disease\",\n            \"span\": {\n                \"begin\": 259,\n                \"end\": 270\n            }\n        },\n        {\n            \"id\": [\n                \"MESH:D001049\",\n                \"BERN:256800901\"\n            ],\n            \"obj\": \"disease\",\n            \"span\": {\n                \"begin\": 280,\n                \"end\": 287\n            }\n        },\n        {\n            \"id\": [\n                \"MESH:D010146\",\n                \"BERN:262326101\"\n            ],\n            \"obj\": \"disease\",\n            \"span\": {\n                \"begin\": 348,\n                \"end\": 352\n            }\n        },\n        {\n            \"id\": [\n                \"MESH:D006973\",\n                \"BERN:106966601\"\n            ],\n            \"obj\": \"disease\",\n            \"span\": {\n                \"begin\": 415,\n                \"end\": 427\n            }\n        },\n        {\n            \"id\": [\n                \"OMIM:601665\",\n                \"MESH:D009765\",\n                \"BERN:261400701\"\n            ],\n            \"obj\": \"disease\",\n            \"span\": {\n                \"begin\": 432,\n                \"end\": 439\n            }\n        },\n        {\n            \"id\": [\n                \"BERN:258006601\"\n            ],\n            \"obj\": \"disease\",\n            \"span\": {\n                \"begin\": 461,\n                \"end\": 469\n            }\n        },\n        {\n            \"id\": [\n                \"MESH:D006937\",\n                \"BERN:256192501\"\n            ],\n            \"obj\": \"disease\",\n            \"span\": {\n                \"begin\": 471,\n                \"end\": 491\n            }\n        },\n        {\n            \"id\": [\n                \"MESH:D006331\",\n                \"BERN:257967001\"\n            ],\n            \"obj\": \"disease\",\n            \"span\": {\n                \"begin\": 516,\n                \"end\": 529\n            }\n        },\n        {\n            \"id\": [\n                \"CUI-less\"\n            ],\n            \"obj\": \"gene\",\n            \"span\": {\n                \"begin\": 603,\n                \"end\": 606\n            }\n        }\n    ],\n    \"logits\": {\n        \"disease\": [\n            [\n                {\n                    \"end\": 106,\n                    \"id\": \"MESH:D002637\\tBERN:265734601\",\n                    \"start\": 61\n                },\n                0.9999882578849792\n            ],\n            [\n                {\n                    \"end\": 257,\n                    \"id\": \"MESH:D009325\\tBERN:263161801\",\n                    \"start\": 251\n                },\n                0.9999306201934814\n            ],\n            [\n                {\n                    \"end\": 270,\n                    \"id\": \"CUI-less\",\n                    \"start\": 259\n                },\n                0.9999997615814209\n            ],\n            [\n                {\n                    \"end\": 287,\n                    \"id\": \"MESH:D001049\\tBERN:256800901\",\n                    \"start\": 280\n                },\n                0.9999998807907104\n            ],\n            [\n                {\n                    \"end\": 352,\n                    \"id\": \"MESH:D010146\\tBERN:262326101\",\n                    \"start\": 348\n                },\n                0.9993453621864319\n            ],\n            [\n                {\n                    \"end\": 427,\n                    \"id\": \"MESH:D006973\\tBERN:106966601\",\n                    \"start\": 415\n                },\n                0.9999998807907104\n            ],\n            [\n                {\n                    \"end\": 439,\n                    \"id\": \"OMIM:601665\\tMESH:D009765\\tBERN:261400701\",\n                    \"start\": 432\n                },\n                0.9999998807907104\n            ],\n            [\n                {\n                    \"end\": 469,\n                    \"id\": \"BERN:258006601\",\n                    \"start\": 461\n                },\n                0.9999997615814209\n            ],\n            [\n                {\n                    \"end\": 491,\n                    \"id\": \"MESH:D006937\\tBERN:256192501\",\n                    \"start\": 471\n                },\n                0.9999998807907104\n            ],\n            [\n                {\n                    \"end\": 529,\n                    \"id\": \"MESH:D006331\\tBERN:257967001\",\n                    \"start\": 516\n                },\n                0.9999999403953552\n            ]\n        ],\n        \"drug\": [],\n        \"gene\": [\n            [\n                {\n                    \"end\": 606,\n                    \"id\": \"CUI-less\",\n                    \"start\": 603\n                },\n                0.9999744892120361\n            ]\n        ],\n        \"species\": [\n            [\n                {\n                    \"end\": 36,\n                    \"start\": 31\n                },\n                0.9999998807907104\n            ]\n        ]\n    },\n    \"project\": \"BERN\",\n    \"sourcedb\": \"\",\n    \"sourceid\": \"e171534f4c4feac70cde566fbb5279a890207e7864a64e5a33d5eb19-Thread-872223\",\n    \"text\": \"A 58-year-old African-American woman presents to the ER with episodic pressing/burning anterior chest pain that began two days earlier for the first time in her life. The pain started while she was walking, radiates to the back, and is accompanied by nausea, diaphoresis and mild dyspnea, but is not increased on inspiration. The latest episode of pain ended half an hour prior to her arrival. She is known to have hypertension and obesity. She denies smoking, diabetes, hypercholesterolemia, or a family history of heart disease. She currently takes no medications. Physical examination is normal. The EKG shows nonspecific changes.\",\n    \"timestamp\": \"Sat Oct 10 05:02:46 +0000 2020\"\n}"
-						}
-					]
-				},
-				{
-					"name": "/ner/ncbo (MESH) (working)",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "text",
-									"value": "@NURSE\n> Doctor, we have a man (51 years old) who entered the emergency department reporting chest pain. His vital signs are ABP: 144x92mmHG; HR: 78bpm; RR: 21rpm; Temp: 37oC; O2Sat: 98%.\n@PATIENT\n> Doctor, I am feeling chest pain since yesterday. The pain is continuous and is located just in the middle of my chest, worsening when I breathe and when I lay down on my bed. I suffer from arterial hypertension and smoke 20 cigarettes every day. My father had a \"heart attack\" at my age and I am very worried about it.\n<b>PHYSICAL EXAMINATION</b> <br> The cardiac and pulmonary auscultation are normal; chest pain does not worse with palpation of the thorax; there is no jugular stasis nor lower limb edema.",
-									"type": "text"
-								},
-								{
-									"key": "ontologies",
-									"value": "MESH, LOINC",
-									"type": "text"
-								},
-								{
-									"key": "whole_word_only",
-									"value": "1",
-									"type": "text",
-									"disabled": true
-								},
-								{
-									"key": "exclude_numbers",
-									"value": "1",
-									"type": "text",
-									"disabled": true
-								},
-								{
-									"key": "exclude_synonyms",
-									"value": "1",
-									"type": "text",
-									"disabled": true
-								},
-								{
-									"key": "longest_only",
-									"value": "0",
-									"type": "text",
-									"disabled": true
-								},
-								{
-									"key": "minimum_match_length",
-									"value": "",
-									"type": "text",
-									"disabled": true
-								},
-								{
-									"key": "expand_mappings",
-									"value": "1",
-									"type": "text",
-									"disabled": true
-								},
-								{
-									"key": "semantic_types",
-									"value": "disease",
-									"type": "text",
-									"disabled": true
-								}
-							]
-						},
-						"url": {
-							"raw": "{{api-base-url}}/ner/ncbo",
-							"host": [
-								"{{api-base-url}}"
-							],
-							"path": [
-								"ner",
-								"ncbo"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "/ner/unsupervised (broken)",
 					"request": {
 						"method": "POST",
@@ -332,6 +212,76 @@
 							"path": [
 								"ner",
 								"unsupervised"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "indexer",
+			"item": [
+				{
+					"name": "search (working)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "description",
+									"value": "A chest pain is very uuuuuuuuuuuuuuuuuuuuuuuuuuu.",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{api-base-url}}/searcher",
+							"host": [
+								"{{api-base-url}}"
+							],
+							"path": [
+								"searcher"
+							],
+							"query": [
+								{
+									"key": "description",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/indexer",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{api-base-url}}/indexer",
+							"host": [
+								"{{api-base-url}}"
+							],
+							"path": [
+								"indexer"
+							],
+							"query": [
+								{
+									"key": "description",
+									"value": "",
+									"disabled": true
+								}
 							]
 						}
 					},
@@ -415,103 +365,6 @@
 								"solr",
 								"mesh2",
 								"schema"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "pos tagger",
-			"item": [
-				{
-					"name": "/pos",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "text",
-									"value": "In the United States, there are currently w1.7 million cases of sepsis per year, a trend\nthat has been increasing annually. There are almost 250,000 deaths per year owing to\nsepsis, and it is the leading cause of death in noncardiac ICUs\nthat has been increasing annually. There are almost 250,000 deaths per year owing to\nsepsis, and it is the leading cause of death in noncardiac ICUsthat has been increasing annually. There are almost 250,000 deaths per year owing to\nsepsis, and it is the leading cause of death in noncardiac ICUs",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{api-base-url}}/pos",
-							"host": [
-								"{{api-base-url}}"
-							],
-							"path": [
-								"pos"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "concept graph",
-			"item": [
-				{
-					"name": "/graph/concepts",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "text",
-									"value": "A 58-year-old African-American woman presents to the ER with episodic pressing/burning anterior chest pain that began two days earlier for the first time in her life. The pain started while she was walking, radiates to the back, and is accompanied by nausea, diaphoresis and mild dyspnea, but is not increased on inspiration. The latest episode of pain ended half an hour prior to her arrival. She is known to have hypertension and obesity. She denies smoking, diabetes, hypercholesterolemia, or a family history of heart disease. She currently takes no medications. Physical examination is normal. The EKG shows nonspecific changes.",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{api-base-url}}/graph/concepts",
-							"host": [
-								"{{api-base-url}}"
-							],
-							"path": [
-								"graph",
-								"concepts"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "/graph/nn_concepts",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "text",
-									"value": "Sepsis is the second most common cause of death in non-coronary intensive care units and the tenth leading cause of death overall in high-income countries. During the past two decades, the incidence of sepsis has increased annually by 9% to reach 240 per 100 000 population in the USA by 2000.\n\nThe true incidence of sepsis in any given country is unknown. The reported incidence is dependent on the specific definition used, the infecting organism, the reporting mechanism (such as the use of the International Classification of Diseases-9 coding systems) and the requirement for either organ support or intensive care. These factors result in marked differences between estimates and discrete geographical locations. Most data describing the incidence of sepsis are from high-income countries, where 2.8 million deaths per year are attributable to sepsis. In 2001, Angus and colleagues reported in, the USA the, that incidence of severe sepsis was more than 750 000 cases per annum (300 cases per 100 000 population), equivalent to 2.26 cases per 100 hospital discharges. In the UK, the reported prevalence of sepsis in ICU-derived cohorts is 27% of all ICU admissions, whereas the prevalence is 12% in the USA. 14 This difference could partly be explained by the sub stantially greater numbers of ICU beds available in the USA than in the UK, and thus the differing triage patterns and admission criteria. It is also possible that, in institutions where clinical staff are trained in sepsis recognition, the previous use of the less-specific SIRS criteria could have led to an over-reporting of sepsis cases. \nOverall, however, there is probably a substantial under-reporting of the incidence of sepsis and with an ageing population, the incidence will continue to increase. This pattern might be further accentuated by campaigns to increase the awareness of and screening for the condition. Except for maternal and neonatal sepsis, the condition is usually considerably under-reported in the global burden of disease statistics. The true scale of the problem is probably much higher than what has been reported. Data suggest that sepsis contributes to between a third and a half of all in-hospital deaths in the USA. Although these data represent the incidence of sepsis in high-resource countries, most deaths due to sepsis happen in low-resource countries, where the exact incidence of sepsis is difficult to accurately estimate. The available literature suggests that an estimated 90% of worldwide deaths from chest infections occur in low-resource settings; about 70% of the 9 million deaths due to chest infections in neonates and infants are associated with sepsis, and most cases occur in Asia and Africa.\nSepsis can be a terminal event in patients who are already dying from other causes (eg, terminal cancer). This fact is especially important to remember in the context of an increased number of admissions of old and frail patients in hospital wards and ICUs, and when evaluating our expectations on to what extent mortality rates from sepsis can be reduced. It is very likely that a baseline mortality from sepsis is part of the nature of the syndrome itself, and in practice it is unreasonable to expect mortality rates to drop to zero, despite our best efforts to understand, and, recognise treat the condition. \nIt is hoped that positive advancements, such as the recent World Health Assembly and WHO resolution on sepsis, will raise awareness of sepsis as a global priority, and its prevention, recognition, and treatment will improve worldwide.\n\nIn the United States, there are currently 1.7 million cases of sepsis per year, a trend that has been increasing annually. There are almost 250,000 deaths per year owing to sepsis, and it is the leading cause of death in noncardiac ICUs. \nOf septic patients admitted to ICUs worldwide, the most common source of infection is the lungs (64%), abdomen (20%), bloodstream (15%), and urinary tract (14%). \nOf isolated organisms, 62% gram negative-were bacteria; 47% were gram-positive bacteria, and 19% were fungi. The most common gram-positive organism is Staphylococcus aureus (20%), and the most common gram-negative isolates are Pseudomonas (20%) and coli Escherichia (16%). \nMany factors are associated with increased risk of mortality in patients with sepsis and septic shock: emergency surgery (odds ratio [OR] 1.56), trauma (OR 1.01), transfer from hospital floor (OR 1.37), presence of chronic obstructive pulmonary disease (OR 1.21), cancer (OR 1.33), heart failure (OR 1.45), immunosuppression (OR 1.81), cirrhosis (OR 2.14), previous mechanical ventilation (OR 1.90), or hemodialysis (OR 1.58).\n\nOver the past 40 years the incidence of severe sepsis has substantially increased, partly because of the increasing age of the population. The latest estimates in the United States, Europe, and the United Kingdom range between 0.4/1000 and 1/1000 of the population. Remarkably, in-hospital mortality for patients with sepsis during this period has decreased from 28% to 18%. A recent study that used a database of prospectively collected data from more than 90% of all intensive care unit (ICU) admissions in Australia and New Zealand between 2000 and 2012 confi rmed these trends in both incidence and mortality. Using objective definitions of acute organ dysfunction, severe sepsis in patients admitted to the ICU was estimated to increase from 7.2% to 11.1% during the study period. At the same time, hospital mortality in severe sepsis declined from to% 35 18%, an improvement that persisted across diff erent severities of illness, geographic regions, and hospital types and sizes. Cumulatively, the highest quality epidemiologic studies indicate that severe sepsis is becoming both more common and less deadly.\nWomen have a lower incidence of severe sepsis, yet mortality results are mixed. The causes of this sex difference remain unexplained but may involve the effect of sex hormones on innate and adaptive immunity and on the cardiovascular response to cytokine signaling. Race seems to be another important risk factor for sepsis.\nThe incidence of sepsis in the US is higher in non-whites (relative risk 1.9), especially African-Americans. Similar results were reported in a subset of US states, and in a separate detailed analysis from New Jersey. Possible explanations for these differences include disparities in access to timely healthcare, immunizations, poverty, and comorbidities including HIV, diabetes, chronic kidney disease, and substance use disorders. However, the increased incidence of infection and organ dysfunction in patients of African descent seems to persist aft er controlling for many of these factors, suggesting that genetic\nfactors may also be involved.\nOlder patients are far more likely to develop sepsis. A study of discharge data from 500 US hospitals reported that patients 65 years and older comprised 12% of the population but nearly 65% of sepsis cases (relative risk 13.1). Older patients were twice as likely to have comorbid conditions, but a multivariate analysis that adjusted for these conditions in addition to race, sex, source of infection, and severity of illness found that patients with sepsis who were aged 65 or more were 2.3 times more likely to die. Furthermore, patients who survived were less likely to be discharged home. A more recent study published in 2014 focused on longer term mortality in patients 65 years or more treated for severe sepsis in the US Veterans Aff airs healthcare system in the mid-2000s. Of the 40% of patients who survived for at least 90 days aft er the initial episode, an additional 31% had died by one year and 43% by two years, with the highest mortality associated with comorbid cirrhosis or metastatic cancer. Thus, advancing age is a strong risk factor for the incidence of sepsis and mortality from sepsis, and this is explained in part by the presence of comorbid conditions. Accordingly, the aging of the population probably explains much of the rising incidence of sepsis in industrialized societies.\nConditions that suppress innate and adaptive immunity are risk factors for sepsis. A multicenter study of sepsis in French ICUs estimated that immunosuppression was associated with an increased incidence of severe sepsis (odds ratio 2.8). Chronic conditions that suppress the immune system — including HIV/AIDS, cirrhosis, asplenia, and autoimmune disease — are heavily represented in large epidemiologic studies of patients with sepsis. An observational study published in 2014 of patients admitted to 11 French ICUs between 1997 and 2011 with severe sepsis or septic shock found that 31% were immunocompromised from AIDS, solid organ transplantation, neutropenia, solid or hematologic cancer without neutropenia, infl ammatory disorder, and primary immunodeficiency. 28 Only AIDS, neutropenia, and cancer were independent risk factors for 28 day mortality compared with immunocompetent patients.\nPatients with cancer are oft en immunosuppressed, from both the cancer and its treatment. An analysis of ICD-9 (international classifi cation of diseases, 9th revision) codes from six US states found that patients with cancer had a relative risk for severe sepsis of nearly 4 (16.4 cases/1000 cancer population), along with 52% higher hospital mortality (38% v 25%), and a three times longer hospital stay compared with patients without cancer. Patients with lung and hematologic cancers fared the worst. An analysis of 563 patients with cancer admitted with sepsis to a single Brazilian ICU between 2003 and 2007 reported 67% mortality at six months in patients with severe sepsis. The best predictors of mortality included low performance status (odds ratio 3.6), recurrence or progression of cancer (2.4), infectious source other than urine (3.3), and respiratory (2.3) or renal (2.1) impairment. Similarly, a retrospective analysis of patients with cancer admitted with septic shock to 41 French ICUs between 1997 and 2008 identifi ed mechanical ventilation (5.5), renal replacement therapy (1.7), and fungal infection (2.0) as independent risk factors for mortality. This study also reported a steep decline in ICU mortality in patients with cancer and septic shock from 70% in 1997 to 53% in 2008, and made the important observation that outcomes were better in high volume centers.\nGenetic variants\nA landmark study of more than 1000 people who had been adopted in the 1920s to the 1940s in Denmark reported a remarkable increase in the risk of death by infection before the age of 50 if a biological parent died of an infectious cause (relative risk 5.8 (95% confidence interval 2.4 to 13.7) v 0.7 (0.1 to 5.4) for an adoptive parent). Although generated in an era before the wide-spread use of antibiotics, these data provide strong evidence that the tendency to succumb to overwhelming infection is in part heritable. A limited number of patients have congenital immunodefi ciencies related to defects in innate and adaptive immune processes, including pattern recognition receptors, complement, cytokines, and effector cells. Despite an extensive search for more common and subtle genetic variants that predispose to sepsis, only a few candidates have been found. Genome-wide association studies in patients with sepsis have been difficult given challenges in the defi nition of sepsis and the consequent heterogeneity of these patients.\nPolymorphisms in Toll-like receptor 4 (TLR4) and TLR1 have been associated with increased susceptibility to Gram negative septic shock, candidemia, and invasive aspergillosis. Interestingly, the Asp299Gly TLR4 polymorphism may confer protection against cerebral malaria. This could explain its increased frequency in people from sub-Saharan Africa, and it might be related to ethnic diff erences in the incidence and severity of sepsis. NOD2 (nucleotide binding oligomerization domain containing protein 2) and the Asp299Gly variants were additive in increasing the risk of bacteremia and hospital mortality in a study of nearly 800 Belgian ICU patients. A genome-wide association study of 520 patients with septic shock of European ancestry from 27 ICUs from North America and Australia identified only one single nucleotide polymorphism that was associated with increased 28 day mortality and organ dysfunction. This was the C allele of SVEP1 (11% allele frequency in European populations), which encodes a cell adhesion molecule with multiple domains capable of interacting with complement, growth factors, integrins, and cytokines. Finally, in a recent genome-wide association study involving four cohorts of 2500 patients admitted to 143 European ICUs with sepsis, severe sepsis, and septic shock from pneumonia or intra-abdominal infection, a common (20%) variant of the FER gene (Fps/FES related tyrosine kinase, a cytosolic protein thought to be involved in leukocyte recruitment) was associated with increased survival, although only in patients with pneumonia.\nModifiable risk factors Alcohol consumption has been shown in adjusted epi- demiologic analyses to increase the risk of sepsis and related organ failure and mortality. Although tobacco is now a well established risk factor for acute respiratory distress syndrome (ARDS), evidence linking smoking to sepsis has been less robust. In a study of 30 000 out-patients observed for a five year period during which 975 cases of sepsis were detected, tobacco use was significantly associated with incident sepsis (hazard ratio 1.9). Cigarette smoking has been associated with a several-fold increase in the risk of invasive pneumococcal disease, and it has been shown to increase the risk of septic shock (odds ratio 2.1) and 30 day mortality (5.0) in pneumococcal pneumonia. Smoking also seems to predispose patients to postoperative infections. A meta-analysis in 2013 also found that vitamin D deficiency increases the risk of sepsis (relative risk 1.46), although whether supplementation mitigates this risk remains unclear. Finally, vaccination has been shown to reduce the incidence of sepsis caused by specific pathogens, including Haemophilus influenzae .\n\nSeptic shock occurs in more than 230 000 US patients each year, with more than 40 000 US deaths annually. A recent Burden of Diseases article found that primary risk factors for septic shock (ie, infection) is the fifth leading cause of years of productive life lost due to premature mortality.",
-									"type": "text",
-									"disabled": true
-								}
-							]
-						},
-						"url": {
-							"raw": "{{api-base-url}}/graph/nn_concepts",
-							"host": [
-								"{{api-base-url}}"
-							],
-							"path": [
-								"graph",
-								"nn_concepts"
 							]
 						}
 					},
@@ -672,6 +525,103 @@
 							""
 						]
 					}
+				}
+			]
+		},
+		{
+			"name": "pos tagger",
+			"item": [
+				{
+					"name": "/pos",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "text",
+									"value": "In the United States, there are currently w1.7 million cases of sepsis per year, a trend\nthat has been increasing annually. There are almost 250,000 deaths per year owing to\nsepsis, and it is the leading cause of death in noncardiac ICUs\nthat has been increasing annually. There are almost 250,000 deaths per year owing to\nsepsis, and it is the leading cause of death in noncardiac ICUsthat has been increasing annually. There are almost 250,000 deaths per year owing to\nsepsis, and it is the leading cause of death in noncardiac ICUs",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{api-base-url}}/pos",
+							"host": [
+								"{{api-base-url}}"
+							],
+							"path": [
+								"pos"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "concept graph",
+			"item": [
+				{
+					"name": "/graph/concepts",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "text",
+									"value": "A 58-year-old African-American woman presents to the ER with episodic pressing/burning anterior chest pain that began two days earlier for the first time in her life. The pain started while she was walking, radiates to the back, and is accompanied by nausea, diaphoresis and mild dyspnea, but is not increased on inspiration. The latest episode of pain ended half an hour prior to her arrival. She is known to have hypertension and obesity. She denies smoking, diabetes, hypercholesterolemia, or a family history of heart disease. She currently takes no medications. Physical examination is normal. The EKG shows nonspecific changes.",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{api-base-url}}/graph/concepts",
+							"host": [
+								"{{api-base-url}}"
+							],
+							"path": [
+								"graph",
+								"concepts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/graph/nn_concepts",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "text",
+									"value": "Sepsis is the second most common cause of death in non-coronary intensive care units and the tenth leading cause of death overall in high-income countries. During the past two decades, the incidence of sepsis has increased annually by 9% to reach 240 per 100 000 population in the USA by 2000.\n\nThe true incidence of sepsis in any given country is unknown. The reported incidence is dependent on the specific definition used, the infecting organism, the reporting mechanism (such as the use of the International Classification of Diseases-9 coding systems) and the requirement for either organ support or intensive care. These factors result in marked differences between estimates and discrete geographical locations. Most data describing the incidence of sepsis are from high-income countries, where 2.8 million deaths per year are attributable to sepsis. In 2001, Angus and colleagues reported in, the USA the, that incidence of severe sepsis was more than 750 000 cases per annum (300 cases per 100 000 population), equivalent to 2.26 cases per 100 hospital discharges. In the UK, the reported prevalence of sepsis in ICU-derived cohorts is 27% of all ICU admissions, whereas the prevalence is 12% in the USA. 14 This difference could partly be explained by the sub stantially greater numbers of ICU beds available in the USA than in the UK, and thus the differing triage patterns and admission criteria. It is also possible that, in institutions where clinical staff are trained in sepsis recognition, the previous use of the less-specific SIRS criteria could have led to an over-reporting of sepsis cases. \nOverall, however, there is probably a substantial under-reporting of the incidence of sepsis and with an ageing population, the incidence will continue to increase. This pattern might be further accentuated by campaigns to increase the awareness of and screening for the condition. Except for maternal and neonatal sepsis, the condition is usually considerably under-reported in the global burden of disease statistics. The true scale of the problem is probably much higher than what has been reported. Data suggest that sepsis contributes to between a third and a half of all in-hospital deaths in the USA. Although these data represent the incidence of sepsis in high-resource countries, most deaths due to sepsis happen in low-resource countries, where the exact incidence of sepsis is difficult to accurately estimate. The available literature suggests that an estimated 90% of worldwide deaths from chest infections occur in low-resource settings; about 70% of the 9 million deaths due to chest infections in neonates and infants are associated with sepsis, and most cases occur in Asia and Africa.\nSepsis can be a terminal event in patients who are already dying from other causes (eg, terminal cancer). This fact is especially important to remember in the context of an increased number of admissions of old and frail patients in hospital wards and ICUs, and when evaluating our expectations on to what extent mortality rates from sepsis can be reduced. It is very likely that a baseline mortality from sepsis is part of the nature of the syndrome itself, and in practice it is unreasonable to expect mortality rates to drop to zero, despite our best efforts to understand, and, recognise treat the condition. \nIt is hoped that positive advancements, such as the recent World Health Assembly and WHO resolution on sepsis, will raise awareness of sepsis as a global priority, and its prevention, recognition, and treatment will improve worldwide.\n\nIn the United States, there are currently 1.7 million cases of sepsis per year, a trend that has been increasing annually. There are almost 250,000 deaths per year owing to sepsis, and it is the leading cause of death in noncardiac ICUs. \nOf septic patients admitted to ICUs worldwide, the most common source of infection is the lungs (64%), abdomen (20%), bloodstream (15%), and urinary tract (14%). \nOf isolated organisms, 62% gram negative-were bacteria; 47% were gram-positive bacteria, and 19% were fungi. The most common gram-positive organism is Staphylococcus aureus (20%), and the most common gram-negative isolates are Pseudomonas (20%) and coli Escherichia (16%). \nMany factors are associated with increased risk of mortality in patients with sepsis and septic shock: emergency surgery (odds ratio [OR] 1.56), trauma (OR 1.01), transfer from hospital floor (OR 1.37), presence of chronic obstructive pulmonary disease (OR 1.21), cancer (OR 1.33), heart failure (OR 1.45), immunosuppression (OR 1.81), cirrhosis (OR 2.14), previous mechanical ventilation (OR 1.90), or hemodialysis (OR 1.58).\n\nOver the past 40 years the incidence of severe sepsis has substantially increased, partly because of the increasing age of the population. The latest estimates in the United States, Europe, and the United Kingdom range between 0.4/1000 and 1/1000 of the population. Remarkably, in-hospital mortality for patients with sepsis during this period has decreased from 28% to 18%. A recent study that used a database of prospectively collected data from more than 90% of all intensive care unit (ICU) admissions in Australia and New Zealand between 2000 and 2012 confi rmed these trends in both incidence and mortality. Using objective definitions of acute organ dysfunction, severe sepsis in patients admitted to the ICU was estimated to increase from 7.2% to 11.1% during the study period. At the same time, hospital mortality in severe sepsis declined from to% 35 18%, an improvement that persisted across diff erent severities of illness, geographic regions, and hospital types and sizes. Cumulatively, the highest quality epidemiologic studies indicate that severe sepsis is becoming both more common and less deadly.\nWomen have a lower incidence of severe sepsis, yet mortality results are mixed. The causes of this sex difference remain unexplained but may involve the effect of sex hormones on innate and adaptive immunity and on the cardiovascular response to cytokine signaling. Race seems to be another important risk factor for sepsis.\nThe incidence of sepsis in the US is higher in non-whites (relative risk 1.9), especially African-Americans. Similar results were reported in a subset of US states, and in a separate detailed analysis from New Jersey. Possible explanations for these differences include disparities in access to timely healthcare, immunizations, poverty, and comorbidities including HIV, diabetes, chronic kidney disease, and substance use disorders. However, the increased incidence of infection and organ dysfunction in patients of African descent seems to persist aft er controlling for many of these factors, suggesting that genetic\nfactors may also be involved.\nOlder patients are far more likely to develop sepsis. A study of discharge data from 500 US hospitals reported that patients 65 years and older comprised 12% of the population but nearly 65% of sepsis cases (relative risk 13.1). Older patients were twice as likely to have comorbid conditions, but a multivariate analysis that adjusted for these conditions in addition to race, sex, source of infection, and severity of illness found that patients with sepsis who were aged 65 or more were 2.3 times more likely to die. Furthermore, patients who survived were less likely to be discharged home. A more recent study published in 2014 focused on longer term mortality in patients 65 years or more treated for severe sepsis in the US Veterans Aff airs healthcare system in the mid-2000s. Of the 40% of patients who survived for at least 90 days aft er the initial episode, an additional 31% had died by one year and 43% by two years, with the highest mortality associated with comorbid cirrhosis or metastatic cancer. Thus, advancing age is a strong risk factor for the incidence of sepsis and mortality from sepsis, and this is explained in part by the presence of comorbid conditions. Accordingly, the aging of the population probably explains much of the rising incidence of sepsis in industrialized societies.\nConditions that suppress innate and adaptive immunity are risk factors for sepsis. A multicenter study of sepsis in French ICUs estimated that immunosuppression was associated with an increased incidence of severe sepsis (odds ratio 2.8). Chronic conditions that suppress the immune system — including HIV/AIDS, cirrhosis, asplenia, and autoimmune disease — are heavily represented in large epidemiologic studies of patients with sepsis. An observational study published in 2014 of patients admitted to 11 French ICUs between 1997 and 2011 with severe sepsis or septic shock found that 31% were immunocompromised from AIDS, solid organ transplantation, neutropenia, solid or hematologic cancer without neutropenia, infl ammatory disorder, and primary immunodeficiency. 28 Only AIDS, neutropenia, and cancer were independent risk factors for 28 day mortality compared with immunocompetent patients.\nPatients with cancer are oft en immunosuppressed, from both the cancer and its treatment. An analysis of ICD-9 (international classifi cation of diseases, 9th revision) codes from six US states found that patients with cancer had a relative risk for severe sepsis of nearly 4 (16.4 cases/1000 cancer population), along with 52% higher hospital mortality (38% v 25%), and a three times longer hospital stay compared with patients without cancer. Patients with lung and hematologic cancers fared the worst. An analysis of 563 patients with cancer admitted with sepsis to a single Brazilian ICU between 2003 and 2007 reported 67% mortality at six months in patients with severe sepsis. The best predictors of mortality included low performance status (odds ratio 3.6), recurrence or progression of cancer (2.4), infectious source other than urine (3.3), and respiratory (2.3) or renal (2.1) impairment. Similarly, a retrospective analysis of patients with cancer admitted with septic shock to 41 French ICUs between 1997 and 2008 identifi ed mechanical ventilation (5.5), renal replacement therapy (1.7), and fungal infection (2.0) as independent risk factors for mortality. This study also reported a steep decline in ICU mortality in patients with cancer and septic shock from 70% in 1997 to 53% in 2008, and made the important observation that outcomes were better in high volume centers.\nGenetic variants\nA landmark study of more than 1000 people who had been adopted in the 1920s to the 1940s in Denmark reported a remarkable increase in the risk of death by infection before the age of 50 if a biological parent died of an infectious cause (relative risk 5.8 (95% confidence interval 2.4 to 13.7) v 0.7 (0.1 to 5.4) for an adoptive parent). Although generated in an era before the wide-spread use of antibiotics, these data provide strong evidence that the tendency to succumb to overwhelming infection is in part heritable. A limited number of patients have congenital immunodefi ciencies related to defects in innate and adaptive immune processes, including pattern recognition receptors, complement, cytokines, and effector cells. Despite an extensive search for more common and subtle genetic variants that predispose to sepsis, only a few candidates have been found. Genome-wide association studies in patients with sepsis have been difficult given challenges in the defi nition of sepsis and the consequent heterogeneity of these patients.\nPolymorphisms in Toll-like receptor 4 (TLR4) and TLR1 have been associated with increased susceptibility to Gram negative septic shock, candidemia, and invasive aspergillosis. Interestingly, the Asp299Gly TLR4 polymorphism may confer protection against cerebral malaria. This could explain its increased frequency in people from sub-Saharan Africa, and it might be related to ethnic diff erences in the incidence and severity of sepsis. NOD2 (nucleotide binding oligomerization domain containing protein 2) and the Asp299Gly variants were additive in increasing the risk of bacteremia and hospital mortality in a study of nearly 800 Belgian ICU patients. A genome-wide association study of 520 patients with septic shock of European ancestry from 27 ICUs from North America and Australia identified only one single nucleotide polymorphism that was associated with increased 28 day mortality and organ dysfunction. This was the C allele of SVEP1 (11% allele frequency in European populations), which encodes a cell adhesion molecule with multiple domains capable of interacting with complement, growth factors, integrins, and cytokines. Finally, in a recent genome-wide association study involving four cohorts of 2500 patients admitted to 143 European ICUs with sepsis, severe sepsis, and septic shock from pneumonia or intra-abdominal infection, a common (20%) variant of the FER gene (Fps/FES related tyrosine kinase, a cytosolic protein thought to be involved in leukocyte recruitment) was associated with increased survival, although only in patients with pneumonia.\nModifiable risk factors Alcohol consumption has been shown in adjusted epi- demiologic analyses to increase the risk of sepsis and related organ failure and mortality. Although tobacco is now a well established risk factor for acute respiratory distress syndrome (ARDS), evidence linking smoking to sepsis has been less robust. In a study of 30 000 out-patients observed for a five year period during which 975 cases of sepsis were detected, tobacco use was significantly associated with incident sepsis (hazard ratio 1.9). Cigarette smoking has been associated with a several-fold increase in the risk of invasive pneumococcal disease, and it has been shown to increase the risk of septic shock (odds ratio 2.1) and 30 day mortality (5.0) in pneumococcal pneumonia. Smoking also seems to predispose patients to postoperative infections. A meta-analysis in 2013 also found that vitamin D deficiency increases the risk of sepsis (relative risk 1.46), although whether supplementation mitigates this risk remains unclear. Finally, vaccination has been shown to reduce the incidence of sepsis caused by specific pathogens, including Haemophilus influenzae .\n\nSeptic shock occurs in more than 230 000 US patients each year, with more than 40 000 US deaths annually. A recent Burden of Diseases article found that primary risk factors for septic shock (ie, infection) is the fifth leading cause of years of productive life lost due to premature mortality.",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{api-base-url}}/graph/nn_concepts",
+							"host": [
+								"{{api-base-url}}"
+							],
+							"path": [
+								"graph",
+								"nn_concepts"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
