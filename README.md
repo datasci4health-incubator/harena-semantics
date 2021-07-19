@@ -31,7 +31,13 @@ Start up the docker container:
 docker-compose -f docker-compose-dev.yml up
 ```
 
-Once the start up process is done, access http://localhost:10040/ to check if the system is properly working.
+The start up process will be successfully done when the terminal displays the message: 
+```
+Downloading: 100%|██████████| 431M/431M [08:53<00:00, 808kB/s]
+harena-semantics |  * Serving Flask app (lazy loading)
+```
+
+Once the process is done, you can access http://localhost:10040/ to check if the system is properly working.
 
 If you want to get the command line of the container, then run the command:
 
