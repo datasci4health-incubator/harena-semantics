@@ -141,6 +141,9 @@ notebooks/ner/data/
 notebooks/ner/data/tratados/devel-AnatEM-BC5CDR.tsv
 notebooks/topic_modeling/img/
 notebooks/export embeddings to tsv/output/
+notebooks/from_embeddings_to_tsv/output/
+notebooks/from_embeddings_to_tsv/output3/
+notebooks/from_embeddings_to_tsv/output2/
 
 .ipython/profile_default/history.sqlite
 .local/share/jupyter/nbsignatures.db
