@@ -1,0 +1,3 @@
+cutoff_thresholds: [30, 27, 26, 25, 24, 23, 22]
+n_clusters: [3, 3, 3, 5, 5, 5, 5]
+chosen_clustering: 1

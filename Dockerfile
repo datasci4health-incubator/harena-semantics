@@ -1,6 +1,8 @@
-FROM python:3.6
+FROM python:3.7
 
-RUN pip install --no-cache-dir pipenv
+ENV PIN_PIPENV_VERSION=2021.5.29
+
+RUN pip install --upgrade --no-cache-dir pipenv
 
 # Defining working directory and adding source code
 WORKDIR /app
@@ -8,6 +10,7 @@ COPY ./src/flask .
 # COPY Pipfile Pipfile.lock bootstrap.sh ./
 
 # Install API dependencies
+RUN pipenv --python 3.7
 RUN pipenv install
 
 ## Start app
