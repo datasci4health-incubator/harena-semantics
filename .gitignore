@@ -120,7 +120,7 @@ src/ner/unsupervised_by_clustering/bert_vectors.txt
 
 .local/*
 .ipython/*
-.jupyter/
+.jupyter/*
 .keras/
 .bash_history
 

@@ -12,6 +12,7 @@ COPY ./src/flask .
 # Install API dependencies
 RUN pipenv --python 3.7
 RUN pipenv install
+RUN pip install -U sentence-transformers
 
 ## Start app
 #EXPOSE 10040
